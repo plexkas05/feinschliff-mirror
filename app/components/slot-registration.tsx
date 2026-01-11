@@ -5,28 +5,47 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft, Calendar, Mail, Compass, Sparkles, Info } from "lucide-react"
+import {
+  ArrowLeft,
+  Calendar,
+  Mail,
+  Compass,
+  Sparkles,
+  Info,
+  Truck,
+  MapPin,
+  CheckCircle2,
+  Store // Neues Icon für Werkstatt
+} from "lucide-react"
 
 export function SlotRegistration() {
   const [email, setEmail] = useState("")
   const [date, setDate] = useState("")
   const [serviceType, setServiceType] = useState("grundschliff")
+  const [deliveryOption, setDeliveryOption] = useState<"selbst" | "abholung">("selbst")
 
-  // Füge das oben bei den Imports hinzu
-const handleBooking = () => {
-  // Wir bauen den Mail-Link dynamisch
-  const subject = `Terminanfrage: ${serviceType} am ${date}`;
-  const body = `Hallo Felix,%0D%0A%0D%0AIch hätte gerne folgenden Service:%0D%0A- Paket: ${serviceType}%0D%0A- Gewünschtes Datum: ${date}%0D%0A%0D%0AMeine E-Mail für Rückfragen: ${email}`;
+  const handleBooking = () => {
+    const serviceLabels: Record<string, string> = {
+      grundschliff: "Grundschliff – Kleines Messer (12€)",
+      meisterschliff: "Meisterschliff – Großes Messer (16€)",
+      kombi: "Kombi-Schliff – 5 Messer Paket (50€)",
+      feinschliff: "Der Feinschliff – 15 Messer Paket (120€)",
+    }
 
-  // Öffnet das E-Mail Programm des Nutzers
-  window.location.href = `mailto:felix.kastner27@gmail.com?subject=${subject}&body=${body}`;
-};
+    const deliveryLabel =
+      deliveryOption === "abholung"
+        ? "Abhol- & Lieferservice (+8€)"
+        : "Selbstabgabe (Kunde bringt Messer)"
+
+    const subject = `Terminanfrage: ${serviceLabels[serviceType]} am ${date}`
+    const body = `Hallo Felix,%0D%0A%0D%0AIch hätte gerne folgenden Service:%0D%0A%0D%0A- Paket: ${serviceLabels[serviceType]}%0D%0A- Gewünschtes Datum: ${date}%0D%0A- Übergabe: ${deliveryLabel}%0D%0A%0D%0AMeine E-Mail für Rückfragen: ${email}%0D%0A%0D%0AVielen Dank!`
+
+    window.location.href = `mailto:felix.kastner27@gmail.com?subject=${subject}&body=${body}`
+  }
 
   const completionInfo = useMemo(() => {
     if (!date) return null
-
     const startDate = new Date(date)
-
     let daysToAdd = 3
     let label = "~72 Stunden"
 
@@ -43,7 +62,6 @@ const handleBooking = () => {
 
     const endDate = new Date(startDate)
     endDate.setDate(startDate.getDate() + daysToAdd)
-
     const formattedDate = endDate.toLocaleDateString("de-DE", {
       day: "numeric",
       month: "long",
@@ -58,24 +76,31 @@ const handleBooking = () => {
   return (
     <section id="termin" className="flex min-h-[80vh] flex-col items-center justify-center px-6 py-24 lg:py-40">
       <div className="w-full max-w-md lg:max-w-2xl space-y-8 lg:space-y-12">
+        
         {/* Header */}
         <div className="text-center space-y-2 lg:space-y-6">
           <div className="inline-flex items-center rounded-full border border-border bg-muted px-4 py-1.5 lg:px-8 lg:py-3 text-sm lg:text-lg text-muted-foreground">
-            <Compass className="mr-2 h-4 w-4 lg:h-6 lg:w-6" />
+            <Compass className="mr-2 h-4 w-4 lg:h-6 lg:w-6 -translate-y-1/9 text-muted-foreground" />
             Schnelle Terminbuchung
           </div>
-          <h1 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl lg:text-6xl">Termin buchen</h1>
-          <p className="text-muted-foreground lg:text-2xl">Wähle einen freien Slot für deinen Schleifservice.</p>
+          <h1 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl lg:text-6xl">
+            Termin buchen
+          </h1>
+          <p className="text-muted-foreground lg:text-2xl">
+            Wähle einen freien Slot für deinen Schleifservice.
+          </p>
         </div>
 
         {/* Booking Card */}
-        <Card className="border-border/50 shadow-lg">
+        <Card className="border-border/50 shadow-xl bg-card/50 backdrop-blur-sm">
           <CardHeader className="space-y-1 pb-4 lg:p-10 lg:pb-8">
-            <CardTitle className="text-xl lg:text-4xl">Terminanfrage</CardTitle>
-            <CardDescription className="lg:text-2xl">Fülle das Formular aus und wir melden uns bei dir.</CardDescription>
+            <CardTitle className="text-xl lg:text-4xl">Dein Auftrag</CardTitle>
+            <CardDescription className="lg:text-2xl">
+              Fülle das Formular aus und wir melden uns bei dir.
+            </CardDescription>
           </CardHeader>
-
           <CardContent className="space-y-6 lg:space-y-10 lg:px-10 lg:pb-10">
+            
             {/* Email Field */}
             <div className="space-y-2 lg:space-y-4">
               <Label htmlFor="email" className="text-sm lg:text-2xl font-medium">
@@ -94,6 +119,7 @@ const handleBooking = () => {
               </div>
             </div>
 
+            {/* Service Type Field */}
             <div className="space-y-2 lg:space-y-4">
               <Label htmlFor="service-type" className="text-sm lg:text-2xl font-medium">
                 Was möchtest du schleifen lassen?
@@ -104,7 +130,7 @@ const handleBooking = () => {
                   id="service-type"
                   value={serviceType}
                   onChange={(e) => setServiceType(e.target.value)}
-                  className="flex h-10 lg:h-16 w-full rounded-md border border-input bg-background px-3 py-2 pl-10 lg:pl-14 text-sm lg:text-lg ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
+                  className="flex h-10 lg:h-16 w-full rounded-md border border-input bg-background px-3 py-2 pl-10 lg:pl-14 text-sm lg:text-lg ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer hover:bg-muted/50 transition-colors"
                 >
                   <option value="grundschliff">Grundschliff – Kleines Messer (12€)</option>
                   <option value="meisterschliff">Meisterschliff – Großes Messer (16€)</option>
@@ -114,10 +140,77 @@ const handleBooking = () => {
               </div>
             </div>
 
+            {/* ---> HIER IST DER NEUE CLEANE BUTTON PART <--- */}
+            <div className="space-y-3 lg:space-y-5">
+              <Label className="text-sm lg:text-2xl font-medium">
+                Wie kommen die Messer zu mir?
+              </Label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                {/* Option 1: Selbstabgabe */}
+                <div
+                  onClick={() => setDeliveryOption("selbst")}
+                  className={`
+                    relative flex cursor-pointer flex-col justify-between rounded-xl border-2 p-4 lg:p-6 transition-all hover:bg-muted/50
+                    ${deliveryOption === "selbst" 
+                      ? "border-primary bg-primary/5 shadow-sm" 
+                      : "border-border bg-background"
+                    }
+                  `}
+                >
+                  <div className="flex justify-between items-start mb-2">
+                    <Store className={`h-6 w-6 lg:h-8 lg:w-8 ${deliveryOption === "selbst" ? "text-primary" : "text-muted-foreground"}`} />
+                    {deliveryOption === "selbst" && (
+                      <CheckCircle2 className="h-5 w-5 text-primary animate-in fade-in zoom-in" />
+                    )}
+                  </div>
+                  <div className="space-y-1">
+                    <span className="font-semibold lg:text-xl block">Selbstabgabe</span>
+                    <span className="text-sm lg:text-base text-muted-foreground block">
+                      Du bringst sie vorbei
+                    </span>
+                  </div>
+                  <span className="mt-3 inline-block rounded-md bg-primary/10 px-4 py-2 text-xs font-medium text-secondary-foreground w-fit">
+                    Kostenlos
+                  </span>
+                </div>
+
+                {/* Option 2: Abholservice */}
+                <div
+                  onClick={() => setDeliveryOption("abholung")}
+                  className={`
+                    relative flex cursor-pointer flex-col justify-between rounded-xl border-2 p-4 lg:p-6 transition-all hover:bg-muted/50
+                    ${deliveryOption === "abholung" 
+                      ? "border-primary bg-primary/5 shadow-sm" 
+                      : "border-border bg-background"
+                    }
+                  `}
+                >
+                  <div className="flex justify-between items-start mb-2">
+                    <Truck className={`h-6 w-6 lg:h-8 lg:w-8 ${deliveryOption === "abholung" ? "text-primary" : "text-muted-foreground"}`} />
+                    {deliveryOption === "abholung" && (
+                      <CheckCircle2 className="h-5 w-5 text-primary animate-in fade-in zoom-in" />
+                    )}
+                  </div>
+                  <div className="space-y-1">
+                    <span className="font-semibold lg:text-xl block">Hol & Bring Service</span>
+                    <span className="text-sm lg:text-base text-muted-foreground block">
+                      Bequem von zuhause
+                    </span>
+                  </div>
+                  <span className="mt-3 inline-block rounded-md bg-primary/10 px-4 py-2 text-xs font-medium text-primary w-fit border border-primary/20">
+                    + 8,00 €
+                  </span>
+                </div>
+
+              </div>
+            </div>
+            {/* ----------------------------------------------- */}
+
             {/* Date Field */}
             <div className="space-y-2 lg:space-y-4">
               <Label htmlFor="date" className="text-sm lg:text-2xl font-medium">
-                Abgabedatum
+                Wunschdatum
               </Label>
               <div className="relative">
                 <Calendar className="absolute left-3 lg:left-5 top-1/2 h-4 w-4 lg:h-6 lg:w-6 -translate-y-1/2 text-muted-foreground" />
@@ -126,32 +219,27 @@ const handleBooking = () => {
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="pl-10 lg:pl-14 lg:h-16 lg:text-lg"
+                  className="pl-10 lg:pl-14 lg:h-16 lg:text-lg cursor-pointer"
                 />
               </div>
-
+              
               {completionInfo && (
-                <div className="mt-2 lg:mt-4 flex items-start gap-2 lg:gap-4 rounded-lg bg-muted/50 p-3 lg:p-5 text-sm lg:text-lg text-muted-foreground animate-in fade-in slide-in-from-top-2 duration-300">
-                  <Info className="mt-0.5 h-4 w-4 lg:h-6 lg:w-6 shrink-0 text-primary" />
-                  <span>
-                    Fertig zur Abholung: <strong>spätestens am {completionInfo.dateString}</strong> (
-                    {completionInfo.label})
+                <div className="mt-2 lg:mt-4 flex items-start gap-2 lg:gap-4 rounded-lg bg-blue-50/50 border border-blue-100 p-3 lg:p-5 text-sm lg:text-lg text-muted-foreground animate-in fade-in slide-in-from-top-2 duration-300">
+                  <Info className="mt-0.5 h-4 w-4 lg:h-6 lg:w-6 shrink-0 text-blue-600" />
+                  <span className="text-blue-900/80">
+                    Deine Messer sind ca. am <strong>{completionInfo.dateString}</strong> fertig ({completionInfo.label}).
                   </span>
                 </div>
               )}
             </div>
 
             {/* Submit Button */}
-            <Button
-            className="w-full lg:h-18 lg:text-xl"
-            size="lg"
-            onClick={handleBooking} // Hier die Funktion aufrufen
-          >
-            Terminanfrage senden
-          </Button>
+            <Button className="w-full lg:h-18 lg:text-xl font-semibold shadow-lg hover:shadow-xl transition-all" size="lg" onClick={handleBooking}>
+              Jetzt anfragen
+            </Button>
 
             {/* Divider */}
-            <div className="relative">
+            <div className="relative py-2">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t border-border" />
               </div>
@@ -162,30 +250,30 @@ const handleBooking = () => {
 
             {/* Back Link */}
             <Button
-              variant="outline"
-              className="w-full bg-transparent lg:h-18 lg:text-xl"
+              variant="ghost"
+              className="w-full lg:h-18 lg:text-xl text-muted-foreground hover:text-foreground"
               size="lg"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               <ArrowLeft className="mr-2 h-4 w-4 lg:h-6 lg:w-6" />
-              Zurück zum Anfang
+              Zurück zum Start
             </Button>
+
           </CardContent>
         </Card>
 
         {/* Trust Indicators */}
-        <div className="flex items-center justify-center gap-6 lg:gap-12 text-sm lg:text-lg text-muted-foreground">
-          <div className="flex items-center gap-1.5 lg:gap-3">
-            <div className="h-2 w-2 lg:h-3 lg:w-3 rounded-full bg-green-500" />
-            Schnelle Antwort
+        <div className="flex flex-wrap justify-center gap-4 lg:gap-12 text-sm lg:text-lg text-muted-foreground">
+          <div className="flex items-center gap-1.5 lg:gap-3 bg-muted/50 px-3 py-1 rounded-full">
+            <div className="h-2 w-2 lg:h-3 lg:w-3 rounded-full bg-green-500 animate-pulse" />
+            Antwort binnen 24h
           </div>
-          <div className="flex items-center gap-1.5 lg:gap-3">
-            <div className="h-2 w-2 lg:h-3 lg:w-3 rounded-full bg-green-500" />
-            Kostenlose Beratung
+          <div className="flex items-center gap-1.5 lg:gap-3 bg-muted/50 px-3 py-1 rounded-full">
+            <Sparkles className="h-3 w-3 lg:h-4 lg:w-4 text-primary" />
+            Profischliff
           </div>
         </div>
       </div>
     </section>
   )
 }
-
