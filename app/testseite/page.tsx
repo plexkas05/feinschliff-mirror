@@ -12,7 +12,7 @@ export default function TestPage() {
         href="/" 
         className="text-blue-500 hover:underline"
       >
-        ← Zurück zur Startseite
+        ← Zurück zur Startseite!
       </Link>
     </div>
   );
