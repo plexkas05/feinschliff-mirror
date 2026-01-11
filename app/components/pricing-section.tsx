@@ -16,74 +16,73 @@ export function PricingSection() {
       name: "Großes Messer",
       price: "16€",
       description: "Für Kochmesser und Santoku ab 15cm",
-      features: ["Professioneller Schliff", "Schneidtest inklusive", "Bearbeitungszeit: 3-4 Tage", "Politur der Klinge"],
+      features: [
+        "Professioneller Schliff",
+        "Schneidtest inklusive",
+        "Bearbeitungszeit: 3-4 Tage",
+        "Politur der Klinge",
+      ],
       popular: true, // Das ist die mittlere Karte
     },
     {
       name: "Profi-Paket",
       price: "50€",
       description: "5 Messer Ihrer Wahl",
-      features: ["Alle Messergrößen",
-      "Schneidtest inklusive",
-      "Bearbeitungszeit: 5-7 Tage",
-      "Politur aller Klingen",
-      "10% Ersparnis",
+      features: [
+        "Alle Messergrößen",
+        "Schneidtest inklusive",
+        "Bearbeitungszeit: 5-7 Tage",
+        "Politur aller Klingen",
+        "10% Ersparnis",
       ],
       popular: false,
     },
   ]
 
   return (
-    <section id="preise" className="w-full py-12 md:py-24 lg:py-32 bg-slate-50">
-      <div className="container px-4 md:px-6 mx-auto">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center">
-          <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Unsere Preise</h2>
-            <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+    <section id="preise" className="w-full py-12 md:py-24 lg:py-40 bg-slate-50">
+      <div className="container px-4 md:px-6 lg:px-8 mx-auto max-w-7xl">
+        <div className="flex flex-col items-center justify-center space-y-4 lg:space-y-6 text-center">
+          <div className="space-y-2 lg:space-y-4">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl lg:text-6xl">Unsere Preise</h2>
+            <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-2xl/relaxed">
               Transparent und fair. Wähle das Paket, das zu deinen Messern passt.
             </p>
           </div>
         </div>
-        
-        {/* Grid Container: Macht alle Karten gleich hoch */}
-        <div className="grid grid-cols-1 gap-6 mt-12 md:grid-cols-3 lg:gap-8">
+
+        <div className="grid grid-cols-1 gap-6 mt-12 lg:mt-16 md:grid-cols-3 lg:gap-10">
           {plans.map((plan) => (
             <Card
               key={plan.name}
-              // HIER IST DER TRICK: 
-              // 'flex flex-col' macht die Karte zur Flexbox
-              // 'h-full' zwingt sie auf die volle Höhe der Nachbarn
               className={`flex flex-col h-full ${
                 plan.popular ? "border-primary shadow-lg scale-105 relative z-10" : "border-border"
               }`}
             >
-              <CardHeader>
-                <CardTitle className="text-xl">{plan.name}</CardTitle>
-                <div className="text-3xl font-bold">{plan.price}</div>
-                <CardDescription>{plan.description}</CardDescription>
+              <CardHeader className="lg:p-8">
+                <CardTitle className="text-xl lg:text-2xl">{plan.name}</CardTitle>
+                <div className="text-3xl lg:text-4xl font-bold">{plan.price}</div>
+                <CardDescription className="lg:text-base">{plan.description}</CardDescription>
               </CardHeader>
-              
-              {/* HIER IST DER ZWEITE TRICK:
-                  'flex-1' füllt den leeren Raum, damit der Footer nach unten rutscht */}
-              <CardContent className="flex-1">
-                <ul className="grid gap-3 text-sm">
+
+              <CardContent className="flex-1 lg:px-8">
+                <ul className="grid gap-3 lg:gap-4 text-sm lg:text-base">
                   {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2">
-                      <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
+                    <li key={feature} className="flex items-center gap-2 lg:gap-3">
+                      <Check className="h-4 w-4 lg:h-5 lg:w-5 text-green-500 flex-shrink-0" />
                       <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
               </CardContent>
-              
-              <CardFooter>
-                {/* Button scrollt jetzt auch zur Buchung */}
-                <Button 
-                  className="w-full" 
-                  variant="outline" // Macht alle Buttons weiß/outline
+
+              <CardFooter className="lg:p-8">
+                <Button
+                  className="w-full lg:h-12 lg:text-base bg-transparent"
+                  variant="outline"
                   onClick={() => {
-                    const element = document.getElementById('termin')
-                    if (element) element.scrollIntoView({ behavior: 'smooth' })
+                    const element = document.getElementById("termin")
+                    if (element) element.scrollIntoView({ behavior: "smooth" })
                   }}
                 >
                   Jetzt buchen
