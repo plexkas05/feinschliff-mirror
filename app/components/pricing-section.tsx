@@ -1,82 +1,91 @@
+"use client"
 import { Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
-const pricingPlans = [
-  {
-    name: "Kleines Messer",
-    description: "Ideal für Küchenmesser bis 15cm",
-    price: "8",
-    features: ["Professioneller Schliff", "Schneidtest inklusive", "Bearbeitungszeit: 3-4 Tage"],
-    popular: false,
-  },
-  {
-    name: "Großes Messer",
-    description: "Für Kochmesser und Santoku ab 15cm",
-    price: "12",
-    features: ["Professioneller Schliff", "Schneidtest inklusive", "Bearbeitungszeit: 3-4 Tage", "Politur der Klinge"],
-    popular: true,
-  },
-  {
-    name: "Paket",
-    description: "5 Messer Ihrer Wahl",
-    price: "45",
-    features: [
-      "Alle Messergrößen",
+export function PricingSection() {
+  const plans = [
+    {
+      name: "Kleines Messer",
+      price: "12€",
+      description: "Ideal für Küchenmesser bis 15cm",
+      features: ["Professioneller Schliff", "Schneidtest inklusive", "Bearbeitungszeit: 3-4 Tage"],
+      popular: false,
+    },
+    {
+      name: "Großes Messer",
+      price: "16€",
+      description: "Für Kochmesser und Santoku ab 15cm",
+      features: ["Professioneller Schliff", "Schneidtest inklusive", "Bearbeitungszeit: 3-4 Tage", "Politur der Klinge"],
+      popular: true, // Das ist die mittlere Karte
+    },
+    {
+      name: "Profi-Paket",
+      price: "50€",
+      description: "5 Messer Ihrer Wahl",
+      features: ["Alle Messergrößen",
       "Schneidtest inklusive",
       "Bearbeitungszeit: 5-7 Tage",
       "Politur aller Klingen",
       "10% Ersparnis",
-    ],
-    popular: false,
-  },
-]
+      ],
+      popular: false,
+    },
+  ]
 
-export function PricingSection() {
   return (
-    <section id="preise" className="py-16 md:py-24">
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl text-balance">Unsere Preise</h2>
-          <p className="mt-3 text-muted-foreground text-pretty max-w-xl mx-auto">
-            Transparente Preise für professionellen Messerschliff. Keine versteckten Kosten.
-          </p>
+    <section id="preise" className="w-full py-12 md:py-24 lg:py-32 bg-slate-50">
+      <div className="container px-4 md:px-6 mx-auto">
+        <div className="flex flex-col items-center justify-center space-y-4 text-center">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Unsere Preise</h2>
+            <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              Transparent und fair. Wähle das Paket, das zu deinen Messern passt.
+            </p>
+          </div>
         </div>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          {pricingPlans.map((plan) => (
-            <Card key={plan.name} className={plan.popular ? "border-primary shadow-lg relative" : ""}>
-              {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-full">
-                    Beliebt
-                  </span>
-                </div>
-              )}
-              <CardHeader className="text-center">
+        
+        {/* Grid Container: Macht alle Karten gleich hoch */}
+        <div className="grid grid-cols-1 gap-6 mt-12 md:grid-cols-3 lg:gap-8">
+          {plans.map((plan) => (
+            <Card
+              key={plan.name}
+              // HIER IST DER TRICK: 
+              // 'flex flex-col' macht die Karte zur Flexbox
+              // 'h-full' zwingt sie auf die volle Höhe der Nachbarn
+              className={`flex flex-col h-full ${
+                plan.popular ? "border-primary shadow-lg scale-105 relative z-10" : "border-border"
+              }`}
+            >
+              <CardHeader>
                 <CardTitle className="text-xl">{plan.name}</CardTitle>
+                <div className="text-3xl font-bold">{plan.price}</div>
                 <CardDescription>{plan.description}</CardDescription>
               </CardHeader>
-              <CardContent className="text-center">
-                <div className="mb-6">
-                  <span className="text-4xl font-bold">{plan.price}€</span>
-                  {plan.name === "Paket" ? (
-                    <span className="text-muted-foreground ml-1">/ Paket</span>
-                  ) : (
-                    <span className="text-muted-foreground ml-1">/ Messer</span>
-                  )}
-                </div>
-                <ul className="space-y-3 text-left">
+              
+              {/* HIER IST DER ZWEITE TRICK:
+                  'flex-1' füllt den leeren Raum, damit der Footer nach unten rutscht */}
+              <CardContent className="flex-1">
+                <ul className="grid gap-3 text-sm">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2">
-                      <Check className="h-4 w-4 text-primary shrink-0" />
-                      <span className="text-sm">{feature}</span>
+                      <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
+                      <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
               </CardContent>
+              
               <CardFooter>
-                <Button className="w-full" variant={plan.popular ? "default" : "outline"}>
+                {/* Button scrollt jetzt auch zur Buchung */}
+                <Button 
+                  className="w-full" 
+                  variant="outline" // Macht alle Buttons weiß/outline
+                  onClick={() => {
+                    const element = document.getElementById('termin')
+                    if (element) element.scrollIntoView({ behavior: 'smooth' })
+                  }}
+                >
                   Jetzt buchen
                 </Button>
               </CardFooter>
