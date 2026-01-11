@@ -13,32 +13,50 @@ import {
   Sparkles,
   Info,
   Truck,
-  MapPin,
   CheckCircle2,
-  Store // Neues Icon für Werkstatt
+  Store 
 } from "lucide-react"
 
 export function SlotRegistration() {
   const [email, setEmail] = useState("")
   const [date, setDate] = useState("")
+  // Wir speichern hier nur den Key (z.B. 'grundschliff'), die Daten holen wir uns aus dem Objekt unten
   const [serviceType, setServiceType] = useState("grundschliff")
   const [deliveryOption, setDeliveryOption] = useState<"selbst" | "abholung">("selbst")
 
+  // 1. Hier definieren wir zentral die Preise und Namen, damit wir leicht rechnen können
+  const serviceDetails: Record<string, { label: string; price: number }> = {
+    grundschliff: { label: "Grundschliff – Kleines Messer", price: 12 },
+    meisterschliff: { label: "Meisterschliff – Großes Messer", price: 16 },
+    kombi: { label: "Kombi-Schliff – 5 Messer Paket", price: 50 },
+    feinschliff: { label: "Der Feinschliff – 15 Messer Paket", price: 120 },
+  }
+
+  // 2. Live-Berechnung des Gesamtpreises für den Button und die Mail
+  const currentServicePrice = serviceDetails[serviceType].price
+  const deliveryCost = deliveryOption === "abholung" ? 8 : 0
+  const totalPrice = currentServicePrice + deliveryCost
+
   const handleBooking = () => {
-    const serviceLabels: Record<string, string> = {
-      grundschliff: "Grundschliff – Kleines Messer (12€)",
-      meisterschliff: "Meisterschliff – Großes Messer (16€)",
-      kombi: "Kombi-Schliff – 5 Messer Paket (50€)",
-      feinschliff: "Der Feinschliff – 15 Messer Paket (120€)",
+    // Textbausteine für die Mail
+    const serviceName = serviceDetails[serviceType].label
+    
+    let deliveryText = ""
+    let deliveryCostText = ""
+
+    if (deliveryOption === "abholung") {
+      deliveryText = "Abhol- & Lieferservice (Bequem von zuhause)"
+      deliveryCostText = "8,00 €"
+    } else {
+      deliveryText = "Selbstabgabe (Ich bringe die Messer vorbei)"
+      deliveryCostText = "0,00 €"
     }
 
-    const deliveryLabel =
-      deliveryOption === "abholung"
-        ? "Abhol- & Lieferservice (+8€)"
-        : "Selbstabgabe (Kunde bringt Messer)"
+    // Die E-Mail Betreffzeile
+    const subject = `Anfrage: ${serviceName} für ca. ${totalPrice}€`
 
-    const subject = `Terminanfrage: ${serviceLabels[serviceType]} am ${date}`
-    const body = `Hallo Felix,%0D%0A%0D%0AIch hätte gerne folgenden Service:%0D%0A%0D%0A- Paket: ${serviceLabels[serviceType]}%0D%0A- Gewünschtes Datum: ${date}%0D%0A- Übergabe: ${deliveryLabel}%0D%0A%0D%0AMeine E-Mail für Rückfragen: ${email}%0D%0A%0D%0AVielen Dank!`
+    // Der E-Mail Body (schön formatiert mit Zeilenumbrüchen %0D%0A)
+    const body = `Hallo Felix,%0D%0A%0D%0AIch möchte gerne folgenden Service anfragen:%0D%0A%0D%0A--------------------------------%0D%0A🔪 PAKET: ${serviceName}%0D%0APreis: ${currentServicePrice} €%0D%0A%0D%0A🚚 ÜBERGABE: ${deliveryText}%0D%0AKosten: ${deliveryCostText}%0D%0A%0D%0A💰 GESAMTPREIS (geschätzt): ${totalPrice} €%0D%0A--------------------------------%0D%0A%0D%0AWunschdatum: ${date}%0D%0AMeine E-Mail: ${email}%0D%0A%0D%0ABitte um kurze Bestätigung.`
 
     window.location.href = `mailto:felix.kastner27@gmail.com?subject=${subject}&body=${body}`
   }
@@ -80,7 +98,7 @@ export function SlotRegistration() {
         {/* Header */}
         <div className="text-center space-y-2 lg:space-y-6">
           <div className="inline-flex items-center rounded-full border border-border bg-muted px-4 py-1.5 lg:px-8 lg:py-3 text-sm lg:text-lg text-muted-foreground">
-            <Compass className="mr-2 h-4 w-4 lg:h-6 lg:w-6 -translate-y-1/9 text-muted-foreground" />
+            <Compass className="mr-2 h-4 w-4 lg:h-6 lg:w-6 -translate-y-1/10 text-muted-foreground" />
             Schnelle Terminbuchung
           </div>
           <h1 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl lg:text-6xl">
@@ -132,15 +150,17 @@ export function SlotRegistration() {
                   onChange={(e) => setServiceType(e.target.value)}
                   className="flex h-10 lg:h-16 w-full rounded-md border border-input bg-background px-3 py-2 pl-10 lg:pl-14 text-sm lg:text-lg ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer hover:bg-muted/50 transition-colors"
                 >
-                  <option value="grundschliff">Grundschliff – Kleines Messer (12€)</option>
-                  <option value="meisterschliff">Meisterschliff – Großes Messer (16€)</option>
-                  <option value="kombi">Kombi-Schliff – 5 Messer Paket (50€)</option>
-                  <option value="feinschliff">Der Feinschliff – 15 Messer Paket (120€)</option>
+                  {/* Wir iterieren hier über das Objekt, damit Label und Preis immer stimmen */}
+                  {Object.entries(serviceDetails).map(([key, details]) => (
+                    <option key={key} value={key}>
+                      {details.label}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
 
-            {/* ---> HIER IST DER NEUE CLEANE BUTTON PART <--- */}
+            {/* Delivery Options (Clean Radio Cards) */}
             <div className="space-y-3 lg:space-y-5">
               <Label className="text-sm lg:text-2xl font-medium">
                 Wie kommen die Messer zu mir?
@@ -170,7 +190,7 @@ export function SlotRegistration() {
                       Du bringst sie vorbei
                     </span>
                   </div>
-                  <span className="mt-3 inline-block rounded-md bg-primary/10 px-4 py-2 text-xs font-medium text-secondary-foreground w-fit">
+                  <span className="mt-3 inline-block rounded-md bg-secondary px-4 py-2 text-xs font-medium text-secondary-foreground w-fit">
                     Kostenlos
                   </span>
                 </div>
@@ -205,7 +225,6 @@ export function SlotRegistration() {
 
               </div>
             </div>
-            {/* ----------------------------------------------- */}
 
             {/* Date Field */}
             <div className="space-y-2 lg:space-y-4">
@@ -233,12 +252,16 @@ export function SlotRegistration() {
               )}
             </div>
 
-            {/* Submit Button */}
-            <Button className="w-full lg:h-18 lg:text-xl font-semibold shadow-lg hover:shadow-xl transition-all" size="lg" onClick={handleBooking}>
-              Jetzt anfragen
+            {/* Submit Button mit Preis-Vorschau */}
+            <Button 
+              className="w-full lg:h-18 lg:text-xl font-semibold shadow-lg hover:shadow-xl transition-all" 
+              size="lg" 
+              onClick={handleBooking}
+            >
+              Anfrage senden ({totalPrice} €)
             </Button>
 
-            {/* Divider */}
+            {/* Footer Links */}
             <div className="relative py-2">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t border-border" />
@@ -248,7 +271,6 @@ export function SlotRegistration() {
               </div>
             </div>
 
-            {/* Back Link */}
             <Button
               variant="ghost"
               className="w-full lg:h-18 lg:text-xl text-muted-foreground hover:text-foreground"
