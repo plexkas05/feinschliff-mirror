@@ -7,17 +7,16 @@ export function PricingSection() {
   const plans = [
     {
       name: "Grundschliff",
-      subtitle: "Kleines Messer",
       price: "12€",
-      description: "Ideal für Küchenmesser bis 15cm",
-      features: ["Professioneller Schliff", "Schneidtest inklusive", "Bearbeitungszeit: 3-4 Tage"],
+      description: "Für kleine Messer",
+      features: ["Klingen bis 12cm","Professioneller Schliff", "Schneidtest inklusive", "Bearbeitungszeit: 3-4 Tage"],
     },
     {
       name: "Meisterschliff",
-      subtitle: "Großes Messer",
       price: "16€",
-      description: "Für Kochmesser und Santoku ab 15cm",
+      description: "Ideal für ihr Lieblingsmesser",
       features: [
+        "Alle Messergrößen",
         "Professioneller Schliff",
         "Schneidtest inklusive",
         "Bearbeitungszeit: 3-4 Tage",
@@ -26,7 +25,6 @@ export function PricingSection() {
     },
     {
       name: "Kombi-Schliff",
-      subtitle: "5 Messer Paket",
       price: "50€",
       description: "5 Messer Ihrer Wahl",
       features: [
@@ -34,12 +32,11 @@ export function PricingSection() {
         "Schneidtest inklusive",
         "Bearbeitungszeit: 5-7 Tage",
         "Politur aller Klingen",
-        "10% Ersparnis",
+        "Deutlich günstiger als Einzelpreise",
       ],
     },
     {
       name: "Der Feinschliff",
-      subtitle: "15 Messer Paket",
       price: "120€",
       description: "15 Messer deiner Wahl",
       features: [
@@ -47,7 +44,7 @@ export function PricingSection() {
         "Schneidtest inklusive",
         "Bearbeitungszeit: 7-10 Tage",
         "Politur aller Klingen",
-        "20% Ersparnis",
+        "Bestes Preis-Leistungs-Verhältnis",
         "Prioritäts-Service",
       ],
     },
@@ -73,7 +70,6 @@ export function PricingSection() {
             >
               <CardHeader className="lg:p-8">
                 <CardTitle className="text-xl lg:text-3xl">{plan.name}</CardTitle>
-                <p className="text-sm lg:text-base text-muted-foreground">{plan.subtitle}</p>
                 <div className="text-3xl lg:text-5xl font-bold mt-2 lg:mt-4">{plan.price}</div>
                 <CardDescription className="lg:text-lg">{plan.description}</CardDescription>
               </CardHeader>

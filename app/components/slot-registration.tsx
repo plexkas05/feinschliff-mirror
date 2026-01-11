@@ -12,6 +12,16 @@ export function SlotRegistration() {
   const [date, setDate] = useState("")
   const [serviceType, setServiceType] = useState("grundschliff")
 
+  // Füge das oben bei den Imports hinzu
+const handleBooking = () => {
+  // Wir bauen den Mail-Link dynamisch
+  const subject = `Terminanfrage: ${serviceType} am ${date}`;
+  const body = `Hallo Felix,%0D%0A%0D%0AIch hätte gerne folgenden Service:%0D%0A- Paket: ${serviceType}%0D%0A- Gewünschtes Datum: ${date}%0D%0A%0D%0AMeine E-Mail für Rückfragen: ${email}`;
+
+  // Öffnet das E-Mail Programm des Nutzers
+  window.location.href = `mailto:felix.kastner27@gmail.com?subject=${subject}&body=${body}`;
+};
+
   const completionInfo = useMemo(() => {
     if (!date) return null
 
@@ -132,9 +142,13 @@ export function SlotRegistration() {
             </div>
 
             {/* Submit Button */}
-            <Button className="w-full lg:h-18 lg:text-xl" size="lg">
-              Terminanfrage senden
-            </Button>
+            <Button
+            className="w-full lg:h-18 lg:text-xl"
+            size="lg"
+            onClick={handleBooking} // Hier die Funktion aufrufen
+          >
+            Terminanfrage senden
+          </Button>
 
             {/* Divider */}
             <div className="relative">
@@ -174,3 +188,4 @@ export function SlotRegistration() {
     </section>
   )
 }
+
