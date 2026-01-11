@@ -6,36 +6,49 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 export function PricingSection() {
   const plans = [
     {
-      name: "Kleines Messer",
+      name: "Grundschliff",
       price: "12€",
-      description: "Ideal für Küchenmesser bis 15cm",
-      features: ["Professioneller Schliff", "Schneidtest inklusive", "Bearbeitungszeit: 3-4 Tage"],
-      popular: false,
+      description: "Ideal für  kleine Küchenmesser",
+      features: ["bis 14 cm Klingen", "Professioneller Schliff", "Schneidtest inklusive", "Bearbeitungszeit: 3-4 Tage"],
     },
     {
-      name: "Großes Messer",
+      name: "Meisterschliff",
       price: "16€",
-      description: "Für Kochmesser und Santoku ab 15cm",
+      description: "Für dein Lieblingsmesser",
       features: [
+        "Alle Messergrößen",
         "Professioneller Schliff",
         "Schneidtest inklusive",
         "Bearbeitungszeit: 3-4 Tage",
         "Politur der Klinge",
       ],
-      popular: true, // Das ist die mittlere Karte
     },
     {
-      name: "Profi-Paket",
+      name: "Kombi-Packet",
       price: "50€",
       description: "5 Messer Ihrer Wahl",
       features: [
         "Alle Messergrößen",
+        "Professioneller Schliff",
         "Schneidtest inklusive",
         "Bearbeitungszeit: 5-7 Tage",
         "Politur aller Klingen",
-        "10% Ersparnis",
+        "Deutlich günstiger als Einzelpreise",
       ],
-      popular: false,
+    },
+    {
+      name: "Der Feinschliff",
+      price: "120€",
+      description: "Bis zu 15 Messer ihrer Wahl",
+      features: [
+        "Alle Messergrößen",
+        "Professioneller Schliff",
+        "Schneidtest inklusive",
+        "Bearbeitungszeit: 7-10 Tage",
+        "Politur aller Klingen",
+        "Bestes Preis-Leistungs-Verhältnis",
+        "Prioritäts-Service",
+      ],
     },
   ]
 
@@ -51,21 +64,19 @@ export function PricingSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 mt-12 lg:mt-16 md:grid-cols-3 lg:gap-10">
+        <div className="grid grid-cols-1 gap-6 mt-12 lg:mt-16 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {plans.map((plan) => (
             <Card
               key={plan.name}
-              className={`flex flex-col h-full ${
-                plan.popular ? "border-primary shadow-lg scale-105 relative z-10" : "border-border"
-              }`}
+              className="flex flex-col h-full border-border transition-all duration-300 hover:border-primary hover:shadow-lg hover:scale-[1.02]"
             >
-              <CardHeader className="lg:p-8">
+              <CardHeader className="lg:p-6">
                 <CardTitle className="text-xl lg:text-2xl">{plan.name}</CardTitle>
-                <div className="text-3xl lg:text-4xl font-bold">{plan.price}</div>
+                <div className="text-3xl lg:text-4xl font-bold mt-2">{plan.price}</div>
                 <CardDescription className="lg:text-base">{plan.description}</CardDescription>
               </CardHeader>
 
-              <CardContent className="flex-1 lg:px-8">
+              <CardContent className="flex-1 lg:px-6">
                 <ul className="grid gap-3 lg:gap-4 text-sm lg:text-base">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2 lg:gap-3">
@@ -76,7 +87,7 @@ export function PricingSection() {
                 </ul>
               </CardContent>
 
-              <CardFooter className="lg:p-8">
+              <CardFooter className="lg:p-6">
                 <Button
                   className="w-full lg:h-12 lg:text-base bg-transparent"
                   variant="outline"

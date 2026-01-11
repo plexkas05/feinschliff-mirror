@@ -1,15 +1,50 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft, Calendar, Mail, Clock } from "lucide-react"
+import { ArrowLeft, Calendar, Mail, Clock, PenTool, Info } from "lucide-react"
 
 export function SlotRegistration() {
   const [email, setEmail] = useState("")
   const [date, setDate] = useState("")
+  const [serviceType, setServiceType] = useState("grundschliff")
+
+  const completionInfo = useMemo(() => {
+    if (!date) return null
+
+    const startDate = new Date(date)
+
+    // Tage basierend auf Pakettyp
+    let daysToAdd = 3
+    let label = "nach 72 Stunden"
+
+    if (serviceType === "grundschliff" || serviceType === "meisterschliff") {
+      daysToAdd = 3
+      label = "nach 72 Stunden"
+    } else if (serviceType === "kombi") {
+      daysToAdd = 7
+      label = "ca. 1 Woche"
+    } else if (serviceType === "feinschliff") {
+      daysToAdd = 10
+      label = "ca. 10 Tage"
+    }
+
+    const endDate = new Date(startDate)
+    endDate.setDate(startDate.getDate() + daysToAdd)
+
+    const formattedDate = endDate.toLocaleDateString("de-DE", {
+      day: "numeric",
+      month: "long",
+    })
+
+    return {
+      dateString: formattedDate,
+      label: label,
+    }
+  }, [date, serviceType])
 
   return (
     <section id="termin" className="flex min-h-[80vh] flex-col items-center justify-center px-6 py-24 lg:py-32">
@@ -17,7 +52,7 @@ export function SlotRegistration() {
         {/* Header */}
         <div className="text-center space-y-2 lg:space-y-4">
           <div className="inline-flex items-center rounded-full border border-border bg-muted px-4 py-1.5 lg:px-6 lg:py-2 text-sm lg:text-base text-muted-foreground">
-            <Clock className="mr-2 h-4 w-4 lg:h-5 lg:w-5" />
+            <Clock className="mr-2 h-4 w-4 lg:h-5 lg:w-5 -translate-y-1/2" />
             Schnelle Terminbuchung
           </div>
           <h1 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">Termin buchen</h1>
@@ -52,10 +87,30 @@ export function SlotRegistration() {
               </div>
             </div>
 
+            <div className="space-y-2 lg:space-y-3">
+              <Label htmlFor="service-type" className="text-sm lg:text-base font-medium">
+                Was möchtest du schleifen lassen?
+              </Label>
+              <div className="relative">
+                <PenTool className="absolute left-3 lg:left-4 top-1/2 h-4 w-4 lg:h-5 lg:w-5 -translate-y-1/2 text-muted-foreground" />
+                <select
+                  id="service-type"
+                  value={serviceType}
+                  onChange={(e) => setServiceType(e.target.value)}
+                  className="flex h-10 lg:h-12 w-full rounded-md border border-input bg-background px-3 py-2 pl-10 lg:pl-12 text-sm lg:text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
+                >
+                  <option value="grundschliff">Grundschliff – Kleines Messer (12€)</option>
+                  <option value="meisterschliff">Meisterschliff – Großes Messer (16€)</option>
+                  <option value="kombi">Kombi-Schliff – 5 Messer Paket (50€)</option>
+                  <option value="feinschliff">Der Feinschliff – 15 Messer Paket (120€)</option>
+                </select>
+              </div>
+            </div>
+
             {/* Date Field */}
             <div className="space-y-2 lg:space-y-3">
               <Label htmlFor="date" className="text-sm lg:text-base font-medium">
-                Wunschdatum
+                Abgabedatum
               </Label>
               <div className="relative">
                 <Calendar className="absolute left-3 lg:left-4 top-1/2 h-4 w-4 lg:h-5 lg:w-5 -translate-y-1/2 text-muted-foreground" />
@@ -67,6 +122,16 @@ export function SlotRegistration() {
                   className="pl-10 lg:pl-12 lg:h-12 lg:text-base"
                 />
               </div>
+
+              {completionInfo && (
+                <div className="mt-2 flex items-start gap-2 rounded-lg bg-muted/50 p-3 text-sm text-muted-foreground animate-in fade-in slide-in-from-top-2 duration-300">
+                  <Info className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>
+                    Fertig zur Abholung: <strong>spätestens am {completionInfo.dateString}</strong> (
+                    {completionInfo.label}).
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Submit Button */}
