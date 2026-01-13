@@ -9,77 +9,77 @@ import {
   ArrowLeft,
   Calendar,
   Mail,
-  Compass,
   Sparkles,
   Info,
   Truck,
   CheckCircle2,
-  Store 
+  Store,
+  Clock
 } from "lucide-react"
 
 export function SlotRegistration() {
   const [email, setEmail] = useState("")
   const [date, setDate] = useState("")
-  // Wir speichern hier nur den Key (z.B. 'grundschliff'), die Daten holen wir uns aus dem Objekt unten
   const [serviceType, setServiceType] = useState("grundschliff")
   const [deliveryOption, setDeliveryOption] = useState<"selbst" | "abholung">("selbst")
 
-  // 1. Hier definieren wir zentral die Preise und Namen, damit wir leicht rechnen können
-  const serviceDetails: Record<string, { label: string; price: number }> = {
-    grundschliff: { label: "Grundschliff – Kleines Messer", price: 12 },
-    meisterschliff: { label: "Meisterschliff – Großes Messer", price: 16 },
-    kombi: { label: "Kombi-Schliff – 5 Messer Paket", price: 50 },
-    feinschliff: { label: "Der Feinschliff – 15 Messer Paket", price: 120 },
+  // 1. Definition der Services
+  const serviceDetails: Record<string, { label: string; price: number; type: 'single' | 'package' }> = {
+    grundschliff: { label: "Grundschliff – Kleines Messer", price: 12, type: 'single' },
+    meisterschliff: { label: "Meisterschliff – Großes Messer", price: 16, type: 'single' },
+    kombi: { label: "Kombi-Schliff – 5 Messer Paket", price: 50, type: 'package' },
+    feinschliff: { label: "Der Feinschliff – 15 Messer Paket", price: 120, type: 'package' },
   }
 
-  // 2. Live-Berechnung des Gesamtpreises für den Button und die Mail
-  const currentServicePrice = serviceDetails[serviceType].price
+  // 2. Preisberechnung
+  const currentService = serviceDetails[serviceType]
   const deliveryCost = deliveryOption === "abholung" ? 8 : 0
-  const totalPrice = currentServicePrice + deliveryCost
+  const totalPrice = currentService.price + deliveryCost
 
+  // 3. E-Mail Generierung
   const handleBooking = () => {
-    // Textbausteine für die Mail
-    const serviceName = serviceDetails[serviceType].label
+    const serviceName = currentService.label
     
     let deliveryText = ""
     let deliveryCostText = ""
 
     if (deliveryOption === "abholung") {
-      deliveryText = "Abhol- & Lieferservice (Bequem von zuhause)"
+      deliveryText = "Abhol- & Lieferservice"
       deliveryCostText = "8,00 €"
     } else {
-      deliveryText = "Selbstabgabe (Ich bringe die Messer vorbei)"
+      deliveryText = "Selbstabgabe"
       deliveryCostText = "0,00 €"
     }
 
-    // Die E-Mail Betreffzeile
-    const subject = `Anfrage: ${serviceName} für ca. ${totalPrice}€`
-
-    // Der E-Mail Body (schön formatiert mit Zeilenumbrüchen %0D%0A)
-    const body = `Hallo Felix,%0D%0A%0D%0AIch möchte gerne folgenden Service anfragen:%0D%0A%0D%0A--------------------------------%0D%0A🔪 PAKET: ${serviceName}%0D%0APreis: ${currentServicePrice} €%0D%0A%0D%0A🚚 ÜBERGABE: ${deliveryText}%0D%0AKosten: ${deliveryCostText}%0D%0A%0D%0A💰 GESAMTPREIS (geschätzt): ${totalPrice} €%0D%0A--------------------------------%0D%0A%0D%0AWunschdatum: ${date}%0D%0AMeine E-Mail: ${email}%0D%0A%0D%0ABitte um kurze Bestätigung.`
+    const subject = `Anfrage: ${serviceName} für ${totalPrice}€`
+    
+    const body = `Hallo Felix,%0D%0A%0D%0AIch möchte gerne folgenden Service anfragen:
+    %0D%0A%0D%0A--------------------------------%0D%0A🔪 WAHL: ${serviceName}%0D%0APreis: ${currentService.price} €%0D%0A%0D%0A🚚 ÜBERGABE: ${deliveryText}%0D%0AKosten: ${deliveryCostText}%0D%0A%0D%0A
+    💰 GESAMTPREIS: ${totalPrice} €%0D%0A--------------------------------%0D%0A%0D%0AAbgabedatum: ${date}%0D%0AMeine E-Mail: ${email}%0D%0A%0D%0ABitte um kurze Bestätigung.`
 
     window.location.href = `mailto:felix.kastner27@gmail.com?subject=${subject}&body=${body}`
   }
 
+  // 4. Die Logik für das Fertigstellungsdatum
   const completionInfo = useMemo(() => {
     if (!date) return null
-    const startDate = new Date(date)
-    let daysToAdd = 3
-    let label = "~72 Stunden"
 
-    if (serviceType === "grundschliff" || serviceType === "meisterschliff") {
+    const startDate = new Date(date)
+    let daysToAdd = 0
+    let labelText = ""
+
+    // LOGIK: Einzelmesser = 3 Tage, Pakete = 7 Tage
+    if (currentService.type === 'single') {
       daysToAdd = 3
-      label = "~72 Stunden"
-    } else if (serviceType === "kombi") {
+      labelText = "nach 72 Stunden"
+    } else {
       daysToAdd = 7
-      label = "~1 Woche"
-    } else if (serviceType === "feinschliff") {
-      daysToAdd = 10
-      label = "~10 Tage"
+      labelText = "spätestens 1 Woche später"
     }
 
     const endDate = new Date(startDate)
     endDate.setDate(startDate.getDate() + daysToAdd)
+    
     const formattedDate = endDate.toLocaleDateString("de-DE", {
       day: "numeric",
       month: "long",
@@ -87,9 +87,9 @@ export function SlotRegistration() {
 
     return {
       dateString: formattedDate,
-      label: label,
+      label: labelText,
     }
-  }, [date, serviceType])
+  }, [date, serviceType, currentService.type]) 
 
   return (
     <section id="termin" className="flex min-h-[80vh] flex-col items-center justify-center px-6 py-24 lg:py-40">
@@ -98,7 +98,7 @@ export function SlotRegistration() {
         {/* Header */}
         <div className="text-center space-y-2 lg:space-y-6">
           <div className="inline-flex items-center rounded-full border border-border bg-muted px-4 py-1.5 lg:px-8 lg:py-3 text-sm lg:text-lg text-muted-foreground">
-            <Compass className="mr-2 h-4 w-4 lg:h-6 lg:w-6 -translate-y-1/10 text-muted-foreground" />
+            <Clock className="mr-2 h-4 w-4 lg:h-6 lg:w-6 -translate-y-1/10 text-muted-foreground" />
             Schnelle Terminbuchung
           </div>
           <h1 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl lg:text-6xl">
@@ -150,7 +150,6 @@ export function SlotRegistration() {
                   onChange={(e) => setServiceType(e.target.value)}
                   className="flex h-10 lg:h-16 w-full rounded-md border border-input bg-background px-3 py-2 pl-10 lg:pl-14 text-sm lg:text-lg ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer hover:bg-muted/50 transition-colors"
                 >
-                  {/* Wir iterieren hier über das Objekt, damit Label und Preis immer stimmen */}
                   {Object.entries(serviceDetails).map(([key, details]) => (
                     <option key={key} value={key}>
                       {details.label}
@@ -160,7 +159,7 @@ export function SlotRegistration() {
               </div>
             </div>
 
-            {/* Delivery Options (Clean Radio Cards) */}
+            {/* Delivery Options */}
             <div className="space-y-3 lg:space-y-5">
               <Label className="text-sm lg:text-2xl font-medium">
                 Wie kommen die Messer zu mir?
@@ -226,11 +225,16 @@ export function SlotRegistration() {
               </div>
             </div>
 
-            {/* Date Field */}
+            {/* Date Field + Dynamic Info */}
             <div className="space-y-2 lg:space-y-4">
+              {/* CHANGE START: Label passt sich jetzt an */}
               <Label htmlFor="date" className="text-sm lg:text-2xl font-medium">
-                Wunschdatum
+                {deliveryOption === "selbst" 
+                  ? "Abgabedatum (Wann bringst du sie?)" 
+                  : "Abholtermin (Wann sollen wir sie holen?)"
+                }
               </Label>
+              {/* CHANGE END */}
               <div className="relative">
                 <Calendar className="absolute left-3 lg:left-5 top-1/2 h-4 w-4 lg:h-6 lg:w-6 -translate-y-1/2 text-muted-foreground" />
                 <Input
@@ -242,11 +246,15 @@ export function SlotRegistration() {
                 />
               </div>
               
+              {/* Dynamische Info-Anzeige (Wieder im schlichten Blau) */}
               {completionInfo && (
                 <div className="mt-2 lg:mt-4 flex items-start gap-2 lg:gap-4 rounded-lg bg-blue-50/50 border border-blue-100 p-3 lg:p-5 text-sm lg:text-lg text-muted-foreground animate-in fade-in slide-in-from-top-2 duration-300">
                   <Info className="mt-0.5 h-4 w-4 lg:h-6 lg:w-6 shrink-0 text-blue-600" />
                   <span className="text-blue-900/80">
-                    Deine Messer sind ca. am <strong>{completionInfo.dateString}</strong> fertig ({completionInfo.label}).
+                    {deliveryOption === "selbst" ? "Fertig zur Abholung: " : "Lieferbereit: "}
+                    <strong>spätestens am {completionInfo.dateString}</strong>.
+                    <br />
+                    <span className="text-xs lg:text-base opacity-80">({completionInfo.label})</span>
                   </span>
                 </div>
               )}
@@ -258,7 +266,7 @@ export function SlotRegistration() {
               size="lg" 
               onClick={handleBooking}
             >
-              Anfrage senden ({totalPrice} €)
+              Anfrage senden  ({totalPrice} €)
             </Button>
 
             {/* Footer Links */}
