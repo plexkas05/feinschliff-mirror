@@ -5,13 +5,19 @@ import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-
 import { Button } from "@/components/ui/button"
 import { Menu, X, ChevronDown, User, Mail, Tag, Workflow } from "lucide-react"
 import Link from "next/link"
+import { useRouter, usePathname } from "next/navigation" // WICHTIG: usePathname importieren
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  
   const { scrollY } = useScroll()
   const dropdownRef = useRef<HTMLDivElement>(null)
+  
+  // Hooks für Navigation
+  const router = useRouter()
+  const pathname = usePathname() // Wo sind wir gerade?
 
   // Detect Scroll
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -29,12 +35,22 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
-  const scrollToSection = (id: string) => {
+  // INTELLIGENTE NAVIGATION
+  const handleNavigation = (id: string) => {
+    // 1. Menüs schließen
     setMobileMenuOpen(false)
     setDropdownOpen(false)
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+
+    // 2. Prüfen: Sind wir auf der Startseite ("/")?
+    if (pathname === "/") {
+      // JA: Einfach scrollen
+      const element = document.getElementById(id)
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" })
+      }
+    } else {
+      // NEIN: Zur Startseite springen mit Anker (#)
+      router.push(`/#${id}`)
     }
   }
 
@@ -54,7 +70,9 @@ export function Navbar() {
         {/* Logo */}
         <Link 
           href="/" 
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={() => {
+            if (pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" })
+          }}
           className="cursor-pointer group"
         >
           <span className="text-xl lg:text-2xl font-bold tracking-tighter text-white transition-colors">
@@ -85,16 +103,16 @@ export function Navbar() {
                   className="absolute top-full right-0 mt-4 w-56 rounded-xl border border-white/10 bg-neutral-950 p-2 shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none"
                 >
                   <div className="space-y-1">
-                    {/* Navigation Links */}
+                    {/* Navigation Links - nutzen jetzt handleNavigation */}
                     <button
-                      onClick={() => scrollToSection("preise")}
+                      onClick={() => handleNavigation("preise")}
                       className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
                     >
                       <Tag className="w-4 h-4 text-slate-500" />
                       Preise
                     </button>
                     <button
-                      onClick={() => scrollToSection("ablauf")}
+                      onClick={() => handleNavigation("ablauf")}
                       className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
                     >
                       <Workflow className="w-4 h-4 text-slate-500" />
@@ -103,7 +121,7 @@ export function Navbar() {
 
                     <div className="my-1 h-px bg-white/10" />
 
-                    {/* FIX: Jetzt echte Links statt Platzhalter */}
+                    {/* Echte Links zu Subpages */}
                     <Link
                       href="/ueber-uns"
                       onClick={() => setDropdownOpen(false)}
@@ -126,10 +144,10 @@ export function Navbar() {
             </AnimatePresence>
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button - NEUES DESIGN (Dezenter) */}
           <Button 
-            className="hidden md:inline-flex h-10 px-6 bg-white text-neutral-950 hover:bg-slate-200 font-bold text-sm transition-all"
-            onClick={() => scrollToSection("termin")}
+            className="hidden md:inline-flex h-10 px-6 font-medium text-sm transition-all border border-white/10 bg-white/5 text-slate-200 hover:bg-white/10 hover:text-white hover:border-white/20"
+            onClick={() => handleNavigation("termin")}
           >
             Jetzt buchen
           </Button>
@@ -151,14 +169,14 @@ export function Navbar() {
           animate={{ opacity: 1, y: 0 }}
           className="absolute top-full left-0 right-0 bg-neutral-950 border-b border-white/10 p-6 md:hidden flex flex-col gap-4 shadow-2xl"
         >
-          <button onClick={() => scrollToSection("preise")} className="text-lg font-medium text-slate-300 py-2 text-left hover:text-white">
+          {/* Mobile Links - nutzen auch handleNavigation */}
+          <button onClick={() => handleNavigation("preise")} className="text-lg font-medium text-slate-300 py-2 text-left hover:text-white">
             Preise
           </button>
-          <button onClick={() => scrollToSection("ablauf")} className="text-lg font-medium text-slate-300 py-2 text-left hover:text-white">
+          <button onClick={() => handleNavigation("ablauf")} className="text-lg font-medium text-slate-300 py-2 text-left hover:text-white">
             Ablauf
           </button>
           
-          {/* FIX: Mobile Links mit Menu-Close Logik und passendem Styling */}
           <Link
             href="/ueber-uns"
             onClick={() => setMobileMenuOpen(false)}
@@ -175,9 +193,10 @@ export function Navbar() {
             Kontakt
           </Link>
 
+          {/* Mobile CTA - Auch hier etwas dezenter, aber immer noch gut sichtbar */}
           <Button 
-            className="w-full bg-white text-neutral-950 font-bold mt-4 h-12 text-lg"
-            onClick={() => scrollToSection("termin")}
+            className="w-full bg-white/10 border border-white/10 text-white font-semibold mt-4 h-12 text-lg hover:bg-white/20"
+            onClick={() => handleNavigation("termin")}
           >
             Jetzt buchen
           </Button>
