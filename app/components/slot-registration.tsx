@@ -39,9 +39,10 @@ const services = [
   },
 ]
 
-const router = useRouter()
+
 
 export function SlotRegistration() {
+  const router = useRouter()
   const [email, setEmail] = useState("")
   const [date, setDate] = useState("")
   const [serviceId, setServiceId] = useState("grundschliff")
