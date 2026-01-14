@@ -88,8 +88,6 @@ export function SlotRegistration() {
     GESAMTPREIS:
     ${totalPrice}€
 
-
-
     Bitte senden Sie die Bestätigung an meine E-Mail-Adresse:
     ${email}
 
@@ -274,7 +272,7 @@ export function SlotRegistration() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="deine@email.de"
+                  placeholder="deine@email.at"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="h-12 lg:h-14 text-base lg:text-lg bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50"
