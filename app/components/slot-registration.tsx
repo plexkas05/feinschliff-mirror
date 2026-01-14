@@ -98,6 +98,19 @@ export function SlotRegistration() {
 
       if (error) throw error
 
+      // --- NEU: E-Mail senden ---
+      await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          serviceName: currentService.name,
+          date: new Date(date).toLocaleDateString("de-DE"),
+          price: totalPrice,
+          deliveryOption: deliveryOption
+        })
+      });
+
       // 3. Erfolg -> Weiterleitung
       const formattedDate = new Date(date).toLocaleDateString("de-DE")
       const params = new URLSearchParams({
