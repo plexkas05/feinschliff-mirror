@@ -32,8 +32,9 @@ export default function AboutPage() {
             </h1>
             <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
               Wir glauben daran, dass ein scharfes Messer nicht nur ein Werkzeug ist, 
-              sondern die Freude am Kochen zurückbringt. Was als Hobby in der Garage begann, 
-              ist heute Graz' erste Adresse für professionellen Feinschliff.
+              sondern die Freude am Kochen zurückbringt. Unser Ziel ist es jedes stumpfe Messer
+              aus euren Küchen wieder in eine scharfe Klinge zu verwandeln – präzise, zuverlässig und mit höchster Sorgfalt.
+
             </p>
           </motion.div>
         </div>
