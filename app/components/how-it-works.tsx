@@ -72,9 +72,10 @@ export function HowItWorks() {
                   x: ["-100%", "400%"],
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 4,
                   repeat: Number.POSITIVE_INFINITY,
                   ease: "linear",
+                  repeatDelay: 1,
                 }}
               />
             </div>

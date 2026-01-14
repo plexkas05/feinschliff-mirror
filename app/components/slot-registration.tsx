@@ -64,10 +64,29 @@ export function SlotRegistration() {
 
   // Email generation
   const handleBooking = () => {
-    const deliveryText = deliveryOption === "abholung" ? "Abhol- & Lieferservice (+8€)" : "Selbstabgabe (kostenlos)"
-    const subject = `Buchung: ${currentService.name} für ${totalPrice}€`
-    const body = `Hallo Felix,%0D%0A%0D%0AIch möchte gerne buchen:%0D%0A%0D%0A━━━━━━━━━━━━━━━━━━━━%0D%0A SERVICE: ${currentService.name}%0D%0A   ${currentService.subtitle} - ${currentService.price}€%0D%0A%0D%0A ÜBERGABE: ${deliveryText}%0D%0A%0D%0A DATUM: ${date}%0D%0A%0D%0A GESAMT: ${totalPrice}€%0D%0A━━━━━━━━━━━━━━━━━━━━%0D%0A%0D%0AMeine E-Mail: ${email}%0D%0A%0D%0ABitte um Bestätigung.`
-    window.location.href = `mailto:felix.kastner27@gmail.com?subject=${subject}&body=${body}`
+    // Text für die Übergabe definieren
+    const deliveryText = deliveryOption === "abholung" ? "Hol- & Bringservice" : "Selbstabgabe"
+    
+    // Betreff: Klar und professionell
+    const subject = `Terminanfrage: ${currentService.name}`
+    
+    // Body: Clean, ohne Emojis, klare Struktur mit Absätzen
+    const body = `Hallo Team Feinschliff,%0D%0A%0D%0A` +
+      `hiermit bitte ich um Reservierung für folgenden Service:%0D%0A%0D%0A` +
+      `--------------------------------------------------%0D%0A` +
+      `PAKET:%0D%0A` +
+      `${currentService.name} (${currentService.subtitle})%0D%0A%0D%0A` +
+      `ÜBERGABE:%0D%0A` +
+      `${deliveryText}%0D%0A%0D%0A` +
+      `WUNSCHTERMIN:%0D%0A` +
+      `${date}%0D%0A%0D%0A` +
+      `GESAMTPREIS:%0D%0A` +
+      `${totalPrice}€%0D%0A` +
+      `--------------------------------------------------%0D%0A%0D%0A` +
+      `Bitte senden Sie die Bestätigung an meine E-Mail-Adresse: ${email}%0D%0A%0D%0A` +
+      `Mit freundlichen Grüßen`
+
+    window.location.href = `mailto:felix.kastner27@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`
   }
 
   return (
