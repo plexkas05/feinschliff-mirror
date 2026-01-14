@@ -64,31 +64,45 @@ export function SlotRegistration() {
 
   // Email generation
   const handleBooking = () => {
-    // Text für die Übergabe definieren
-    const deliveryText = deliveryOption === "abholung" ? "Hol- & Bringservice" : "Selbstabgabe"
+    // 1. Text für die Übergabe (Das "&" machte Probleme, encodeURIComponent löst das gleich)
+    const deliveryText = deliveryOption === "abholung" ? "Hol- & Bringservice (+8€)" : "Selbstabgabe (kostenlos)"
     
-    // Betreff: Klar und professionell
-    const subject = `Terminanfrage: ${currentService.name}`
-    
-    // Body: Clean, ohne Emojis, klare Struktur mit Absätzen
-    const body = `Hallo Team Feinschliff,%0D%0A%0D%0A` +
-      `hiermit bitte ich um Reservierung für folgenden Service:%0D%0A%0D%0A` +
-      `--------------------------------------------------%0D%0A` +
-      `PAKET:%0D%0A` +
-      `${currentService.name} (${currentService.subtitle})%0D%0A%0D%0A` +
-      `ÜBERGABE:%0D%0A` +
-      `${deliveryText}%0D%0A%0D%0A` +
-      `WUNSCHTERMIN:%0D%0A` +
-      `${date}%0D%0A%0D%0A` +
-      `GESAMTPREIS:%0D%0A` +
-      `${totalPrice}€%0D%0A` +
-      `--------------------------------------------------%0D%0A%0D%0A` +
-      `Bitte senden Sie die Bestätigung an meine E-Mail-Adresse: ${email}%0D%0A%0D%0A` +
-      `Mit freundlichen Grüßen`
+    // 2. Datum schön formatieren (von 2024-02-01 zu 01.02.2024)
+    const formattedDate = date ? new Date(date).toLocaleDateString("de-DE") : "Kein Datum gewählt"
 
-    window.location.href = `mailto:felix.kastner27@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`
-  }
+    // 3. Der reine Text (ganz normal geschrieben, ohne %0D%0A Codes)
+    const rawBody = `Hallo Team Feinschliff,
 
+    hiermit bitte ich um Reservierung für folgenden Service:
+
+    --------------------------------------------------
+
+    PAKET:
+    ${currentService.name} (${currentService.subtitle})
+    Preis: ${currentService.price}€
+
+    ÜBERGABE:
+    ${deliveryText}
+
+    WUNSCHTERMIN:
+    ${formattedDate}
+
+    GESAMTPREIS:
+    ${totalPrice}€
+
+    --------------------------------------------------
+
+    Bitte senden Sie die Bestätigung an meine E-Mail-Adresse:
+    ${email}
+
+    Mit freundlichen Grüßen`
+
+        // 4. Alles sicher für den Link verpacken (Das fixt das "Hol-" Problem)
+        const subject = `Terminanfrage: ${currentService.name}`
+        window.location.href = `mailto:felix.kastner27@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(rawBody)}`
+      }
+
+      
   return (
     // FIX 1: Gradient Background (The Seamless Bridge: Dark -> Rich -> Dark)
     <section id="termin" className="relative -mt-1 min-h-screen w-full px-4 py-16 lg:py-24 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
