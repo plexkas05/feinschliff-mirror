@@ -4,11 +4,12 @@ import { useState, useRef, useEffect } from "react"
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Menu, X, ChevronDown, User, Mail, Tag, Workflow } from "lucide-react"
+import Link from "next/link"
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [dropdownOpen, setDropdownOpen] = useState(false) // State für das Desktop Dropdown
+  const [dropdownOpen, setDropdownOpen] = useState(false)
   const { scrollY } = useScroll()
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -51,14 +52,15 @@ export function Navbar() {
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl flex items-center justify-between">
         
         {/* Logo */}
-        <div 
+        <Link 
+          href="/" 
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="cursor-pointer group"
         >
           <span className="text-xl lg:text-2xl font-bold tracking-tighter text-white transition-colors">
             FEINSCHLIFF
           </span>
-        </div>
+        </Link>
 
         {/* Actions (Desktop Dropdown & CTA) */}
         <div className="flex items-center gap-6">
@@ -92,7 +94,7 @@ export function Navbar() {
                       Preise
                     </button>
                     <button
-                      onClick={() => scrollToSection("ablauf")} // Link zu HowItWorks
+                      onClick={() => scrollToSection("ablauf")}
                       className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
                     >
                       <Workflow className="w-4 h-4 text-slate-500" />
@@ -101,21 +103,23 @@ export function Navbar() {
 
                     <div className="my-1 h-px bg-white/10" />
 
-                    {/* Placeholder Links */}
-                    <button
-                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-500 cursor-not-allowed hover:bg-white/5 transition-colors"
-                      title="Kommt bald"
+                    {/* FIX: Jetzt echte Links statt Platzhalter */}
+                    <Link
+                      href="/ueber-uns"
+                      onClick={() => setDropdownOpen(false)}
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
                     >
-                      <User className="w-4 h-4" />
-                      Über uns <span className="ml-auto text-[10px] uppercase tracking-wider opacity-50">Bald</span>
-                    </button>
-                    <button
-                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-500 cursor-not-allowed hover:bg-white/5 transition-colors"
-                      title="Kommt bald"
+                      <User className="w-4 h-4 text-slate-500" />
+                      Über uns
+                    </Link>
+                    <Link
+                      href="/ueber-uns#kontakt"
+                      onClick={() => setDropdownOpen(false)}
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
                     >
-                      <Mail className="w-4 h-4" />
-                      Kontakt <span className="ml-auto text-[10px] uppercase tracking-wider opacity-50">Bald</span>
-                    </button>
+                      <Mail className="w-4 h-4 text-slate-500" />
+                      Kontakt
+                    </Link>
                   </div>
                 </motion.div>
               )}
@@ -153,9 +157,23 @@ export function Navbar() {
           <button onClick={() => scrollToSection("ablauf")} className="text-lg font-medium text-slate-300 py-2 text-left hover:text-white">
             Ablauf
           </button>
-          {/* Mobile Placeholders */}
-          <div className="text-lg font-medium text-slate-600 py-2 text-left">Über uns (Bald)</div>
-          <div className="text-lg font-medium text-slate-600 py-2 text-left">Kontakt (Bald)</div>
+          
+          {/* FIX: Mobile Links mit Menu-Close Logik und passendem Styling */}
+          <Link
+            href="/ueber-uns"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-lg font-medium text-slate-300 py-2 text-left hover:text-white flex items-center gap-2"
+          >
+            Über uns
+          </Link>
+
+          <Link
+            href="/ueber-uns#kontakt"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-lg font-medium text-slate-300 py-2 text-left hover:text-white flex items-center gap-2"
+          >
+            Kontakt
+          </Link>
 
           <Button 
             className="w-full bg-white text-neutral-950 font-bold mt-4 h-12 text-lg"
