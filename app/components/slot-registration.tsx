@@ -4,8 +4,10 @@ import { useState, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Calendar, Mail, Sparkles, Truck, CheckCircle2, Store, Clock, ArrowRight, Zap } from "lucide-react"
+import { Calendar, Mail, Sparkles, Truck, CheckCircle2, Store, Clock, ArrowRight, Zap, Loader2 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { supabase } from "@/lib/supabase"
+
 
 // Service definitions
 const services = [
@@ -41,6 +43,9 @@ export function SlotRegistration() {
   const [date, setDate] = useState("")
   const [serviceId, setServiceId] = useState("grundschliff")
   const [deliveryOption, setDeliveryOption] = useState<"selbst" | "abholung">("selbst")
+  
+  // NEW: Loading State
+  const [isLoading, setIsLoading] = useState(false)
 
   // Get current service
   const currentService = services.find((s) => s.id === serviceId) || services[0]
@@ -62,41 +67,51 @@ export function SlotRegistration() {
     }
   }, [date, currentService.type])
 
-  // Email generation
-  const handleBooking = () => {
-    // 1. Text für die Übergabe (Das "&" machte Probleme, encodeURIComponent löst das gleich)
-    const deliveryText = deliveryOption === "abholung" ? "Hol- & Bringservice (+8€)" : "Selbstabgabe (kostenlos)"
-    
-    // 2. Datum schön formatieren (von 2024-02-01 zu 01.02.2024)
-    const formattedDate = date ? new Date(date).toLocaleDateString("de-DE") : "Kein Datum gewählt"
+  
 
-    // 3. Der reine Text (ganz normal geschrieben, ohne %0D%0A Codes)
-    const rawBody = `Hallo Team Feinschliff,
+  // NEW: Supabase Booking Logic (Replacing Mailto)
+  const handleBooking = async () => {
+    // 1. Validierung
+    if (!email || !date) {
+      alert("Bitte gib eine E-Mail-Adresse und ein Datum an.")
+      return
+    }
 
-    hiermit bitte ich um Reservierung für folgenden Service:
+    setIsLoading(true)
 
-    PAKET:
-    ${currentService.name} (${currentService.subtitle})
-    Preis: ${currentService.price}€
+    try {
+      // 2. Daten an Supabase senden
+      const { data, error } = await supabase
+        .from('bookings')
+        .insert([
+          { 
+            email: email,
+            service_id: currentService.id,
+            service_name: currentService.name,
+            delivery_option: deliveryOption,
+            booking_date: date,
+            price: totalPrice,
+            status: 'pending' // Standard-Status
+          },
+        ])
+        .select()
 
-    ÜBERGABE:
-    ${deliveryText}
+      if (error) throw error
 
-    WUNSCHTERMIN:
-    ${formattedDate}
-
-    GESAMTPREIS:
-    ${totalPrice}€
-
-    Bitte senden Sie die Bestätigung an meine E-Mail-Adresse:
-    ${email}
-
-    Mit freundlichen Grüßen`
-
-        // 4. Alles sicher für den Link verpacken (Das fixt das "Hol-" Problem)
-        const subject = `Terminanfrage: ${currentService.name}`
-        window.location.href = `mailto:felix.kastner27@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(rawBody)}`
-      }
+      // 3. Erfolg!
+      alert(`Danke! Deine Buchung für den ${new Date(date).toLocaleDateString("de-DE")} wurde empfangen. Wir melden uns per E-Mail (${email}).`)
+      
+      // Formular zurücksetzen (optional)
+      setEmail("")
+      setDate("")
+      
+    } catch (error) {
+      console.error('Error inserting booking:', error)
+      alert("Es gab einen Fehler bei der Buchung. Bitte versuche es später noch einmal.")
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
 
   return (
@@ -260,7 +275,8 @@ export function SlotRegistration() {
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="h-12 lg:h-14 text-base lg:text-lg cursor-pointer bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50"
+                  // FIX: "Transition Hack" verhindert, dass der Browser den Hintergrund ändert. Text wird Weiß erzwungen.
+                  className="h-12 lg:h-14 text-base lg:text-lg cursor-pointer bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50 [transition:background-color_9999s_ease-in-out_0s] [&:-webkit-autofill]:-webkit-text-fill-color:white [&:-webkit-autofill]:bg-transparent"
                   style={{ colorScheme: "dark" }}
                 />
               </div>
@@ -275,7 +291,8 @@ export function SlotRegistration() {
                   placeholder="deine@email.at"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="h-12 lg:h-14 text-base lg:text-lg bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50"
+                  // FIX: "Transition Hack" verhindert, dass der Browser den Hintergrund ändert. Text wird Weiß erzwungen.
+                  className="h-12 lg:h-14 text-base lg:text-lg bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50 [transition:background-color_9999s_ease-in-out_0s] [&:-webkit-autofill]:-webkit-text-fill-color:white [&:-webkit-autofill]:bg-transparent"
                 />
               </div>
             </div>
@@ -372,7 +389,7 @@ export function SlotRegistration() {
                   </AnimatePresence>
                 </div>
 
-                {/* Ticket Footer - Total & Button */}
+                {/* Ticket Footer - Total & Button (New HandleBooking) */}
                 <div className="border-t border-white/10 bg-slate-950/50 p-6 lg:p-8">
                   <div className="flex items-center justify-between mb-4 text-white">
                     <span className="text-base lg:text-xl font-medium">Gesamt</span>
@@ -385,13 +402,25 @@ export function SlotRegistration() {
                       {totalPrice}€
                     </motion.span>
                   </div>
+                  
+                  {/* Button mit Loading State */}
                   <Button
                     size="lg"
+                    disabled={isLoading}
                     className="w-full h-12 lg:h-16 text-base lg:text-xl font-semibold gap-2 bg-white text-slate-950 hover:bg-slate-200 transition-colors"
                     onClick={handleBooking}
                   >
-                    Jetzt buchen
-                    <ArrowRight className="h-5 w-5 lg:h-6 lg:w-6" />
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        Wird gebucht...
+                      </>
+                    ) : (
+                      <>
+                        Jetzt buchen
+                        <ArrowRight className="h-5 w-5 lg:h-6 lg:w-6" />
+                      </>
+                    )}
                   </Button>
                 </div>
               </div>

@@ -46,19 +46,30 @@ export function HowItWorks() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-slate-950 px-6 py-24 lg:py-40">
+    <section id="ablauf"className="relative overflow-hidden bg-slate-950 px-6 py-24 lg:py-40">
       <div className="relative z-10 mx-auto max-w-5xl lg:max-w-7xl">
-        {/* Header */}
-        <div className="mb-16 lg:mb-24 text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-6xl">
-            <span className="bg-gradient-to-r from-slate-400 via-white to-slate-400 bg-clip-text text-transparent">
+        {/* Header (Massive Scale - Fixed Animation) */}
+        <motion.div 
+          className="mb-20 lg:mb-32 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          {/* NEU: Das kleine Feld (Badge) */}
+          <span className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-sm lg:text-base font-medium text-slate-300">
+            Einfacher Ablauf
+          </span>
+
+          <h2 className="text-5xl font-extrabold tracking-tighter sm:text-6xl lg:text-7xl mb-6">
+            <span className="bg-gradient-to-b from-white via-white to-slate-500 bg-clip-text text-transparent drop-shadow-xl">
               Wie es funktioniert
             </span>
           </h2>
-          <p className="mx-auto mt-4 lg:mt-8 max-w-xl lg:max-w-3xl text-slate-400 lg:text-2xl">
+          <p className="mx-auto max-w-2xl lg:max-w-3xl text-slate-400 text-lg lg:text-2xl font-light leading-relaxed">
             In drei einfachen Schritten zu rasiermesserscharfen Klingen.
           </p>
-        </div>
+        </motion.div>
 
         {/* Steps Grid with connecting line */}
         <div className="relative">

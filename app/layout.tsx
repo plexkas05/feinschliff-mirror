@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Felix Website",
-  description: "myfirstwebsite.com - built with Next.js",
+  title: "Feinschliff – professionell knife sharpening service",
+  description: "Austrian knife sharpening service for private and commercial clients.",
 };
 
 export default function RootLayout({
