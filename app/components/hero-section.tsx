@@ -29,21 +29,19 @@ export function HeroSection() {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     },
   }
 
   return (
     <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden bg-slate-950 px-6 py-24 lg:py-40 text-center">
-      {/* Aurora Background Effect */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* Primary gradient orb */}
-        <div className="absolute -top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-r from-slate-800/40 via-slate-600/20 to-slate-800/40 blur-3xl animate-pulse" />
-        {/* Secondary gradient orb */}
-        <div className="absolute -bottom-1/4 -right-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-l from-zinc-700/30 via-slate-500/10 to-transparent blur-3xl" />
-        {/* Accent light beam */}
-        <div className="absolute top-1/4 left-1/4 h-[400px] w-[200px] rotate-45 bg-gradient-to-b from-white/5 via-white/10 to-transparent blur-2xl" />
+      {/* Central Industrial Glow */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
+        {/* Großer, statischer Schein für Tiefe */}
+        <div className="absolute h-[48vw] w-[48vw] min-h-[500px] min-w-[500px] rounded-full bg-slate-800/20 blur-[100px]" />
+        {/* Kleinerer, langsam pulsierender Kern */}
+        <div className="absolute h-[32vw] w-[32vw] min-h-[300px] min-w-[300px] rounded-full bg-slate-700/10 blur-[80px] animate-pulse duration-1000" />
       </div>
 
       {/* Content */}
@@ -105,9 +103,6 @@ export function HeroSection() {
           </Button>
         </motion.div>
       </motion.div>
-
-      {/* Subtle bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   )
 }
