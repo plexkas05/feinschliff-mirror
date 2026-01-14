@@ -75,8 +75,6 @@ export function SlotRegistration() {
 
     hiermit bitte ich um Reservierung für folgenden Service:
 
-    --------------------------------------------------
-
     PAKET:
     ${currentService.name} (${currentService.subtitle})
     Preis: ${currentService.price}€
@@ -90,7 +88,7 @@ export function SlotRegistration() {
     GESAMTPREIS:
     ${totalPrice}€
 
-    --------------------------------------------------
+
 
     Bitte senden Sie die Bestätigung an meine E-Mail-Adresse:
     ${email}
@@ -102,7 +100,7 @@ export function SlotRegistration() {
         window.location.href = `mailto:felix.kastner27@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(rawBody)}`
       }
 
-      
+
   return (
     // FIX 1: Gradient Background (The Seamless Bridge: Dark -> Rich -> Dark)
     <section id="termin" className="relative -mt-1 min-h-screen w-full px-4 py-16 lg:py-24 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
