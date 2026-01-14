@@ -3,11 +3,11 @@ import { Phone, Mail, MapPin, Facebook, Instagram, Twitter } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="relative bg-slate-950 overflow-hidden">
-      {/* Subtle top border */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-      {/* Large watermark text */}
+    // FIX: Changed background to neutral-950 (Matte Black) for visual grounding
+    // FIX: Added border-t border-white/10 for a crisp separation line
+    <footer className="relative bg-neutral-950 border-t border-white/10 overflow-hidden">
+      
+      {/* Large watermark text - Kept for High-End feel */}
       <div className="absolute bottom-0 right-0 pointer-events-none select-none overflow-hidden">
         <span className="text-[20vw] font-bold tracking-tighter text-white/[0.02] leading-none block translate-x-[10%] translate-y-[20%]">
           FEINSCHLIFF
@@ -112,7 +112,7 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-12 lg:mt-20 border-t border-white/10 pt-8 lg:pt-12">
+        <div className="mt-12 lg:mt-20 pt-8 lg:pt-12">
           <p className="text-center text-sm lg:text-lg text-slate-500">© 2026 Feinschliff. Alle Rechte vorbehalten.</p>
         </div>
       </div>

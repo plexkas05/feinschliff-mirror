@@ -66,13 +66,13 @@ export function SlotRegistration() {
   const handleBooking = () => {
     const deliveryText = deliveryOption === "abholung" ? "Abhol- & Lieferservice (+8€)" : "Selbstabgabe (kostenlos)"
     const subject = `Buchung: ${currentService.name} für ${totalPrice}€`
-    const body = `Hallo Felix,%0D%0A%0D%0AIch möchte gerne buchen:%0D%0A%0D%0A━━━━━━━━━━━━━━━━━━━━%0D%0A🔪 SERVICE: ${currentService.name}%0D%0A   ${currentService.subtitle} - ${currentService.price}€%0D%0A%0D%0A🚚 ÜBERGABE: ${deliveryText}%0D%0A%0D%0A📅 DATUM: ${date}%0D%0A%0D%0A💰 GESAMT: ${totalPrice}€%0D%0A━━━━━━━━━━━━━━━━━━━━%0D%0A%0D%0AMeine E-Mail: ${email}%0D%0A%0D%0ABitte um Bestätigung.`
+    const body = `Hallo Felix,%0D%0A%0D%0AIch möchte gerne buchen:%0D%0A%0D%0A━━━━━━━━━━━━━━━━━━━━%0D%0A SERVICE: ${currentService.name}%0D%0A   ${currentService.subtitle} - ${currentService.price}€%0D%0A%0D%0A ÜBERGABE: ${deliveryText}%0D%0A%0D%0A DATUM: ${date}%0D%0A%0D%0A GESAMT: ${totalPrice}€%0D%0A━━━━━━━━━━━━━━━━━━━━%0D%0A%0D%0AMeine E-Mail: ${email}%0D%0A%0D%0ABitte um Bestätigung.`
     window.location.href = `mailto:felix.kastner27@gmail.com?subject=${subject}&body=${body}`
   }
 
   return (
     // FIX 1: Gradient Background (The Seamless Bridge: Dark -> Rich -> Dark)
-    <section id="termin" className="relative min-h-screen w-full px-4 py-16 lg:py-24 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+    <section id="termin" className="relative -mt-1 min-h-screen w-full px-4 py-16 lg:py-24 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
       
       {/* FIX 2: Artistic Spotlight (The Studio Feel) */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-indigo-900/10 rounded-full blur-[120px] pointer-events-none" />
@@ -268,7 +268,7 @@ export function SlotRegistration() {
                     <span className="text-xs lg:text-sm font-medium text-slate-400 uppercase tracking-wider">
                       Deine Buchung
                     </span>
-                    <Zap className="h-4 w-4 lg:h-5 lg:w-5 text-white" />
+                    <Zap className="h-4 w-4 lg:h-5 lg:w-5 text-amber-300 fill-amber-300/20" />
                   </div>
                 </div>
 
@@ -368,9 +368,9 @@ export function SlotRegistration() {
               </div>
 
               {/* Trust Indicators */}
-              <div className="flex flex-wrap justify-center gap-4 mt-6 text-sm text-slate-500">
+              <div className="flex flex-wrap justify-center gap-4 mt-6 text-l text-slate-500">
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <div className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse" />
                   Antwort binnen 24h
                 </div>
                 <div className="flex items-center gap-2">
