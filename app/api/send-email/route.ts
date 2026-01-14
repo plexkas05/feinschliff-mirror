@@ -5,17 +5,17 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
-    const { email, serviceName, date, price, deliveryOption, address } = await request.json();
+    // JETZT AUCH PHONE EMPFANGEN
+    const { email, serviceName, date, price, deliveryOption, address, phone } = await request.json();
 
     const deliveryText = deliveryOption === "abholung" ? "Hol- & Bringservice" : "Selbstabgabe";
 
-    // Dynamischer Text für den Ablauf
     let nextSteps = "";
     if (deliveryOption === "abholung") {
       nextSteps = `
         <p style="background-color: #f0fdf4; padding: 10px; border-radius: 5px; border-left: 4px solid #16a34a; color: #166534;">
           <strong>Nächster Schritt:</strong><br>
-          Wir rufen dich unter deiner Nummer an, um die genaue Abholzeit (ca. +/- 30min) zu vereinbaren.
+          Wir rufen dich unter <strong>${phone}</strong> an, um die genaue Abholzeit (ca. +/- 30min) zu vereinbaren.
         </p>
         <p><strong>Abholadresse:</strong> ${address}</p>
       `;
