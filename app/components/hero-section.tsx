@@ -2,115 +2,100 @@
 
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Sparkles, Star } from "lucide-react"
 
 export function HeroSection() {
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-    }
-  }
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94] as const,
-      },
-    },
+  const scrollToBooking = () => {
+    document.getElementById("termin")?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
-    <section className="relative flex min-h-[95vh] flex-col items-center justify-center overflow-hidden bg-slate-950 px-6 py-24 lg:py-40 text-center">
+    // PADDING UPDATE: pt-32 statt pt-40, pb-16 statt pb-32
+    <section className="relative min-h-[90vh] flex items-center justify-center pt-32 pb-16 px-4 overflow-hidden">
       
-      {/* 1. Background: Central Industrial Glow (Dezent & Mittig) */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
-        {/* Großer Schein: 48vw */}
-        <div className="absolute h-[40vw] w-[40vw] min-h-[400px] min-w-[400px] rounded-full bg-slate-800/20 blur-[100px]" />
-        {/* Pulsierender Kern: 32vw */}
-        <div className="absolute h-[25vw] w-[25vw] min-h-[240px] min-w-[240px] rounded-full bg-slate-700/10 blur-[80px] animate-pulse duration-1000" />
-      </div>
+      {/* Background Ambience */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950 -z-10" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-indigo-500/10 rounded-full blur-[120px] -z-10" />
 
-
-      {/* Content */}
-      <motion.div
-        className="relative z-10 max-w-4xl lg:max-w-6xl space-y-8 lg:space-y-12"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.div variants={itemVariants}>
-          <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-4 py-1.5 lg:px-8 lg:py-2.5 text-sm lg:text-base font-medium text-slate-300 tracking-wide">
-            Professioneller Messerschleifservice
-          </div>
+      <div className="container mx-auto max-w-5xl text-center z-10">
+        
+        {/* Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs md:text-sm text-slate-300 mb-6 backdrop-blur-sm"
+        >
+          <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+          Jetzt Termine für Graz & Umgebung verfügbar
         </motion.div>
 
-        {/* Headline: Massive Scale */}
+        {/* Headline: FONT SIZE UPDATE: text-4xl/text-6xl statt text-5xl/text-7xl */}
         <motion.h1
-          variants={itemVariants}
-          className="text-balance text-6xl font-extrabold tracking-tighter sm:text-7xl md:text-6xl lg:text-9xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight"
         >
-          <span className="text-white block mb-2 lg:mb-4">Willkommen bei</span>
-          <span className="bg-gradient-to-b from-white via-slate-200 to-slate-500 bg-clip-text text-transparent drop-shadow-2xl">
-            FEINSCHLIFF
+          Gib deinen Messern <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-white to-rose-200 animate-gradient-x">
+            den ultimativen Schliff.
           </span>
         </motion.h1>
 
-        {/* Subheadline: Improved Readability */}
+        {/* Subtitle: FONT SIZE UPDATE: text-base/text-lg statt text-xl */}
         <motion.p
-          variants={itemVariants}
-          className="mx-auto max-w-2xl lg:max-w-4xl text-pretty text-xl text-slate-300 sm:text-2xl lg:text-3xl font-light leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed"
         >
-          Wir bringen Ihre Messer wieder auf Höchstleistung. <br className="hidden md:block"/>
-          Präzise, zuverlässig und mit Leidenschaft für Qualität.
+          Professioneller Nassschliff für deine Küchenmesser. <br className="hidden md:block" />
+          Scharf wie am ersten Tag – oder schärfer. Abholung oder Bringservice.
         </motion.p>
 
-        {/* Buttons: High Contrast Ecosystem */}
+        {/* Buttons */}
         <motion.div
-          variants={itemVariants}
-          className="flex flex-col items-center gap-4 lg:gap-6 sm:flex-row sm:justify-center pt-4 lg:pt-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          {/* Secondary: Glassmorphic (Preise) */}
-          <Button
-            variant="outline"
-            size="lg"
-            // HIER GEÄNDERT: h-16/h-20, text-lg/xl, px-8/12
-            className="w-full sm:w-auto h-16 lg:h-20 px-8 lg:px-12 text-lg lg:text-xl border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-white/20 hover:text-white transition-all duration-300"
-            onClick={() => scrollToSection("preise")}
+          {/* SIZE UPDATE: h-10/text-sm statt h-12/text-base */}
+          <Button 
+            size="lg" 
+            onClick={scrollToBooking}
+            className="h-12 px-8 text-base bg-white text-slate-950 hover:bg-slate-200 transition-all font-semibold rounded-full group w-full sm:w-auto"
           >
-            Unsere Preise
+            Termin vereinbaren
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
-
-          {/* Primary: Solid White (Termin) - HIER WAR VORHER DER FALSCHE STYLE DRIN */}
-          <Button
-            variant="outline"
-            size="lg"
-            // HIER GEÄNDERT: h-16/h-20, text-lg/xl, px-8/12 und bg-white (Inverted)
-            className="w-full sm:w-auto h-16 lg:h-20 px-8 lg:px-12 text-lg lg:text-xl border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-white/20 hover:text-white transition-all duration-300"
-            onClick={() => scrollToSection("termin")}
-          >
-            Termin buchen
-          </Button>
+          
+          <div className="flex items-center gap-4 px-4 py-2">
+            <div className="flex -space-x-3">
+               {[1, 2, 3].map((i) => (
+                 <div key={i} className="h-8 w-8 rounded-full border-2 border-slate-950 bg-slate-800 flex items-center justify-center text-xs text-white">
+                    <UserIcon size={12} />
+                 </div>
+               ))}
+            </div>
+            <div className="text-left">
+              <div className="flex items-center gap-1">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs text-slate-500 font-medium">100+ zufriedene Köche</p>
+            </div>
+          </div>
         </motion.div>
-      </motion.div>
-
-      {/* Smooth Blend to next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-slate-950 pointer-events-none" />
+      </div>
     </section>
   )
+}
+
+function UserIcon({ size }: { size: number }) {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    )
 }

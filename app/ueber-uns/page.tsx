@@ -33,7 +33,7 @@ export default function AboutPage() {
             <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
               Wir glauben daran, dass ein scharfes Messer nicht nur ein Werkzeug ist, 
               sondern die Freude am Kochen zurückbringt. Unser Ziel ist es jedes stumpfe Messer
-              aus euren Küchen wieder in eine scharfe Klinge zu verwandeln – präzise, zuverlässig und mit höchster Sorgfalt.
+              aus euren Küchen wieder in eine scharfe Klinge zu verwandeln.
 
             </p>
           </motion.div>
