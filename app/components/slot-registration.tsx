@@ -4,7 +4,7 @@ import { useState, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Calendar, Mail, Sparkles, Truck, CheckCircle2, Store, Clock, ArrowRight, Zap, Loader2 } from "lucide-react"
+import { Calendar, Mail, Sparkles, Truck, CheckCircle2, Store, Clock, ArrowRight, Zap, Loader2, MapPin } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { supabase } from "@/lib/supabase"
 import { useRouter } from "next/navigation" 
@@ -43,10 +43,13 @@ export function SlotRegistration() {
   const router = useRouter()
   const [email, setEmail] = useState("")
   const [date, setDate] = useState("")
+  // NEW: Address State
+  const [address, setAddress] = useState("")
+  const [zipCity, setZipCity] = useState("")
+  
   const [serviceId, setServiceId] = useState("grundschliff")
   const [deliveryOption, setDeliveryOption] = useState<"selbst" | "abholung">("selbst")
   
-  // Loading State
   const [isLoading, setIsLoading] = useState(false)
 
   // Get current service
@@ -77,9 +80,18 @@ export function SlotRegistration() {
       return
     }
 
+    // Validierung Adresse bei Abholung
+    if (deliveryOption === "abholung" && (!address || !zipCity)) {
+      alert("Für den Hol-Service benötigen wir deine Adresse.")
+      return
+    }
+
     setIsLoading(true)
 
     try {
+      // Adresse zusammenbauen
+      const fullAddress = deliveryOption === "abholung" ? `${address}, ${zipCity}` : null
+
       // 2. Daten an Supabase senden
       const { data, error } = await supabase
         .from('bookings')
@@ -91,14 +103,15 @@ export function SlotRegistration() {
             delivery_option: deliveryOption,
             booking_date: date,
             price: totalPrice,
-            status: 'pending' // Standard-Status
+            status: 'pending',
+            address: fullAddress // Neue Spalte!
           },
         ])
         .select()
 
       if (error) throw error
 
-      // --- NEU: E-Mail senden ---
+      // 3. E-Mail senden (API Route)
       await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -107,11 +120,12 @@ export function SlotRegistration() {
           serviceName: currentService.name,
           date: new Date(date).toLocaleDateString("de-DE"),
           price: totalPrice,
-          deliveryOption: deliveryOption
+          deliveryOption: deliveryOption,
+          address: fullAddress // Adresse mitgeben
         })
       });
 
-      // 3. Erfolg -> Weiterleitung
+      // 4. Erfolg -> Weiterleitung
       const formattedDate = new Date(date).toLocaleDateString("de-DE")
       const params = new URLSearchParams({
         date: formattedDate,
@@ -139,7 +153,7 @@ export function SlotRegistration() {
 
       <div className="relative z-10 mx-auto max-w-6xl">
         
-        {/* Header - MATCHING 'HOW IT WORKS' & 'PRICING' EXACTLY */}
+        {/* Header */}
         <div className="text-center mb-12 lg:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -151,7 +165,6 @@ export function SlotRegistration() {
             Schnelle Terminbuchung
           </motion.div>
           
-          {/* UPDATED: text-4xl/5xl/6xl to match other sections */}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -162,13 +175,12 @@ export function SlotRegistration() {
             Termin buchen
           </motion.h2>
           
-          {/* UPDATED: text-base/lg/xl to match other sections */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mx-auto max-w-2xl lg:max-w-3xl text-slate-400 text-lg lg:text-xl font-light leading-relaxed"
+            className="text-slate-400 text-base lg:text-xl max-w-xl mx-auto"
           >
             Wähle deinen Service und buche in unter 60 Sekunden.
           </motion.p>
@@ -282,12 +294,43 @@ export function SlotRegistration() {
               </div>
             </div>
 
+            {/* ADRESSFELDER (Conditional Animation) */}
+            <AnimatePresence>
+              {deliveryOption === "abholung" && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="space-y-3 overflow-hidden"
+                >
+                   <Label className="text-sm lg:text-lg font-semibold flex items-center gap-2 text-slate-200">
+                    <MapPin className="h-4 w-4 text-white" />
+                    Deine Adresse
+                  </Label>
+                  <div className="grid gap-3">
+                    <Input
+                      placeholder="Straße & Hausnummer"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      className="h-10 lg:h-12 text-sm lg:text-base bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50"
+                    />
+                    <Input
+                      placeholder="PLZ & Ort"
+                      value={zipCity}
+                      onChange={(e) => setZipCity(e.target.value)}
+                      className="h-10 lg:h-12 text-sm lg:text-base bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50"
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {/* Date & Email Fields */}
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <Label htmlFor="date" className="text-sm lg:text-base font-medium flex items-center gap-2 text-slate-300">
                   <Calendar className="h-4 w-4 text-slate-400" />
-                  {deliveryOption === "selbst" ? "Abgabedatum" : "Abholtermin"}
+                  {deliveryOption === "selbst" ? "Abgabedatum" : "Wunsch-Abholtag"}
                 </Label>
                 <Input
                   id="date"
@@ -420,7 +463,7 @@ export function SlotRegistration() {
                     </motion.span>
                   </div>
                   
-                  {/* Button mit Loading State - KOMPAKTER (h-10/12 und text-sm/base) */}
+                  {/* Button */}
                   <Button
                     size="lg"
                     disabled={isLoading}
