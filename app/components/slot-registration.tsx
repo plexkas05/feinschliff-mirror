@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Calendar, Mail, Sparkles, Truck, CheckCircle2, Store, Clock, ArrowRight, Zap, Loader2 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { supabase } from "@/lib/supabase"
+import { useRouter } from "next/navigation" 
 
 
 // Service definitions
@@ -37,6 +38,8 @@ const services = [
     icon: "✨",
   },
 ]
+
+const router = useRouter()
 
 export function SlotRegistration() {
   const [email, setEmail] = useState("")
@@ -98,12 +101,20 @@ export function SlotRegistration() {
 
       if (error) throw error
 
-      // 3. Erfolg!
-      alert(`Danke! Deine Buchung für den ${new Date(date).toLocaleDateString("de-DE")} wurde empfangen. Wir melden uns per E-Mail (${email}).`)
+      // 3. Erfolg -> Weiterleitung zur Success Page (Receipt)
+      // Wir formatieren das Datum kurz für die URL
+      const formattedDate = new Date(date).toLocaleDateString("de-DE")
       
-      // Formular zurücksetzen (optional)
-      setEmail("")
-      setDate("")
+      // URL Parameter bauen
+      const params = new URLSearchParams({
+        date: formattedDate,
+        service: currentService.name,
+        price: totalPrice.toString(),
+        email: email
+      })
+
+      // Weiterleiten
+      router.push(`/success?${params.toString()}`)
       
     } catch (error) {
       console.error('Error inserting booking:', error)
