@@ -46,7 +46,7 @@ export function SlotRegistration() {
   const [serviceId, setServiceId] = useState("grundschliff")
   const [deliveryOption, setDeliveryOption] = useState<"selbst" | "abholung">("selbst")
   
-  // NEW: Loading State
+  // Loading State
   const [isLoading, setIsLoading] = useState(false)
 
   // Get current service
@@ -118,19 +118,16 @@ export function SlotRegistration() {
 
 
   return (
-    // SCALING: py-16/24 -> py-12/20
     <section id="termin" className="relative -mt-1 min-h-screen w-full px-4 py-12 lg:py-20 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
       
       {/* Background Ambience */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-900/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-slate-950 to-transparent pointer-events-none" />
 
-      {/* SCALING: max-w-7xl -> max-w-6xl */}
       <div className="relative z-10 mx-auto max-w-6xl">
         
-        {/* Header */}
-        {/* SCALING: mb-12/16 -> mb-10/12 */}
-        <div className="text-center mb-10 lg:mb-14">
+        {/* Header - MATCHING 'HOW IT WORKS' & 'PRICING' EXACTLY */}
+        <div className="text-center mb-12 lg:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -140,43 +137,43 @@ export function SlotRegistration() {
             <Clock className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
             Schnelle Terminbuchung
           </motion.div>
-          {/* SCALING: text-3xl/6xl -> text-3xl/5xl */}
+          
+          {/* UPDATED: text-4xl/5xl/6xl to match other sections */}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-3 text-white"
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 text-white"
           >
             Termin buchen
           </motion.h2>
-          {/* SCALING: text-base/xl -> text-sm/lg */}
+          
+          {/* UPDATED: text-base/lg/xl to match other sections */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-slate-400 text-sm lg:text-lg max-w-xl mx-auto"
+            className="text-slate-400 text-base lg:text-xl max-w-xl mx-auto"
           >
             Wähle deinen Service und buche in unter 60 Sekunden.
           </motion.p>
         </div>
 
         {/* Split View Layout */}
-        {/* SCALING: gap-8/12 -> gap-8/10 */}
         <div className="grid lg:grid-cols-5 gap-8 lg:gap-10">
           
-          {/* Left Side: Controls (3 columns) */}
+          {/* Left Side: Controls */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="lg:col-span-3 space-y-6" // space-y-8 -> space-y-6
+            className="lg:col-span-3 space-y-6"
           >
             {/* Service Selection */}
             <div className="space-y-3">
-              {/* SCALING: text-base/xl -> text-sm/lg */}
               <Label className="text-sm lg:text-lg font-semibold flex items-center gap-2 text-slate-200">
                 <Sparkles className="h-4 w-4 text-white" />
                 Was möchtest du schleifen lassen?
@@ -188,7 +185,6 @@ export function SlotRegistration() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setServiceId(service.id)}
-                    // SCALING: p-4/6 -> p-3/5
                     className={`
                       relative cursor-pointer rounded-xl border-2 p-3 lg:p-5 transition-all duration-300 backdrop-blur-sm
                       ${
@@ -203,11 +199,9 @@ export function SlotRegistration() {
                         <CheckCircle2 className="h-5 w-5 lg:h-5 lg:w-5 text-white" />
                       </motion.div>
                     )}
-                    {/* SCALING: text-2xl/3xl -> text-xl/2xl */}
                     <div className="text-xl lg:text-2xl mb-2">{service.icon}</div>
                     <h3 className="font-semibold text-sm lg:text-base text-slate-200">{service.name}</h3>
                     <p className="text-xs text-slate-400">{service.subtitle}</p>
-                    {/* SCALING: text-xl/2xl -> text-lg/xl */}
                     <p className="mt-1 text-lg lg:text-xl font-bold text-white">{service.price}€</p>
                   </motion.div>
                 ))}
@@ -225,7 +219,6 @@ export function SlotRegistration() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setDeliveryOption("selbst")}
-                  // SCALING: p-4/6 -> p-3/5
                   className={`
                     relative cursor-pointer rounded-xl border-2 p-3 lg:p-5 transition-all duration-300 backdrop-blur-sm
                     ${
@@ -240,7 +233,6 @@ export function SlotRegistration() {
                       <CheckCircle2 className="h-5 w-5 lg:h-5 lg:w-5 text-white" />
                     </motion.div>
                   )}
-                  {/* SCALING: h-6/8 -> h-5/7 */}
                   <Store
                     className={`h-5 w-5 lg:h-7 lg:w-7 mb-2 ${deliveryOption === "selbst" ? "text-white" : "text-slate-500"}`}
                   />
@@ -289,7 +281,6 @@ export function SlotRegistration() {
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  // SCALING: h-12/14 -> h-10/12, text-base/lg -> text-sm/base
                   className="h-10 lg:h-12 text-sm lg:text-base cursor-pointer bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50 [transition:background-color_9999s_ease-in-out_0s] [&:-webkit-autofill]:-webkit-text-fill-color:white [&:-webkit-autofill]:bg-transparent"
                   style={{ colorScheme: "dark" }}
                 />
@@ -305,7 +296,6 @@ export function SlotRegistration() {
                   placeholder="deine@email.at"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  // SCALING: h-10/12
                   className="h-10 lg:h-12 text-sm lg:text-base bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50 [transition:background-color_9999s_ease-in-out_0s] [&:-webkit-autofill]:-webkit-text-fill-color:white [&:-webkit-autofill]:bg-transparent"
                 />
               </div>
@@ -323,7 +313,6 @@ export function SlotRegistration() {
             <div className="lg:sticky lg:top-8">
               <div className="rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-md shadow-2xl overflow-hidden">
                 {/* Ticket Header */}
-                {/* SCALING: px-6/8 py-4/6 -> px-5/6 py-3/5 */}
                 <div className="bg-white/5 border-b border-white/10 px-5 py-3 lg:px-6 lg:py-5">
                   <div className="flex items-center justify-between">
                     <span className="text-xs lg:text-sm font-medium text-slate-400 uppercase tracking-wider">
@@ -334,13 +323,11 @@ export function SlotRegistration() {
                 </div>
 
                 {/* Ticket Body */}
-                {/* SCALING: p-6/8 -> p-5/6 */}
                 <div className="p-5 lg:p-6 space-y-5">
                   {/* Service */}
                   <div className="space-y-1">
                     <span className="text-xs text-slate-500 uppercase tracking-wider">Service</span>
                     <motion.div layout className="flex items-center justify-between text-slate-200">
-                      {/* SCALING: text-base/xl -> text-sm/lg */}
                       <span className="font-semibold text-sm lg:text-lg">{currentService.name}</span>
                       <span className="font-bold text-sm lg:text-lg text-white">{currentService.price}€</span>
                     </motion.div>
@@ -374,7 +361,6 @@ export function SlotRegistration() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        // SCALING: p-4/5 -> p-3/4
                         className="rounded-xl bg-slate-950/50 border border-white/20 p-3 lg:p-4"
                       >
                         <span className="text-xs text-slate-300 font-medium uppercase tracking-wider">
@@ -384,7 +370,6 @@ export function SlotRegistration() {
                           key={completionInfo.dateString}
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          // SCALING: text-xl/3xl -> text-lg/2xl
                           className="text-lg lg:text-2xl font-bold text-white mt-1"
                         >
                           {completionInfo.dateString}
@@ -409,7 +394,6 @@ export function SlotRegistration() {
                 </div>
 
                 {/* Ticket Footer */}
-                {/* SCALING: p-6/8 -> p-5/6 */}
                 <div className="border-t border-white/10 bg-slate-950/50 p-5 lg:p-6">
                   <div className="flex items-center justify-between mb-4 text-white">
                     <span className="text-sm lg:text-lg font-medium">Gesamt</span>
@@ -417,19 +401,17 @@ export function SlotRegistration() {
                       key={totalPrice}
                       initial={{ scale: 1.2, color: "white" }}
                       animate={{ scale: 1, color: "white" }}
-                      // SCALING: text-2xl/4xl -> text-xl/3xl
                       className="text-xl lg:text-3xl font-bold"
                     >
                       {totalPrice}€
                     </motion.span>
                   </div>
                   
-                  {/* Button mit Loading State */}
-                  {/* SCALING: h-12/16 -> h-11/14, text-base/xl -> text-sm/lg */}
+                  {/* Button mit Loading State - KOMPAKTER (h-10/12 und text-sm/base) */}
                   <Button
                     size="lg"
                     disabled={isLoading}
-                    className="w-full h-11 lg:h-14 text-sm lg:text-lg font-semibold gap-2 bg-white text-slate-950 hover:bg-slate-200 transition-colors"
+                    className="w-full h-10 lg:h-12 text-sm lg:text-base font-semibold gap-2 bg-white text-slate-950 hover:bg-slate-200 transition-colors"
                     onClick={handleBooking}
                   >
                     {isLoading ? (
