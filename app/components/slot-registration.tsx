@@ -39,8 +39,6 @@ const services = [
   },
 ]
 
-
-
 export function SlotRegistration() {
   const router = useRouter()
   const [email, setEmail] = useState("")
@@ -71,9 +69,7 @@ export function SlotRegistration() {
     }
   }, [date, currentService.type])
 
-  
-
-  // NEW: Supabase Booking Logic (Replacing Mailto)
+  // Supabase Booking Logic
   const handleBooking = async () => {
     // 1. Validierung
     if (!email || !date) {
@@ -102,19 +98,14 @@ export function SlotRegistration() {
 
       if (error) throw error
 
-      // 3. Erfolg -> Weiterleitung zur Success Page (Receipt)
-      // Wir formatieren das Datum kurz für die URL
+      // 3. Erfolg -> Weiterleitung
       const formattedDate = new Date(date).toLocaleDateString("de-DE")
-      
-      // URL Parameter bauen
       const params = new URLSearchParams({
         date: formattedDate,
         service: currentService.name,
         price: totalPrice.toString(),
         email: email
       })
-
-      // Weiterleiten
       router.push(`/success?${params.toString()}`)
       
     } catch (error) {
@@ -127,61 +118,67 @@ export function SlotRegistration() {
 
 
   return (
-    // FIX 1: Gradient Background (The Seamless Bridge: Dark -> Rich -> Dark)
-    <section id="termin" className="relative -mt-1 min-h-screen w-full px-4 py-16 lg:py-24 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+    // SCALING: py-16/24 -> py-12/20
+    <section id="termin" className="relative -mt-1 min-h-screen w-full px-4 py-12 lg:py-20 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
       
-      {/* FIX 2: Artistic Spotlight (The Studio Feel) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-indigo-900/10 rounded-full blur-[120px] pointer-events-none" />
-
-      {/* Top transition smoother */}
+      {/* Background Ambience */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-900/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-slate-950 to-transparent pointer-events-none" />
 
-      <div className="relative z-10 mx-auto max-w-7xl">
+      {/* SCALING: max-w-7xl -> max-w-6xl */}
+      <div className="relative z-10 mx-auto max-w-6xl">
+        
         {/* Header */}
-        <div className="text-center mb-12 lg:mb-16">
+        {/* SCALING: mb-12/16 -> mb-10/12 */}
+        <div className="text-center mb-10 lg:mb-14">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm lg:text-base text-slate-300 mb-6 backdrop-blur-sm"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs lg:text-sm text-slate-300 mb-5 backdrop-blur-sm"
           >
-            <Clock className="h-4 w-4 lg:h-5 lg:w-5" />
+            <Clock className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
             Schnelle Terminbuchung
           </motion.div>
+          {/* SCALING: text-3xl/6xl -> text-3xl/5xl */}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight mb-4 text-white"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-3 text-white"
           >
             Termin buchen
           </motion.h2>
+          {/* SCALING: text-base/xl -> text-sm/lg */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-slate-400 text-base lg:text-xl max-w-xl mx-auto"
+            className="text-slate-400 text-sm lg:text-lg max-w-xl mx-auto"
           >
             Wähle deinen Service und buche in unter 60 Sekunden.
           </motion.p>
         </div>
 
         {/* Split View Layout */}
-        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
+        {/* SCALING: gap-8/12 -> gap-8/10 */}
+        <div className="grid lg:grid-cols-5 gap-8 lg:gap-10">
+          
           {/* Left Side: Controls (3 columns) */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="lg:col-span-3 space-y-8"
+            className="lg:col-span-3 space-y-6" // space-y-8 -> space-y-6
           >
-            {/* Service Selection - Card Grid */}
-            <div className="space-y-4">
-              <Label className="text-base lg:text-xl font-semibold flex items-center gap-2 text-slate-200">
-                <Sparkles className="h-5 w-5 text-white" />
+            {/* Service Selection */}
+            <div className="space-y-3">
+              {/* SCALING: text-base/xl -> text-sm/lg */}
+              <Label className="text-sm lg:text-lg font-semibold flex items-center gap-2 text-slate-200">
+                <Sparkles className="h-4 w-4 text-white" />
                 Was möchtest du schleifen lassen?
               </Label>
               <div className="grid grid-cols-2 gap-3 lg:gap-4">
@@ -191,8 +188,9 @@ export function SlotRegistration() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setServiceId(service.id)}
+                    // SCALING: p-4/6 -> p-3/5
                     className={`
-                      relative cursor-pointer rounded-xl border-2 p-4 lg:p-6 transition-all duration-300 backdrop-blur-sm
+                      relative cursor-pointer rounded-xl border-2 p-3 lg:p-5 transition-all duration-300 backdrop-blur-sm
                       ${
                         serviceId === service.id
                           ? "border-white bg-slate-900/40 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
@@ -202,22 +200,24 @@ export function SlotRegistration() {
                   >
                     {serviceId === service.id && (
                       <motion.div layoutId="service-check" className="absolute top-3 right-3">
-                        <CheckCircle2 className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
+                        <CheckCircle2 className="h-5 w-5 lg:h-5 lg:w-5 text-white" />
                       </motion.div>
                     )}
-                    <div className="text-2xl lg:text-3xl mb-2">{service.icon}</div>
-                    <h3 className="font-semibold text-sm lg:text-lg text-slate-200">{service.name}</h3>
-                    <p className="text-xs lg:text-sm text-slate-400">{service.subtitle}</p>
-                    <p className="mt-2 text-xl lg:text-2xl font-bold text-white">{service.price}€</p>
+                    {/* SCALING: text-2xl/3xl -> text-xl/2xl */}
+                    <div className="text-xl lg:text-2xl mb-2">{service.icon}</div>
+                    <h3 className="font-semibold text-sm lg:text-base text-slate-200">{service.name}</h3>
+                    <p className="text-xs text-slate-400">{service.subtitle}</p>
+                    {/* SCALING: text-xl/2xl -> text-lg/xl */}
+                    <p className="mt-1 text-lg lg:text-xl font-bold text-white">{service.price}€</p>
                   </motion.div>
                 ))}
               </div>
             </div>
 
-            {/* Delivery Options - Toggle Cards */}
-            <div className="space-y-4">
-              <Label className="text-base lg:text-xl font-semibold flex items-center gap-2 text-slate-200">
-                <Truck className="h-5 w-5 text-white" />
+            {/* Delivery Options */}
+            <div className="space-y-3">
+              <Label className="text-sm lg:text-lg font-semibold flex items-center gap-2 text-slate-200">
+                <Truck className="h-4 w-4 text-white" />
                 Wie kommen die Messer zu mir?
               </Label>
               <div className="grid grid-cols-2 gap-3 lg:gap-4">
@@ -225,8 +225,9 @@ export function SlotRegistration() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setDeliveryOption("selbst")}
+                  // SCALING: p-4/6 -> p-3/5
                   className={`
-                    relative cursor-pointer rounded-xl border-2 p-4 lg:p-6 transition-all duration-300 backdrop-blur-sm
+                    relative cursor-pointer rounded-xl border-2 p-3 lg:p-5 transition-all duration-300 backdrop-blur-sm
                     ${
                       deliveryOption === "selbst"
                         ? "border-white bg-slate-900/40 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
@@ -236,15 +237,16 @@ export function SlotRegistration() {
                 >
                   {deliveryOption === "selbst" && (
                     <motion.div layoutId="delivery-check" className="absolute top-3 right-3">
-                      <CheckCircle2 className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
+                      <CheckCircle2 className="h-5 w-5 lg:h-5 lg:w-5 text-white" />
                     </motion.div>
                   )}
+                  {/* SCALING: h-6/8 -> h-5/7 */}
                   <Store
-                    className={`h-6 w-6 lg:h-8 lg:w-8 mb-2 ${deliveryOption === "selbst" ? "text-white" : "text-slate-500"}`}
+                    className={`h-5 w-5 lg:h-7 lg:w-7 mb-2 ${deliveryOption === "selbst" ? "text-white" : "text-slate-500"}`}
                   />
-                  <h3 className="font-semibold text-sm lg:text-lg text-slate-200">Selbstabgabe</h3>
-                  <p className="text-xs lg:text-sm text-slate-400">Du bringst sie vorbei</p>
-                  <p className="mt-2 text-sm lg:text-base font-semibold text-emerald-400">Kostenlos</p>
+                  <h3 className="font-semibold text-sm lg:text-base text-slate-200">Selbstabgabe</h3>
+                  <p className="text-xs text-slate-400">Du bringst sie vorbei</p>
+                  <p className="mt-1 text-sm font-semibold text-emerald-400">Kostenlos</p>
                 </motion.div>
 
                 <motion.div
@@ -252,7 +254,7 @@ export function SlotRegistration() {
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setDeliveryOption("abholung")}
                   className={`
-                    relative cursor-pointer rounded-xl border-2 p-4 lg:p-6 transition-all duration-300 backdrop-blur-sm
+                    relative cursor-pointer rounded-xl border-2 p-3 lg:p-5 transition-all duration-300 backdrop-blur-sm
                     ${
                       deliveryOption === "abholung"
                         ? "border-white bg-slate-900/40 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
@@ -262,22 +264,22 @@ export function SlotRegistration() {
                 >
                   {deliveryOption === "abholung" && (
                     <motion.div layoutId="delivery-check" className="absolute top-3 right-3">
-                      <CheckCircle2 className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
+                      <CheckCircle2 className="h-5 w-5 lg:h-5 lg:w-5 text-white" />
                     </motion.div>
                   )}
                   <Truck
-                    className={`h-6 w-6 lg:h-8 lg:w-8 mb-2 ${deliveryOption === "abholung" ? "text-white" : "text-slate-500"}`}
+                    className={`h-5 w-5 lg:h-7 lg:w-7 mb-2 ${deliveryOption === "abholung" ? "text-white" : "text-slate-500"}`}
                   />
-                  <h3 className="font-semibold text-sm lg:text-lg text-slate-200">Hol & Bring</h3>
-                  <p className="text-xs lg:text-sm text-slate-400">Bequem von zuhause</p>
-                  <p className={`mt-2 text-sm lg:text-base font-semibold ${deliveryOption === "abholung" ? "text-white" : "text-white/60"}`}>+ 8€</p>
+                  <h3 className="font-semibold text-sm lg:text-base text-slate-200">Hol & Bring</h3>
+                  <p className="text-xs text-slate-400">Bequem von zuhause</p>
+                  <p className={`mt-1 text-sm font-semibold ${deliveryOption === "abholung" ? "text-white" : "text-white/60"}`}>+ 8€</p>
                 </motion.div>
               </div>
             </div>
 
             {/* Date & Email Fields */}
-            <div className="grid sm:grid-cols-2 gap-4 lg:gap-6">
-              <div className="space-y-2">
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
                 <Label htmlFor="date" className="text-sm lg:text-base font-medium flex items-center gap-2 text-slate-300">
                   <Calendar className="h-4 w-4 text-slate-400" />
                   {deliveryOption === "selbst" ? "Abgabedatum" : "Abholtermin"}
@@ -287,12 +289,12 @@ export function SlotRegistration() {
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  // FIX: "Transition Hack" verhindert, dass der Browser den Hintergrund ändert. Text wird Weiß erzwungen.
-                  className="h-12 lg:h-14 text-base lg:text-lg cursor-pointer bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50 [transition:background-color_9999s_ease-in-out_0s] [&:-webkit-autofill]:-webkit-text-fill-color:white [&:-webkit-autofill]:bg-transparent"
+                  // SCALING: h-12/14 -> h-10/12, text-base/lg -> text-sm/base
+                  className="h-10 lg:h-12 text-sm lg:text-base cursor-pointer bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50 [transition:background-color_9999s_ease-in-out_0s] [&:-webkit-autofill]:-webkit-text-fill-color:white [&:-webkit-autofill]:bg-transparent"
                   style={{ colorScheme: "dark" }}
                 />
               </div>
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <Label htmlFor="email" className="text-sm lg:text-base font-medium flex items-center gap-2 text-slate-300">
                   <Mail className="h-4 w-4 text-slate-400" />
                   E-Mail Adresse
@@ -303,8 +305,8 @@ export function SlotRegistration() {
                   placeholder="deine@email.at"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  // FIX: "Transition Hack" verhindert, dass der Browser den Hintergrund ändert. Text wird Weiß erzwungen.
-                  className="h-12 lg:h-14 text-base lg:text-lg bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50 [transition:background-color_9999s_ease-in-out_0s] [&:-webkit-autofill]:-webkit-text-fill-color:white [&:-webkit-autofill]:bg-transparent"
+                  // SCALING: h-10/12
+                  className="h-10 lg:h-12 text-sm lg:text-base bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50 [transition:background-color_9999s_ease-in-out_0s] [&:-webkit-autofill]:-webkit-text-fill-color:white [&:-webkit-autofill]:bg-transparent"
                 />
               </div>
             </div>
@@ -321,38 +323,41 @@ export function SlotRegistration() {
             <div className="lg:sticky lg:top-8">
               <div className="rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-md shadow-2xl overflow-hidden">
                 {/* Ticket Header */}
-                <div className="bg-white/5 border-b border-white/10 px-6 py-4 lg:px-8 lg:py-6">
+                {/* SCALING: px-6/8 py-4/6 -> px-5/6 py-3/5 */}
+                <div className="bg-white/5 border-b border-white/10 px-5 py-3 lg:px-6 lg:py-5">
                   <div className="flex items-center justify-between">
                     <span className="text-xs lg:text-sm font-medium text-slate-400 uppercase tracking-wider">
                       Deine Buchung
                     </span>
-                    <Zap className="h-4 w-4 lg:h-5 lg:w-5 text-amber-300 fill-amber-300/20" />
+                    <Zap className="h-4 w-4 text-amber-300 fill-amber-300/20" />
                   </div>
                 </div>
 
                 {/* Ticket Body */}
-                <div className="p-6 lg:p-8 space-y-6">
+                {/* SCALING: p-6/8 -> p-5/6 */}
+                <div className="p-5 lg:p-6 space-y-5">
                   {/* Service */}
                   <div className="space-y-1">
-                    <span className="text-xs lg:text-sm text-slate-500 uppercase tracking-wider">Service</span>
+                    <span className="text-xs text-slate-500 uppercase tracking-wider">Service</span>
                     <motion.div layout className="flex items-center justify-between text-slate-200">
-                      <span className="font-semibold text-base lg:text-xl">{currentService.name}</span>
-                      <span className="font-bold text-base lg:text-xl text-white">{currentService.price}€</span>
+                      {/* SCALING: text-base/xl -> text-sm/lg */}
+                      <span className="font-semibold text-sm lg:text-lg">{currentService.name}</span>
+                      <span className="font-bold text-sm lg:text-lg text-white">{currentService.price}€</span>
                     </motion.div>
-                    <span className="text-sm lg:text-base text-slate-400">{currentService.subtitle}</span>
+                    <span className="text-xs lg:text-sm text-slate-400">{currentService.subtitle}</span>
                   </div>
 
                   <div className="h-px bg-white/10" />
 
                   {/* Delivery */}
                   <div className="space-y-1">
-                    <span className="text-xs lg:text-sm text-slate-500 uppercase tracking-wider">Übergabe</span>
+                    <span className="text-xs text-slate-500 uppercase tracking-wider">Übergabe</span>
                     <motion.div layout className="flex items-center justify-between text-slate-200">
-                      <span className="text-base lg:text-lg">
+                      <span className="text-sm lg:text-base">
                         {deliveryOption === "selbst" ? "Selbstabgabe" : "Hol & Bring Service"}
                       </span>
                       <span
-                        className={`font-semibold text-base lg:text-lg ${deliveryCost === 0 ? "text-emerald-400" : "text-white"}`}
+                        className={`font-semibold text-sm lg:text-base ${deliveryCost === 0 ? "text-emerald-400" : "text-white"}`}
                       >
                         {deliveryCost === 0 ? "Gratis" : `+${deliveryCost}€`}
                       </span>
@@ -369,20 +374,22 @@ export function SlotRegistration() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="rounded-xl bg-slate-950/50 border border-white/20 p-4 lg:p-5"
+                        // SCALING: p-4/5 -> p-3/4
+                        className="rounded-xl bg-slate-950/50 border border-white/20 p-3 lg:p-4"
                       >
-                        <span className="text-xs lg:text-sm text-slate-300 font-medium uppercase tracking-wider">
+                        <span className="text-xs text-slate-300 font-medium uppercase tracking-wider">
                           {deliveryOption === "selbst" ? "Abholbereit" : "Lieferbereit"}
                         </span>
                         <motion.p
                           key={completionInfo.dateString}
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className="text-xl lg:text-3xl font-bold text-white mt-1"
+                          // SCALING: text-xl/3xl -> text-lg/2xl
+                          className="text-lg lg:text-2xl font-bold text-white mt-1"
                         >
                           {completionInfo.dateString}
                         </motion.p>
-                        <span className="text-xs lg:text-sm text-slate-400">
+                        <span className="text-xs text-slate-400">
                           ca. {completionInfo.days} Werktage
                         </span>
                       </motion.div>
@@ -392,45 +399,48 @@ export function SlotRegistration() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="rounded-xl bg-white/5 border border-dashed border-white/10 p-4 lg:p-5 text-center"
+                        className="rounded-xl bg-white/5 border border-dashed border-white/10 p-3 lg:p-4 text-center"
                       >
-                        <Calendar className="h-6 w-6 lg:h-8 lg:w-8 mx-auto mb-2 text-slate-600" />
-                        <p className="text-sm lg:text-base text-slate-500">Wähle ein Datum</p>
+                        <Calendar className="h-6 w-6 lg:h-7 lg:w-7 mx-auto mb-2 text-slate-600" />
+                        <p className="text-xs lg:text-sm text-slate-500">Wähle ein Datum</p>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
 
-                {/* Ticket Footer - Total & Button (New HandleBooking) */}
-                <div className="border-t border-white/10 bg-slate-950/50 p-6 lg:p-8">
+                {/* Ticket Footer */}
+                {/* SCALING: p-6/8 -> p-5/6 */}
+                <div className="border-t border-white/10 bg-slate-950/50 p-5 lg:p-6">
                   <div className="flex items-center justify-between mb-4 text-white">
-                    <span className="text-base lg:text-xl font-medium">Gesamt</span>
+                    <span className="text-sm lg:text-lg font-medium">Gesamt</span>
                     <motion.span
                       key={totalPrice}
                       initial={{ scale: 1.2, color: "white" }}
                       animate={{ scale: 1, color: "white" }}
-                      className="text-2xl lg:text-4xl font-bold"
+                      // SCALING: text-2xl/4xl -> text-xl/3xl
+                      className="text-xl lg:text-3xl font-bold"
                     >
                       {totalPrice}€
                     </motion.span>
                   </div>
                   
                   {/* Button mit Loading State */}
+                  {/* SCALING: h-12/16 -> h-11/14, text-base/xl -> text-sm/lg */}
                   <Button
                     size="lg"
                     disabled={isLoading}
-                    className="w-full h-12 lg:h-16 text-base lg:text-xl font-semibold gap-2 bg-white text-slate-950 hover:bg-slate-200 transition-colors"
+                    className="w-full h-11 lg:h-14 text-sm lg:text-lg font-semibold gap-2 bg-white text-slate-950 hover:bg-slate-200 transition-colors"
                     onClick={handleBooking}
                   >
                     {isLoading ? (
                       <>
-                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <Loader2 className="h-4 w-4 animate-spin" />
                         Wird gebucht...
                       </>
                     ) : (
                       <>
                         Jetzt buchen
-                        <ArrowRight className="h-5 w-5 lg:h-6 lg:w-6" />
+                        <ArrowRight className="h-4 w-4 lg:h-5 lg:w-5" />
                       </>
                     )}
                   </Button>
@@ -438,13 +448,13 @@ export function SlotRegistration() {
               </div>
 
               {/* Trust Indicators */}
-              <div className="flex flex-wrap justify-center gap-4 mt-6 text-l text-slate-500">
+              <div className="flex flex-wrap justify-center gap-4 mt-6 text-sm text-slate-500">
                 <div className="flex items-center gap-2">
-                  <div className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse" />
+                  <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
                   Antwort binnen 24h
                 </div>
                 <div className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-white" />
+                  <Sparkles className="h-3.5 w-3.5 text-white" />
                   Profischliff
                 </div>
               </div>
