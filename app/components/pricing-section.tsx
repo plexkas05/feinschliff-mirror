@@ -104,7 +104,7 @@ export function PricingSection() {
             Unsere Pakete
           </h2>
           
-          <p className="max-w-[700px] text-slate-400 text-base lg:text-lg leading-relaxed">
+          <p className="mx-auto max-w-2xl lg:max-w-3xl text-slate-400 text-lg lg:text-xl font-light leading-relaxed">
             Keine versteckten Kosten. Handwerkskunst zum Festpreis.
           </p>
         </motion.div>

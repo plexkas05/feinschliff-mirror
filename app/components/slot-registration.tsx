@@ -155,7 +155,7 @@ export function SlotRegistration() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-slate-400 text-base lg:text-xl max-w-xl mx-auto"
+            className="mx-auto max-w-2xl lg:max-w-3xl text-slate-400 text-lg lg:text-xl font-light leading-relaxed"
           >
             Wähle deinen Service und buche in unter 60 Sekunden.
           </motion.p>
