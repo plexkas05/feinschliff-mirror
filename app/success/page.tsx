@@ -7,7 +7,6 @@ import { motion } from "framer-motion"
 import { CheckCircle2, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-// Wrapper für Suspense
 export default function SuccessPage() {
   return (
     <Suspense fallback={<div className="min-h-screen bg-slate-950" />}>
@@ -41,7 +40,7 @@ function SuccessContent() {
 
         <div className="p-8 lg:p-10 flex flex-col items-center text-center">
           
-          {/* Animated Success Icon (Der Große bleibt!) */}
+          {/* Animated Success Icon (Nur der grüne bleibt!) */}
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
@@ -59,14 +58,12 @@ function SuccessContent() {
             Vielen Dank. Die Bestätigung wurde an <span className="font-semibold text-slate-700">{email}</span> gesendet.
           </p>
 
-          {/* The "Receipt" Box */}
+          {/* The "Receipt" Box (Sauber, ohne Hintergrund-Icon) */}
           <div className="w-full bg-slate-50 rounded-2xl border border-slate-100 p-6 mb-8 text-left space-y-4 relative overflow-hidden">
-            {/* Decorative pattern inside receipt (optional) */}
-            <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-              <CheckCircle2 className="w-24 h-24 text-slate-900" />
-            </div>
+            
+            {/* HIER HABE ICH DAS GRAUE HACKERL ENTFERNT */}
 
-            {/* Line Items - JETZT OHNE HAKEN */}
+            {/* Line Items */}
             <div className="flex justify-between items-center pb-3 border-b border-slate-200 border-dashed">
               <span className="text-sm text-slate-500">Service</span>
               <span className="text-sm font-semibold text-slate-900">{service}</span>
@@ -91,11 +88,18 @@ function SuccessContent() {
               </Button>
             </Link>
             
-            <div className="pt-4 border-t border-slate-100 w-full flex justify-center">
-              <a href="mailto:felix.kastner27@gmail.com" className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-slate-600 transition-colors">
-                <Mail className="w-3 h-3" />
-                Fragen zur Buchung?
-              </a>
+            <div className="pt-2 w-full flex justify-center">
+              {/* FIX: Jetzt als richtiger Button mit klickbarem Bereich */}
+              <Button 
+                variant="ghost" 
+                asChild
+                className="text-slate-400 hover:text-slate-600 hover:bg-slate-50 text-xs h-auto py-2"
+              >
+                <a href="mailto:felix.kastner27@gmail.com" className="inline-flex items-center gap-2">
+                  <Mail className="w-3 h-3" />
+                  Fragen zur Buchung?
+                </a>
+              </Button>
             </div>
           </div>
 
