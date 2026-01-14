@@ -15,14 +15,18 @@ export async function POST(request: Request) {
       nextSteps = `
         <p style="background-color: #f0fdf4; padding: 10px; border-radius: 5px; border-left: 4px solid #16a34a; color: #166534;">
           <strong>Nächster Schritt:</strong><br>
-          Wir rufen dich unter <strong>${phone}</strong> an, um die genaue Abholzeit (ca. +/- 30min) zu vereinbaren.
+          Wir rufen dich unter <strong>${phone}</strong> an, um die genaue Abholzeit zu vereinbaren.
         </p>
         <p><strong>Abholadresse:</strong> ${address}</p>
       `;
     } else {
       nextSteps = `
-        <p>Bitte bringe die Messer am <strong>${date}</strong> vorbei.</p>
-        <p>Adresse: Rebenweg 12, 8054 Seiersberg</p>
+        <p style="background-color: #f0fdf4; padding: 10px; border-radius: 5px; border-left: 4px solid #16a34a; color: #166534;">
+          <strong>Nächster Schritt:</strong><br>
+          Bitte ruf un unter >+43 660 1628017</strong> an, um die Zeit wann du die Messer 
+          verbeibringst zu vereinbaren.
+        </p>
+        <p><strong>Abholadresse:</strong> ${address}</p>
       `;
     }
 
