@@ -95,7 +95,7 @@ export function PricingSection() {
           // SCALING: Abstand reduziert mb-12/20
           className="flex flex-col items-center justify-center space-y-4 lg:space-y-5 text-center mb-12 lg:mb-20"
         >
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-xs font-medium text-slate-300">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-sm lg:text-sm font-medium text-slate-300">
             Transparente Preise
           </span>
           
