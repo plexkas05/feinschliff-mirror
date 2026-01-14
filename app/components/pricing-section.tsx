@@ -83,7 +83,7 @@ export function PricingSection() {
     <section
       ref={sectionRef}
       id="preise"
-      className="relative w-full py-16 md:py-24 lg:py-32 bg-slate-950 overflow-hidden"
+      className="relative w-full py-16 md:py-24 lg:py-40 min-h-[85vh] flex flex-col justify-center bg-slate-950 overflow-hidden"
     >
       <div className="container relative px-4 md:px-6 lg:px-8 mx-auto max-w-7xl">
         {/* Header */}
@@ -158,7 +158,7 @@ export function PricingSection() {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent via-slate-950/50 to-background pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent via-slate-950/50 to-slate-950 pointer-events-none" />
     </section>
   )
 }

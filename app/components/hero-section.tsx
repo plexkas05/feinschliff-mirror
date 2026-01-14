@@ -39,9 +39,9 @@ export function HeroSection() {
       {/* Central Industrial Glow */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
         {/* Großer, statischer Schein für Tiefe */}
-        <div className="absolute h-[48vw] w-[48vw] min-h-[500px] min-w-[500px] rounded-full bg-slate-800/20 blur-[100px]" />
+        <div className="absolute h-[30vw] w-[30vw] min-h-[500px] min-w-[500px] rounded-full bg-slate-800/20 blur-[100px]" />
         {/* Kleinerer, langsam pulsierender Kern */}
-        <div className="absolute h-[32vw] w-[32vw] min-h-[300px] min-w-[300px] rounded-full bg-slate-700/10 blur-[80px] animate-pulse duration-1000" />
+        <div className="absolute h-[25vw] w-[25vw] min-h-[300px] min-w-[300px] rounded-full bg-slate-700/10 blur-[80px] animate-pulse duration-1000" />
       </div>
 
       {/* Content */}
@@ -103,6 +103,9 @@ export function HeroSection() {
           </Button>
         </motion.div>
       </motion.div>
+
+      {/* Smooth Blend to next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-slate-950 pointer-events-none" />
     </section>
   )
 }
