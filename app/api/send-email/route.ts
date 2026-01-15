@@ -5,30 +5,33 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
-    // JETZT AUCH PHONE EMPFANGEN
     const { email, serviceName, date, price, deliveryOption, address, phone } = await request.json();
 
     const deliveryText = deliveryOption === "abholung" ? "Hol- & Bringservice" : "Selbstabgabe";
 
     let nextSteps = "";
+    
+    // FALL 1: Hol- & Bringservice (Wir rufen Kunden an)
     if (deliveryOption === "abholung") {
       nextSteps = `
         <p style="background-color: #f0fdf4; padding: 10px; border-radius: 5px; border-left: 4px solid #16a34a; color: #166534;">
           <strong>Nächster Schritt:</strong><br>
-          Wir rufen dich unter <strong>${phone}</strong> an, um die genaue Abholzeit zu vereinbaren.
+          Wir rufen dich unter <strong>${phone}</strong> an, um die genaue Abholzeit (ca. +/- 30min) zu vereinbaren.
         </p>
         <p><strong>Abholadresse:</strong> ${address}</p>
       `;
-    } else {
+    } 
+    // FALL 2: Selbstabgabe (Kunde ruft uns an)
+    else {
       nextSteps = `
         <p style="background-color: #f0fdf4; padding: 10px; border-radius: 5px; border-left: 4px solid #16a34a; color: #166534;">
           <strong>Nächster Schritt:</strong><br>
-          Bitte ruf uns unter <strong>+43 660 1628017<strong> an, um die Zeit wann du die Messer 
-          verbeibringst zu vereinbaren.
+          Bitte ruf uns unter <strong>+43 660 1628017</strong> an, um eine genaue Uhrzeit für die Übergabe zu vereinbaren.
         </p>
-        <p><strong>Unsere Adresse :</strong> Rebenweg 12 8054 Seiersberg</p>
+        <p><strong>Abgabeadresse:</strong> Rebenweg 12, 8054 Seiersberg</p>
       `;
     }
+
     const { data, error } = await resend.emails.send({
       from: 'Feinschliff <onboarding@resend.dev>',
       to: [email],
