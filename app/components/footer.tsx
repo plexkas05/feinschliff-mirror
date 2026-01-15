@@ -7,15 +7,17 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    // Background: Neutral-950 (wie Navbar), Border oben für saubere Trennung
-    <footer className="relative bg-neutral-950 border-t border-white/10 pt-16 overflow-hidden">
+    // SCALING: pt-16 -> pt-10 (weniger Abstand oben)
+    <footer className="relative bg-neutral-950 border-t border-white/10 pt-10 overflow-hidden">
       
-      {/* Content Container (Kompakt: max-w-6xl, kleine Schriften) */}
-      <div className="container mx-auto px-6 max-w-6xl relative z-10 mb-12 lg:mb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+      {/* SCALING: mb-12 -> mb-8 (weniger Abstand zum FEINSCHLIFF Text unten) */}
+      <div className="container mx-auto px-6 max-w-6xl relative z-10 mb-8 lg:mb-10">
+        
+        {/* SCALING: gap-10 -> gap-8 (Spalten enger zusammen) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           
           {/* 1. Brand Column */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <Link href="/" className="inline-block">
               <span className="text-lg font-bold tracking-tighter text-white">
                 FEINSCHLIFF
@@ -24,21 +26,21 @@ export function Footer() {
             <p className="text-xs leading-relaxed text-neutral-400 max-w-xs">
               Professioneller Messerschleifservice in Graz. 
               Wir bringen Schärfe zurück in deine Küche.
-              Präzise, schnell und handwerklich perfekt.
             </p>
-            <div className="flex gap-4 pt-2">
+            <div className="flex gap-4 pt-1">
               <a href="#" className="text-neutral-400 hover:text-white transition-colors">
                 <Instagram className="h-4 w-4" />
                 <span className="sr-only">Instagram</span>
               </a>
-              {/* Facebook entfernt */}
             </div>
           </div>
 
           {/* 2. Service Links */}
           <div>
-            <h3 className="text-sm font-semibold text-white mb-4">Service</h3>
-            <ul className="space-y-2.5 text-xs text-neutral-400">
+            {/* SCALING: mb-4 -> mb-2 (Überschrift näher am Text) */}
+            <h3 className="text-sm font-semibold text-white mb-2">Service</h3>
+            {/* SCALING: space-y-2.5 -> space-y-1.5 (Zeilenabstand verringert) */}
+            <ul className="space-y-1.5 text-xs text-neutral-400">
               <li>
                 <Link href="/#preise" className="hover:text-emerald-400 transition-colors">Preise & Pakete</Link>
               </li>
@@ -56,8 +58,8 @@ export function Footer() {
 
           {/* 3. Rechtliches */}
           <div>
-            <h3 className="text-sm font-semibold text-white mb-4">Rechtliches</h3>
-            <ul className="space-y-2.5 text-xs text-neutral-400">
+            <h3 className="text-sm font-semibold text-white mb-2">Rechtliches</h3>
+            <ul className="space-y-1.5 text-xs text-neutral-400">
               <li>
                 <Link href="/impressum" className="hover:text-emerald-400 transition-colors">Impressum</Link>
               </li>
@@ -72,23 +74,23 @@ export function Footer() {
 
           {/* 4. Kontakt */}
           <div>
-            <h3 className="text-sm font-semibold text-white mb-4">Kontakt</h3>
-            <ul className="space-y-3 text-xs text-neutral-400">
-              <li className="flex items-start gap-3">
-                <MapPin className="h-4 w-4 text-neutral-500 shrink-0" />
+            <h3 className="text-sm font-semibold text-white mb-2">Kontakt</h3>
+            <ul className="space-y-2 text-xs text-neutral-400">
+              <li className="flex items-start gap-2.5">
+                <MapPin className="h-3.5 w-3.5 text-neutral-500 shrink-0 mt-0.5" />
                 <span>
                   Rebenweg 12<br />
                   8054 Seiersberg
                 </span>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail className="h-4 w-4 text-neutral-500 shrink-0" />
+              <li className="flex items-center gap-2.5">
+                <Mail className="h-3.5 w-3.5 text-neutral-500 shrink-0" />
                 <a href="mailto:felix.kastner27@gmail.com" className="hover:text-white transition-colors">
                   felix.kastner27@gmail.com
                 </a>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-4 w-4 text-neutral-500 shrink-0" />
+              <li className="flex items-center gap-2.5">
+                <Phone className="h-3.5 w-3.5 text-neutral-500 shrink-0" />
                 <a href="tel:+436601628017" className="hover:text-white transition-colors">
                   +43 660 1628017
                 </a>
@@ -98,7 +100,8 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-neutral-600">
+        {/* SCALING: mt-12 -> mt-8, pt-6 -> pt-4 */}
+        <div className="mt-8 pt-4 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-2 text-[10px] text-neutral-600">
           <p>&copy; {currentYear} Feinschliff Graz. Alle Rechte vorbehalten.</p>
           <p className="flex items-center gap-1">
             Made with <Hammer className="h-3 w-3" /> in Styria
