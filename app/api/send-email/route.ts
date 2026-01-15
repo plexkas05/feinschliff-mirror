@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       nextSteps = `
         <p style="background-color: #f0fdf4; padding: 10px; border-radius: 5px; border-left: 4px solid #16a34a; color: #166534;">
           <strong>Nächster Schritt:</strong><br>
-          Wir rufen dich unter <strong>${phone}</strong> an, um die genaue Abholzeit (ca. +/- 30min) zu vereinbaren.
+          Wir rufen dich unter <strong>${phone}</strong> an, um die genaue Abholzeit zu vereinbaren.
         </p>
         <p><strong>Abholadresse:</strong> ${address}</p>
       `;
@@ -53,7 +53,7 @@ export async function POST(request: Request) {
           ${nextSteps}
           
           <br>
-          <p style="color: #666; font-size: 12px;">Dein Feinschliff-Team</p>
+          <p style="color: #333; font-size: 16px; margin-top: 20px;">Dein Feinschliff-Team</p>
         </div>
       `,
     });
