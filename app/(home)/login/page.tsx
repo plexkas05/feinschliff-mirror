@@ -39,7 +39,7 @@ export default function LoginPage() {
             <Lock className="w-6 h-6 text-emerald-500" />
           </div>
           <h2 className="text-2xl font-bold text-white">Admin Login</h2>
-          <p className="text-slate-400 text-sm mt-2">Nur für Felix 😉</p>
+          <p className="text-slate-400 text-sm mt-2">Zugriff nur für Teammitglieder</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-4">
