@@ -69,9 +69,13 @@ export function Footer() {
               <li>
                 <Link href="/agb" className="hover:text-emerald-400 transition-colors">AGB</Link>
               </li>
+              <li className="pt-2">
+                <Link href="/login" className="hover:text-white transition-colors opacity-30 hover:opacity-100 flex items-center gap-1">
+                  Login 🔒
+                </Link>
+              </li>
             </ul>
           </div>
-
           {/* 4. Kontakt */}
           <div>
             <h3 className="text-sm font-semibold text-white mb-2">Kontakt</h3>
