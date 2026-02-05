@@ -97,7 +97,10 @@ export default function AdminDashboard() {
           <h1 className="text-3xl font-bold">Feinschliff Cockpit 🚀</h1>
           <p className="text-slate-400">Willkommen zurück, Chef.</p>
         </div>
-        <Button variant="outline" onClick={handleLogout} className="border-white/10 hover:bg-white/5 text-slate-200">
+        <Button 
+          variant="outline" 
+          onClick={handleLogout} 
+          className="bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">
           <LogOut className="w-4 h-4 mr-2" /> Logout
         </Button>
       </div>
