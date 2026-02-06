@@ -71,7 +71,7 @@ export function Footer() {
               </li>
               <li className="pt-2">
                 <Link href="/login" className="hover:text-white transition-colors opacity-30 hover:opacity-100 flex items-center gap-1">
-                  Login 🔒
+                  Admin Zugang 
                 </Link>
               </li>
             </ul>

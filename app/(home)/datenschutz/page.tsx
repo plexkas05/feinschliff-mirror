@@ -47,7 +47,7 @@ export default function DatenschutzPage() {
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-1 text-slate-400">
               <li>Den Schleifauftrag zu koordinieren und durchzuführen.</li>
-              <li>Dich per E-Mail oder Telefon über den Status zu informieren (z.B. "Messer fertig").</li>
+              <li>Dich per E-Mail oder Telefon über den Status zu informieren.</li>
               <li>Eine Abholung oder Lieferung durchzuführen.</li>
             </ul>
           </div>
