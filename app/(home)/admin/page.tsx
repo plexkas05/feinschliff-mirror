@@ -82,7 +82,7 @@ export default function AdminDashboard() {
   if (loading) return <div className="p-10 text-slate-600">Lade Dashboard...</div>
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 p-4 lg:p-8">
+    <div className="min-h-screen text-slate-900 p-4 lg:p-8">
       {/* Header */}
       <div className="max-w-7xl mx-auto mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
@@ -92,14 +92,14 @@ export default function AdminDashboard() {
         <Button
           variant="outline"
           onClick={handleLogout}
-          className="bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+          className="bg-white border-slate-200/60 text-slate-600 hover:bg-white hover:text-slate-900 transition-colors shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
           <LogOut className="w-4 h-4 mr-2" /> Logout
         </Button>
       </div>
 
       {/* Stats Cards */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        <div className="bg-white p-6 rounded-xl border border-slate-200 flex items-center gap-4 shadow-sm">
+        <div className="bg-white p-6 rounded-xl border border-slate-200/60 flex items-center gap-4 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
           <div className="p-3 bg-emerald-50 rounded-full text-emerald-600">
             <DollarSign className="w-8 h-8" />
           </div>
@@ -108,7 +108,7 @@ export default function AdminDashboard() {
             <p className="text-3xl font-bold text-slate-900">{stats.total} €</p>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-xl border border-slate-200 flex items-center gap-4 shadow-sm">
+        <div className="bg-white p-6 rounded-xl border border-slate-200/60 flex items-center gap-4 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
           <div className="p-3 bg-blue-50 rounded-full text-blue-600">
             <Clock className="w-8 h-8" />
           </div>
@@ -122,7 +122,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Die Tabelle */}
-      <div className="max-w-7xl mx-auto bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+      <div className="max-w-7xl mx-auto bg-white rounded-xl border border-slate-200/60 overflow-hidden shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead className="bg-slate-50 text-slate-500 uppercase font-medium border-b border-slate-200">

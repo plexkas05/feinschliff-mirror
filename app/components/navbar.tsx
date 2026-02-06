@@ -60,7 +60,7 @@ export function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? "bg-white/90 backdrop-blur-md border-b border-slate-200 py-4 shadow-sm"
+          ? "bg-white/80 backdrop-blur-xl border-b border-slate-200/60 py-4 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]"
           : "bg-transparent py-6"
         }`}
     >
@@ -99,7 +99,7 @@ export function Navbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute top-full right-0 mt-4 w-56 rounded-xl border border-slate-200 bg-white p-2 shadow-lg ring-1 ring-black/5 focus:outline-none"
+                  className="absolute top-full right-0 mt-4 w-56 rounded-xl border border-slate-200/60 bg-white p-2 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.08)] ring-1 ring-black/5 focus:outline-none"
                 >
                   <div className="space-y-1">
                     {/* Navigation Links - nutzen jetzt handleNavigation */}
@@ -145,7 +145,7 @@ export function Navbar() {
 
           {/* CTA Button */}
           <Button
-            className="hidden md:inline-flex h-10 px-6 font-medium text-sm transition-all border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 shadow-sm"
+            className="hidden md:inline-flex h-10 px-6 font-medium text-sm transition-all border border-slate-200/60 bg-white text-slate-700 hover:bg-white hover:text-slate-900 hover:border-slate-300 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]"
             onClick={() => handleNavigation("termin")}
           >
             Jetzt buchen
@@ -166,7 +166,7 @@ export function Navbar() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute top-full left-0 right-0 bg-white border-b border-slate-200 p-6 md:hidden flex flex-col gap-4 shadow-lg"
+          className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-b border-slate-200/60 p-6 md:hidden flex flex-col gap-4 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.08)]"
         >
           {/* Mobile Links - nutzen auch handleNavigation */}
           <button onClick={() => handleNavigation("preise")} className="text-lg font-medium text-slate-600 py-2 text-left hover:text-slate-900">

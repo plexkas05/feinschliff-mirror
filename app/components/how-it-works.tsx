@@ -46,7 +46,7 @@ export function HowItWorks() {
   }
 
   return (
-    <section id="ablauf" className="relative overflow-hidden bg-white px-6 py-20 lg:py-32">
+    <section id="ablauf" className="relative overflow-hidden px-6 py-20 lg:py-32">
       <div className="relative z-10 mx-auto max-w-5xl lg:max-w-6xl">
 
         {/* Header */}
@@ -57,7 +57,7 @@ export function HowItWorks() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 rounded-full border border-slate-200 bg-slate-50 text-sm lg:text-sm font-medium text-slate-600">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 rounded-full border border-slate-200/60 bg-white text-sm lg:text-sm font-medium text-slate-600 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
             Einfacher Ablauf
           </span>
 
@@ -102,7 +102,7 @@ export function HowItWorks() {
             {steps.map((step, index) => (
               <motion.div key={step.title} variants={cardVariants} className="group relative">
                 {/* Clean White Card */}
-                <div className="relative flex flex-col items-center rounded-2xl lg:rounded-3xl border border-slate-200 bg-white p-6 lg:p-10 text-center transition-all duration-300 hover:-translate-y-2 hover:border-slate-300 hover:shadow-lg">
+                <div className="relative flex flex-col items-center rounded-2xl lg:rounded-3xl border border-slate-200/60 bg-white p-6 lg:p-10 text-center transition-all duration-300 hover:-translate-y-2 hover:border-slate-300 hover:shadow-lg shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
 
                   {/* Step number badge */}
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex h-6 w-6 lg:h-7 lg:w-7 items-center justify-center rounded-full bg-slate-900 text-xs font-medium text-white">

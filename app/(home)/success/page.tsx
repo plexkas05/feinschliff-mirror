@@ -7,10 +7,9 @@ import { motion } from "framer-motion"
 import { CheckCircle2, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-// WICHTIG: Das hier fehlte wahrscheinlich oder war falsch!
 export default function SuccessPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-slate-50" />}>
+    <Suspense fallback={<div className="min-h-screen bg-slate-950" />}>
       <SuccessContent />
     </Suspense>
   )
@@ -19,23 +18,22 @@ export default function SuccessPage() {
 function SuccessContent() {
   const searchParams = useSearchParams()
   
-  // Fallback-Werte, falls keine URL-Parameter da sind
   const date = searchParams.get("date") || "Datum folgt"
   const service = searchParams.get("service") || "Messerschliff"
   const price = searchParams.get("price") || "0"
   const email = searchParams.get("email") || "deine Email"
 
   return (
-    <main className="min-h-screen w-full bg-slate-50 flex items-center justify-center p-4 lg:p-8 overflow-hidden relative">
+    <main className="min-h-screen w-full bg-slate-950 flex items-center justify-center p-4 lg:p-8 overflow-hidden relative">
       
-      {/* Background Ambience (Heller Mode) */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-slate-50 to-slate-100 pointer-events-none" />
+      {/* Background Ambience */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-900/50 via-slate-950 to-slate-950 pointer-events-none" />
 
       <motion.div
         initial={{ y: 100, opacity: 0, scale: 0.95 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
-        className="relative w-full max-w-md bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100"
+        className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden"
       >
         {/* Top Decoration */}
         <div className="h-2 w-full bg-emerald-500" />
@@ -47,7 +45,7 @@ function SuccessContent() {
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="mb-6 rounded-full bg-emerald-50 p-4 border border-emerald-100"
+            className="mb-6 rounded-full bg-emerald-100 p-4"
           >
             <CheckCircle2 className="h-12 w-12 lg:h-16 lg:w-16 text-emerald-600" />
           </motion.div>
@@ -61,7 +59,7 @@ function SuccessContent() {
           </p>
 
           {/* Receipt Box */}
-          <div className="w-full bg-slate-50 rounded-2xl border border-slate-200 p-6 mb-8 text-left space-y-4 relative overflow-hidden">
+          <div className="w-full bg-slate-50 rounded-2xl border border-slate-100 p-6 mb-8 text-left space-y-4 relative overflow-hidden">
             <div className="flex justify-between items-center pb-3 border-b border-slate-200 border-dashed">
               <span className="text-sm text-slate-500">Service</span>
               <span className="text-sm font-semibold text-slate-900">{service}</span>
@@ -90,7 +88,7 @@ function SuccessContent() {
               <Button 
                 variant="ghost" 
                 asChild
-                className="text-slate-400 hover:text-slate-600 hover:bg-transparent text-xs h-auto py-2"
+                className="text-slate-400 hover:text-slate-600 hover:bg-slate-50 text-xs h-auto py-2"
               >
                 <a href="mailto:felix.kastner27@gmail.com" className="inline-flex items-center gap-2">
                   <Mail className="w-3 h-3" />

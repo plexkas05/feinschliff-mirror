@@ -59,7 +59,7 @@ export function PricingSection() {
     <section
       ref={sectionRef}
       id="preise"
-      className="relative w-full py-12 lg:py-24 min-h-[70vh] flex flex-col justify-center bg-white overflow-hidden"
+      className="relative w-full py-12 lg:py-24 min-h-[70vh] flex flex-col justify-center overflow-hidden"
     >
       <div className="container relative px-4 md:px-6 lg:px-8 mx-auto max-w-6xl">
         {/* Header */}
@@ -69,7 +69,7 @@ export function PricingSection() {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center justify-center space-y-4 lg:space-y-5 text-center mb-12 lg:mb-20"
         >
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 rounded-full border border-slate-200 bg-white text-sm lg:text-sm font-medium text-slate-600 shadow-sm">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 rounded-full border border-slate-200/60 bg-white text-sm lg:text-sm font-medium text-slate-600 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
             Transparente Preise
           </span>
 
@@ -94,7 +94,7 @@ export function PricingSection() {
             >
               {/* Card */}
               <div
-                className="relative h-full flex flex-col rounded-2xl border border-slate-200 bg-white p-4 lg:p-5 transition-all duration-500 hover:border-slate-300 hover:shadow-lg hover:-translate-y-1"
+                className="relative h-full flex flex-col rounded-2xl border border-slate-200/60 bg-white p-4 lg:p-5 transition-all duration-500 hover:border-slate-300 hover:shadow-lg hover:-translate-y-1 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]"
               >
                 {/* Card Header */}
                 <div className="mb-5 lg:mb-6 text-center lg:text-left">

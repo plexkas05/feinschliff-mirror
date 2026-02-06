@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 
 export default function AgbPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen">
       <Navbar />
 
       <section className="relative container mx-auto px-6 py-32 max-w-4xl z-10">
@@ -23,7 +23,7 @@ export default function AgbPage() {
           </Link>
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <div className="p-3 bg-white rounded-xl border border-slate-200/60 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
               <FileText className="w-6 h-6 text-emerald-600" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
@@ -37,7 +37,7 @@ export default function AgbPage() {
         </div>
 
         {/* Der eigentliche Text-Block */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-8 md:p-12 shadow-sm">
+        <div className="bg-white border border-slate-200/60 rounded-2xl p-8 md:p-12 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
           <div className="space-y-12 text-slate-600 leading-relaxed">
 
             <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-800 text-sm">
@@ -91,13 +91,13 @@ export default function AgbPage() {
                 <span className="text-slate-400 font-mono">04.</span> Abwicklung
               </h3>
               <ul className="grid gap-3 mt-2">
-                <li className="bg-slate-50 p-3 rounded border border-slate-200">
+                <li className="bg-slate-50/50 p-3 rounded border border-slate-200/60">
                   <strong className="text-slate-900">Selbstabgabe:</strong> Die Messer werden vom Kunden zum vereinbarten Termin an die Adresse Rebenweg 12, 8054 Seiersberg gebracht und dort wieder abgeholt.
                 </li>
-                <li className="bg-slate-50 p-3 rounded border border-slate-200">
+                <li className="bg-slate-50/50 p-3 rounded border border-slate-200/60">
                   <strong className="text-slate-900">Hol- & Bringservice:</strong> Gegen Aufpreis holen wir die Messer im vereinbarten Gebiet ab und liefern sie geschärft zurück.
                 </li>
-                <li className="bg-slate-50 p-3 rounded border border-slate-200">
+                <li className="bg-slate-50/50 p-3 rounded border border-slate-200/60">
                   <strong className="text-slate-900">Bearbeitungszeit:</strong> Die angegebenen Zeiten (z.B. 72h) sind Richtwerte. Bei Verzögerungen wirst du umgehend informiert.
                 </li>
               </ul>

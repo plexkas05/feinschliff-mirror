@@ -152,7 +152,7 @@ export function SlotRegistration() {
 
 
   return (
-    <section id="termin" className="relative -mt-1 min-h-screen w-full px-4 py-12 lg:py-20 overflow-hidden bg-white">
+    <section id="termin" className="relative -mt-1 min-h-screen w-full px-4 py-12 lg:py-20 overflow-hidden">
 
       {/* Background Ambience */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-50 rounded-full blur-[120px] opacity-40 pointer-events-none" />
@@ -166,7 +166,7 @@ export function SlotRegistration() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs lg:text-sm text-slate-600 mb-5 shadow-sm"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200/60 bg-white px-3 py-1.5 text-xs lg:text-sm text-slate-600 mb-5 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]"
           >
             <Clock className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
             Schnelle Terminbuchung
@@ -382,7 +382,7 @@ export function SlotRegistration() {
             className="lg:col-span-2"
           >
             <div className="lg:sticky lg:top-8">
-              <div className="rounded-2xl border border-slate-200 bg-white shadow-lg overflow-hidden">
+              <div className="rounded-2xl border border-slate-200/60 bg-white shadow-[0_4px_16px_-4px_rgba(0,0,0,0.08)] overflow-hidden">
                 {/* Ticket Header */}
                 <div className="bg-slate-50 border-b border-slate-200 px-5 py-3 lg:px-6 lg:py-5">
                   <div className="flex items-center justify-between">

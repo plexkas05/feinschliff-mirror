@@ -35,7 +35,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden bg-white px-6 py-16 lg:py-28 text-center">
+    <section className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden px-6 py-16 lg:py-28 text-center">
 
       {/* Content */}
       <motion.div
@@ -45,7 +45,7 @@ export function HeroSection() {
         animate="visible"
       >
         <motion.div variants={itemVariants}>
-          <div className="inline-flex items-center rounded-full border border-slate-200 bg-white px-4 py-1.5 lg:px-6 lg:py-2 text-sm font-medium text-slate-600 tracking-wide shadow-sm">
+          <div className="inline-flex items-center rounded-full border border-slate-200/60 bg-white px-4 py-1.5 lg:px-6 lg:py-2 text-sm font-medium text-slate-600 tracking-wide shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
             Professioneller Messerschleifservice
           </div>
         </motion.div>
@@ -79,7 +79,7 @@ export function HeroSection() {
           <Button
             variant="outline"
             size="lg"
-            className="w-full sm:w-auto h-12 lg:h-14 px-6 lg:px-8 text-base font-medium border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900 transition-all duration-300 shadow-sm"
+            className="w-full sm:w-auto h-12 lg:h-14 px-6 lg:px-8 text-base font-medium border-slate-200/60 bg-white text-slate-700 hover:bg-white hover:border-slate-300 hover:text-slate-900 transition-all duration-300 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]"
             onClick={() => scrollToSection("preise")}
           >
             Unsere Preise
