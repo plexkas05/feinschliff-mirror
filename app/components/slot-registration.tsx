@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Calendar, Mail, Sparkles, Truck, CheckCircle2, Store, Clock, ArrowRight, Zap, Loader2, MapPin, Phone } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { supabase } from "@/lib/supabase"
-import { useRouter } from "next/navigation" 
+import { useRouter } from "next/navigation"
 
 
 // Service definitions
@@ -43,15 +43,15 @@ export function SlotRegistration() {
   const router = useRouter()
   const [email, setEmail] = useState("")
   const [date, setDate] = useState("")
-  
+
   // NEW: Address & Phone State
   const [address, setAddress] = useState("")
   const [zipCity, setZipCity] = useState("")
   const [phone, setPhone] = useState("") // Neue State-Variable
-  
+
   const [serviceId, setServiceId] = useState("grundschliff")
   const [deliveryOption, setDeliveryOption] = useState<"selbst" | "abholung">("selbst")
-  
+
   const [isLoading, setIsLoading] = useState(false)
 
   // Get current service
@@ -101,7 +101,7 @@ export function SlotRegistration() {
       const { data, error } = await supabase
         .from('bookings')
         .insert([
-          { 
+          {
             email: email,
             service_id: currentService.id,
             service_name: currentService.name,
@@ -141,7 +141,7 @@ export function SlotRegistration() {
         email: email
       })
       router.push(`/success?${params.toString()}`)
-      
+
     } catch (error) {
       console.error('Error inserting booking:', error)
       alert("Es gab einen Fehler bei der Buchung. Bitte versuche es später noch einmal.")
@@ -152,42 +152,42 @@ export function SlotRegistration() {
 
 
   return (
-    <section id="termin" className="relative -mt-1 min-h-screen w-full px-4 py-12 lg:py-20 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-      
+    <section id="termin" className="relative -mt-1 min-h-screen w-full px-4 py-12 lg:py-20 overflow-hidden bg-white">
+
       {/* Background Ambience */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-900/10 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-slate-950 to-transparent pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-50 rounded-full blur-[120px] opacity-40 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-slate-100 rounded-full blur-[100px] opacity-50 pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-6xl">
-        
+
         {/* Header */}
         <div className="text-center mb-12 lg:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs lg:text-sm text-slate-300 mb-5 backdrop-blur-sm"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs lg:text-sm text-slate-600 mb-5 shadow-sm"
           >
             <Clock className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
             Schnelle Terminbuchung
           </motion.div>
-          
+
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 text-white"
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 text-slate-900"
           >
             Termin buchen
           </motion.h2>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-slate-400 text-base lg:text-xl max-w-xl mx-auto"
+            className="text-slate-500 text-base lg:text-xl max-w-xl mx-auto"
           >
             Wähle deinen Service und buche in unter 60 Sekunden.
           </motion.p>
@@ -195,7 +195,7 @@ export function SlotRegistration() {
 
         {/* Split View Layout */}
         <div className="grid lg:grid-cols-5 gap-8 lg:gap-10">
-          
+
           {/* Left Side: Controls */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -206,8 +206,8 @@ export function SlotRegistration() {
           >
             {/* Service Selection */}
             <div className="space-y-3">
-              <Label className="text-sm lg:text-lg font-semibold flex items-center gap-2 text-slate-200">
-                <Sparkles className="h-4 w-4 text-white" />
+              <Label className="text-sm lg:text-lg font-semibold flex items-center gap-2 text-slate-800">
+                <Sparkles className="h-4 w-4 text-slate-600" />
                 Was möchtest du schleifen lassen?
               </Label>
               <div className="grid grid-cols-2 gap-3 lg:gap-4">
@@ -218,23 +218,22 @@ export function SlotRegistration() {
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setServiceId(service.id)}
                     className={`
-                      relative cursor-pointer rounded-xl border-2 p-3 lg:p-5 transition-all duration-300 backdrop-blur-sm
-                      ${
-                        serviceId === service.id
-                          ? "border-white bg-slate-900/40 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
-                          : "border-white/10 bg-slate-900/40 hover:border-white/20 hover:bg-slate-800/60"
+                      relative cursor-pointer rounded-xl border-2 p-3 lg:p-5 transition-all duration-300
+                      ${serviceId === service.id
+                        ? "border-slate-900 bg-slate-50 shadow-md"
+                        : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
                       }
                     `}
                   >
                     {serviceId === service.id && (
                       <motion.div layoutId="service-check" className="absolute top-3 right-3">
-                        <CheckCircle2 className="h-5 w-5 lg:h-5 lg:w-5 text-white" />
+                        <CheckCircle2 className="h-5 w-5 lg:h-5 lg:w-5 text-emerald-600" />
                       </motion.div>
                     )}
                     <div className="text-xl lg:text-2xl mb-2">{service.icon}</div>
-                    <h3 className="font-semibold text-sm lg:text-base text-slate-200">{service.name}</h3>
-                    <p className="text-xs text-slate-400">{service.subtitle}</p>
-                    <p className="mt-1 text-lg lg:text-xl font-bold text-white">{service.price}€</p>
+                    <h3 className="font-semibold text-sm lg:text-base text-slate-800">{service.name}</h3>
+                    <p className="text-xs text-slate-500">{service.subtitle}</p>
+                    <p className="mt-1 text-lg lg:text-xl font-bold text-slate-900">{service.price}€</p>
                   </motion.div>
                 ))}
               </div>
@@ -242,8 +241,8 @@ export function SlotRegistration() {
 
             {/* Delivery Options */}
             <div className="space-y-3">
-              <Label className="text-sm lg:text-lg font-semibold flex items-center gap-2 text-slate-200">
-                <Truck className="h-4 w-4 text-white" />
+              <Label className="text-sm lg:text-lg font-semibold flex items-center gap-2 text-slate-800">
+                <Truck className="h-4 w-4 text-slate-600" />
                 Wie kommen die Messer zu mir?
               </Label>
               <div className="grid grid-cols-2 gap-3 lg:gap-4">
@@ -252,25 +251,24 @@ export function SlotRegistration() {
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setDeliveryOption("selbst")}
                   className={`
-                    relative cursor-pointer rounded-xl border-2 p-3 lg:p-5 transition-all duration-300 backdrop-blur-sm
-                    ${
-                      deliveryOption === "selbst"
-                        ? "border-white bg-slate-900/40 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
-                        : "border-white/10 bg-slate-900/40 hover:border-white/20 hover:bg-slate-800/60"
+                    relative cursor-pointer rounded-xl border-2 p-3 lg:p-5 transition-all duration-300
+                    ${deliveryOption === "selbst"
+                      ? "border-slate-900 bg-slate-50 shadow-md"
+                      : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
                     }
                   `}
                 >
                   {deliveryOption === "selbst" && (
                     <motion.div layoutId="delivery-check" className="absolute top-3 right-3">
-                      <CheckCircle2 className="h-5 w-5 lg:h-5 lg:w-5 text-white" />
+                      <CheckCircle2 className="h-5 w-5 lg:h-5 lg:w-5 text-emerald-600" />
                     </motion.div>
                   )}
                   <Store
-                    className={`h-5 w-5 lg:h-7 lg:w-7 mb-2 ${deliveryOption === "selbst" ? "text-white" : "text-slate-500"}`}
+                    className={`h-5 w-5 lg:h-7 lg:w-7 mb-2 ${deliveryOption === "selbst" ? "text-slate-800" : "text-slate-400"}`}
                   />
-                  <h3 className="font-semibold text-sm lg:text-base text-slate-200">Selbstabgabe</h3>
-                  <p className="text-xs text-slate-400">Du bringst sie vorbei</p>
-                  <p className="mt-1 text-sm font-semibold text-emerald-400">Kostenlos</p>
+                  <h3 className="font-semibold text-sm lg:text-base text-slate-800">Selbstabgabe</h3>
+                  <p className="text-xs text-slate-500">Du bringst sie vorbei</p>
+                  <p className="mt-1 text-sm font-semibold text-emerald-600">Kostenlos</p>
                 </motion.div>
 
                 <motion.div
@@ -278,25 +276,24 @@ export function SlotRegistration() {
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setDeliveryOption("abholung")}
                   className={`
-                    relative cursor-pointer rounded-xl border-2 p-3 lg:p-5 transition-all duration-300 backdrop-blur-sm
-                    ${
-                      deliveryOption === "abholung"
-                        ? "border-white bg-slate-900/40 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
-                        : "border-white/10 bg-slate-900/40 hover:border-white/20 hover:bg-slate-800/60"
+                    relative cursor-pointer rounded-xl border-2 p-3 lg:p-5 transition-all duration-300
+                    ${deliveryOption === "abholung"
+                      ? "border-slate-900 bg-slate-50 shadow-md"
+                      : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
                     }
                   `}
                 >
                   {deliveryOption === "abholung" && (
                     <motion.div layoutId="delivery-check" className="absolute top-3 right-3">
-                      <CheckCircle2 className="h-5 w-5 lg:h-5 lg:w-5 text-white" />
+                      <CheckCircle2 className="h-5 w-5 lg:h-5 lg:w-5 text-emerald-600" />
                     </motion.div>
                   )}
                   <Truck
-                    className={`h-5 w-5 lg:h-7 lg:w-7 mb-2 ${deliveryOption === "abholung" ? "text-white" : "text-slate-500"}`}
+                    className={`h-5 w-5 lg:h-7 lg:w-7 mb-2 ${deliveryOption === "abholung" ? "text-slate-800" : "text-slate-400"}`}
                   />
-                  <h3 className="font-semibold text-sm lg:text-base text-slate-200">Hol & Bring</h3>
-                  <p className="text-xs text-slate-400">Bequem von zuhause</p>
-                  <p className={`mt-1 text-sm font-semibold ${deliveryOption === "abholung" ? "text-white" : "text-white/60"}`}>+ 8€</p>
+                  <h3 className="font-semibold text-sm lg:text-base text-slate-800">Hol & Bring</h3>
+                  <p className="text-xs text-slate-500">Bequem von zuhause</p>
+                  <p className={`mt-1 text-sm font-semibold ${deliveryOption === "abholung" ? "text-slate-900" : "text-slate-400"}`}>+ 8€</p>
                 </motion.div>
               </div>
             </div>
@@ -310,8 +307,8 @@ export function SlotRegistration() {
                   exit={{ opacity: 0, height: 0 }}
                   className="space-y-3 overflow-hidden"
                 >
-                   <Label className="text-sm lg:text-lg font-semibold flex items-center gap-2 text-slate-200">
-                    <MapPin className="h-4 w-4 text-white" />
+                  <Label className="text-sm lg:text-lg font-semibold flex items-center gap-2 text-slate-800">
+                    <MapPin className="h-4 w-4 text-slate-600" />
                     Abholadresse & Kontakt
                   </Label>
                   <div className="grid gap-3">
@@ -319,23 +316,23 @@ export function SlotRegistration() {
                       placeholder="Straße & Hausnummer"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      className="h-10 lg:h-12 text-sm lg:text-base bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50"
+                      className="h-10 lg:h-12 text-sm lg:text-base bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-slate-400"
                     />
                     <div className="grid grid-cols-2 gap-3">
                       <Input
                         placeholder="PLZ & Ort"
                         value={zipCity}
                         onChange={(e) => setZipCity(e.target.value)}
-                        className="h-10 lg:h-12 text-sm lg:text-base bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50"
+                        className="h-10 lg:h-12 text-sm lg:text-base bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-slate-400"
                       />
                       {/* NEUES TELEFON FELD */}
                       <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                         <Input
                           placeholder="Telefonnummer"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          className="pl-9 h-10 lg:h-12 text-sm lg:text-base bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50"
+                          className="pl-9 h-10 lg:h-12 text-sm lg:text-base bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-slate-400"
                         />
                       </div>
                     </div>
@@ -347,7 +344,7 @@ export function SlotRegistration() {
             {/* Date & Email Fields */}
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label htmlFor="date" className="text-sm lg:text-base font-medium flex items-center gap-2 text-slate-300">
+                <Label htmlFor="date" className="text-sm lg:text-base font-medium flex items-center gap-2 text-slate-600">
                   <Calendar className="h-4 w-4 text-slate-400" />
                   {deliveryOption === "selbst" ? "Abgabedatum" : "Wunsch-Abholtag"}
                 </Label>
@@ -356,12 +353,11 @@ export function SlotRegistration() {
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="h-10 lg:h-12 text-sm lg:text-base cursor-pointer bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50 [transition:background-color_9999s_ease-in-out_0s] [&:-webkit-autofill]:-webkit-text-fill-color:white [&:-webkit-autofill]:bg-transparent"
-                  style={{ colorScheme: "dark" }}
+                  className="h-10 lg:h-12 text-sm lg:text-base cursor-pointer bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-slate-400"
                 />
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="email" className="text-sm lg:text-base font-medium flex items-center gap-2 text-slate-300">
+                <Label htmlFor="email" className="text-sm lg:text-base font-medium flex items-center gap-2 text-slate-600">
                   <Mail className="h-4 w-4 text-slate-400" />
                   E-Mail Adresse
                 </Label>
@@ -371,13 +367,13 @@ export function SlotRegistration() {
                   placeholder="deine@email.at"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="h-10 lg:h-12 text-sm lg:text-base bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus:border-white/50 [transition:background-color_9999s_ease-in-out_0s] [&:-webkit-autofill]:-webkit-text-fill-color:white [&:-webkit-autofill]:bg-transparent"
+                  className="h-10 lg:h-12 text-sm lg:text-base bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-slate-400"
                 />
               </div>
             </div>
           </motion.div>
 
-          {/* Right Side: Live Ticket (Unverändert, aber included der Vollständigkeit halber) */}
+          {/* Right Side: Live Ticket */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -386,14 +382,14 @@ export function SlotRegistration() {
             className="lg:col-span-2"
           >
             <div className="lg:sticky lg:top-8">
-              <div className="rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-md shadow-2xl overflow-hidden">
+              <div className="rounded-2xl border border-slate-200 bg-white shadow-lg overflow-hidden">
                 {/* Ticket Header */}
-                <div className="bg-white/5 border-b border-white/10 px-5 py-3 lg:px-6 lg:py-5">
+                <div className="bg-slate-50 border-b border-slate-200 px-5 py-3 lg:px-6 lg:py-5">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs lg:text-sm font-medium text-slate-400 uppercase tracking-wider">
+                    <span className="text-xs lg:text-sm font-medium text-slate-500 uppercase tracking-wider">
                       Deine Buchung
                     </span>
-                    <Zap className="h-4 w-4 text-amber-300 fill-amber-300/20" />
+                    <Zap className="h-4 w-4 text-amber-500 fill-amber-500/20" />
                   </div>
                 </div>
 
@@ -401,32 +397,32 @@ export function SlotRegistration() {
                 <div className="p-5 lg:p-6 space-y-5">
                   {/* Service */}
                   <div className="space-y-1">
-                    <span className="text-xs text-slate-500 uppercase tracking-wider">Service</span>
-                    <motion.div layout className="flex items-center justify-between text-slate-200">
+                    <span className="text-xs text-slate-400 uppercase tracking-wider">Service</span>
+                    <motion.div layout className="flex items-center justify-between text-slate-800">
                       <span className="font-semibold text-sm lg:text-lg">{currentService.name}</span>
-                      <span className="font-bold text-sm lg:text-lg text-white">{currentService.price}€</span>
+                      <span className="font-bold text-sm lg:text-lg text-slate-900">{currentService.price}€</span>
                     </motion.div>
-                    <span className="text-xs lg:text-sm text-slate-400">{currentService.subtitle}</span>
+                    <span className="text-xs lg:text-sm text-slate-500">{currentService.subtitle}</span>
                   </div>
 
-                  <div className="h-px bg-white/10" />
+                  <div className="h-px bg-slate-100" />
 
                   {/* Delivery */}
                   <div className="space-y-1">
-                    <span className="text-xs text-slate-500 uppercase tracking-wider">Übergabe</span>
-                    <motion.div layout className="flex items-center justify-between text-slate-200">
+                    <span className="text-xs text-slate-400 uppercase tracking-wider">Übergabe</span>
+                    <motion.div layout className="flex items-center justify-between text-slate-800">
                       <span className="text-sm lg:text-base">
                         {deliveryOption === "selbst" ? "Selbstabgabe" : "Hol & Bring Service"}
                       </span>
                       <span
-                        className={`font-semibold text-sm lg:text-base ${deliveryCost === 0 ? "text-emerald-400" : "text-white"}`}
+                        className={`font-semibold text-sm lg:text-base ${deliveryCost === 0 ? "text-emerald-600" : "text-slate-900"}`}
                       >
                         {deliveryCost === 0 ? "Gratis" : `+${deliveryCost}€`}
                       </span>
                     </motion.div>
                   </div>
 
-                  <div className="h-px bg-white/10" />
+                  <div className="h-px bg-slate-100" />
 
                   {/* Completion Date HUD */}
                   <AnimatePresence mode="wait">
@@ -436,20 +432,20 @@ export function SlotRegistration() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="rounded-xl bg-slate-950/50 border border-white/20 p-3 lg:p-4"
+                        className="rounded-xl bg-emerald-50 border border-emerald-200 p-3 lg:p-4"
                       >
-                        <span className="text-xs text-slate-300 font-medium uppercase tracking-wider">
+                        <span className="text-xs text-emerald-700 font-medium uppercase tracking-wider">
                           {deliveryOption === "selbst" ? "Abholbereit" : "Lieferbereit"}
                         </span>
                         <motion.p
                           key={completionInfo.dateString}
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className="text-lg lg:text-2xl font-bold text-white mt-1"
+                          className="text-lg lg:text-2xl font-bold text-slate-900 mt-1"
                         >
                           {completionInfo.dateString}
                         </motion.p>
-                        <span className="text-xs text-slate-400">
+                        <span className="text-xs text-slate-500">
                           ca. {completionInfo.days} Werktage
                         </span>
                       </motion.div>
@@ -459,34 +455,34 @@ export function SlotRegistration() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="rounded-xl bg-white/5 border border-dashed border-white/10 p-3 lg:p-4 text-center"
+                        className="rounded-xl bg-slate-50 border border-dashed border-slate-200 p-3 lg:p-4 text-center"
                       >
-                        <Calendar className="h-6 w-6 lg:h-7 lg:w-7 mx-auto mb-2 text-slate-600" />
-                        <p className="text-xs lg:text-sm text-slate-500">Wähle ein Datum</p>
+                        <Calendar className="h-6 w-6 lg:h-7 lg:w-7 mx-auto mb-2 text-slate-300" />
+                        <p className="text-xs lg:text-sm text-slate-400">Wähle ein Datum</p>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
 
                 {/* Ticket Footer */}
-                <div className="border-t border-white/10 bg-slate-950/50 p-5 lg:p-6">
-                  <div className="flex items-center justify-between mb-4 text-white">
+                <div className="border-t border-slate-200 bg-slate-50 p-5 lg:p-6">
+                  <div className="flex items-center justify-between mb-4 text-slate-900">
                     <span className="text-sm lg:text-lg font-medium">Gesamt</span>
                     <motion.span
                       key={totalPrice}
-                      initial={{ scale: 1.2, color: "white" }}
-                      animate={{ scale: 1, color: "white" }}
+                      initial={{ scale: 1.2 }}
+                      animate={{ scale: 1 }}
                       className="text-xl lg:text-3xl font-bold"
                     >
                       {totalPrice}€
                     </motion.span>
                   </div>
-                  
+
                   {/* Button */}
                   <Button
                     size="lg"
                     disabled={isLoading}
-                    className="w-full h-10 lg:h-12 text-sm lg:text-base font-semibold gap-2 bg-white text-slate-950 hover:bg-slate-200 transition-colors"
+                    className="w-full h-10 lg:h-12 text-sm lg:text-base font-semibold gap-2 bg-slate-900 text-white hover:bg-slate-800 transition-colors"
                     onClick={handleBooking}
                   >
                     {isLoading ? (
@@ -511,7 +507,7 @@ export function SlotRegistration() {
                   Antwort binnen 24h
                 </div>
                 <div className="flex items-center gap-2">
-                  <Sparkles className="h-3.5 w-3.5 text-white" />
+                  <Sparkles className="h-3.5 w-3.5 text-slate-400" />
                   Profischliff
                 </div>
               </div>

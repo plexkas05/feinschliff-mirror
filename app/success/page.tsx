@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 
 export default function SuccessPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-slate-950" />}>
+    <Suspense fallback={<div className="min-h-screen bg-slate-50" />}>
       <SuccessContent />
     </Suspense>
   )
@@ -17,30 +17,27 @@ export default function SuccessPage() {
 
 function SuccessContent() {
   const searchParams = useSearchParams()
-  
+
   const date = searchParams.get("date") || "Datum folgt"
   const service = searchParams.get("service") || "Messerschliff"
   const price = searchParams.get("price") || "0"
   const email = searchParams.get("email") || "deine Email"
 
   return (
-    <main className="min-h-screen w-full bg-slate-950 flex items-center justify-center p-4 lg:p-8 overflow-hidden relative">
-      
-      {/* Background Ambience */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-900/50 via-slate-950 to-slate-950 pointer-events-none" />
+    <main className="min-h-screen w-full bg-slate-50 flex items-center justify-center p-4 lg:p-8 overflow-hidden relative">
 
       <motion.div
         initial={{ y: 100, opacity: 0, scale: 0.95 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
-        className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden"
+        className="relative w-full max-w-md bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden"
       >
         {/* Top Decoration */}
         <div className="h-2 w-full bg-emerald-500" />
 
         <div className="p-8 lg:p-10 flex flex-col items-center text-center">
-          
-          {/* Animated Success Icon (Nur der grüne bleibt!) */}
+
+          {/* Animated Success Icon */}
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
@@ -58,17 +55,15 @@ function SuccessContent() {
             Vielen Dank. Die Bestätigung wurde an <span className="font-semibold text-slate-700">{email}</span> gesendet.
           </p>
 
-          {/* The "Receipt" Box (Sauber, ohne Hintergrund-Icon) */}
+          {/* The "Receipt" Box */}
           <div className="w-full bg-slate-50 rounded-2xl border border-slate-100 p-6 mb-8 text-left space-y-4 relative overflow-hidden">
-            
-            {/* HIER HABE ICH DAS GRAUE HACKERL ENTFERNT */}
 
             {/* Line Items */}
             <div className="flex justify-between items-center pb-3 border-b border-slate-200 border-dashed">
               <span className="text-sm text-slate-500">Service</span>
               <span className="text-sm font-semibold text-slate-900">{service}</span>
             </div>
-            
+
             <div className="flex justify-between items-center pb-3 border-b border-slate-200 border-dashed">
               <span className="text-sm text-slate-500">Datum</span>
               <span className="text-sm font-semibold text-slate-900">{date}</span>
@@ -87,11 +82,10 @@ function SuccessContent() {
                 Zurück zur Startseite
               </Button>
             </Link>
-            
+
             <div className="pt-2 w-full flex justify-center">
-              {/* FIX: Jetzt als richtiger Button mit klickbarem Bereich */}
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 asChild
                 className="text-slate-400 hover:text-slate-600 hover:bg-slate-50 text-xs h-auto py-2"
               >

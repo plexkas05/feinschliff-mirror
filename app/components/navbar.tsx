@@ -11,10 +11,10 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
-  
+
   const { scrollY } = useScroll()
   const dropdownRef = useRef<HTMLDivElement>(null)
-  
+
   // Hooks für Navigation
   const router = useRouter()
   const pathname = usePathname() // Wo sind wir gerade?
@@ -59,37 +59,36 @@ export function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? "bg-neutral-950/90 backdrop-blur-md border-b border-white/10 py-4 shadow-2xl" 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+          ? "bg-white/90 backdrop-blur-md border-b border-slate-200 py-4 shadow-sm"
           : "bg-transparent py-6"
-      }`}
+        }`}
     >
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl flex items-center justify-between">
-        
+
         {/* Logo */}
-        <Link 
-          href="/" 
+        <Link
+          href="/"
           onClick={() => {
             if (pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" })
           }}
           className="cursor-pointer group"
         >
-          <span className="text-xl lg:text-2xl font-bold tracking-tighter text-white transition-colors">
+          <span className="text-xl lg:text-2xl font-bold tracking-tighter text-slate-900 transition-colors">
             FEINSCHLIFF
           </span>
         </Link>
 
         {/* Actions (Desktop Dropdown & CTA) */}
         <div className="flex items-center gap-6">
-          
+
           {/* DESKTOP DROPDOWN */}
           <div className="relative hidden md:block" ref={dropdownRef}>
-            <button 
+            <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center gap-1 text-sm font-medium text-slate-300 hover:text-white transition-colors focus:outline-none"
+              className="flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors focus:outline-none"
             >
-              Menü
+              Menu
               <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`} />
             </button>
 
@@ -100,42 +99,42 @@ export function Navbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute top-full right-0 mt-4 w-56 rounded-xl border border-white/10 bg-neutral-950 p-2 shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  className="absolute top-full right-0 mt-4 w-56 rounded-xl border border-slate-200 bg-white p-2 shadow-lg ring-1 ring-black/5 focus:outline-none"
                 >
                   <div className="space-y-1">
                     {/* Navigation Links - nutzen jetzt handleNavigation */}
                     <button
                       onClick={() => handleNavigation("preise")}
-                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
                     >
-                      <Tag className="w-4 h-4 text-slate-500" />
+                      <Tag className="w-4 h-4 text-slate-400" />
                       Preise
                     </button>
                     <button
                       onClick={() => handleNavigation("ablauf")}
-                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
                     >
-                      <Workflow className="w-4 h-4 text-slate-500" />
+                      <Workflow className="w-4 h-4 text-slate-400" />
                       Ablauf
                     </button>
 
-                    <div className="my-1 h-px bg-white/10" />
+                    <div className="my-1 h-px bg-slate-100" />
 
                     {/* Echte Links zu Subpages */}
                     <Link
                       href="/ueber-uns"
                       onClick={() => setDropdownOpen(false)}
-                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
                     >
-                      <User className="w-4 h-4 text-slate-500" />
+                      <User className="w-4 h-4 text-slate-400" />
                       Über uns
                     </Link>
                     <Link
                       href="/ueber-uns#kontakt"
                       onClick={() => setDropdownOpen(false)}
-                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
                     >
-                      <Mail className="w-4 h-4 text-slate-500" />
+                      <Mail className="w-4 h-4 text-slate-400" />
                       Kontakt
                     </Link>
                   </div>
@@ -144,17 +143,17 @@ export function Navbar() {
             </AnimatePresence>
           </div>
 
-          {/* CTA Button - NEUES DESIGN (Dezenter) */}
-          <Button 
-            className="hidden md:inline-flex h-10 px-6 font-medium text-sm transition-all border border-white/10 bg-white/5 text-slate-200 hover:bg-white/10 hover:text-white hover:border-white/20"
+          {/* CTA Button */}
+          <Button
+            className="hidden md:inline-flex h-10 px-6 font-medium text-sm transition-all border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 shadow-sm"
             onClick={() => handleNavigation("termin")}
           >
             Jetzt buchen
           </Button>
 
           {/* Mobile Hamburger */}
-          <button 
-            className="md:hidden p-2 text-white hover:bg-white/10 rounded-full transition-colors"
+          <button
+            className="md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-full transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -164,23 +163,23 @@ export function Navbar() {
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute top-full left-0 right-0 bg-neutral-950 border-b border-white/10 p-6 md:hidden flex flex-col gap-4 shadow-2xl"
+          className="absolute top-full left-0 right-0 bg-white border-b border-slate-200 p-6 md:hidden flex flex-col gap-4 shadow-lg"
         >
           {/* Mobile Links - nutzen auch handleNavigation */}
-          <button onClick={() => handleNavigation("preise")} className="text-lg font-medium text-slate-300 py-2 text-left hover:text-white">
+          <button onClick={() => handleNavigation("preise")} className="text-lg font-medium text-slate-600 py-2 text-left hover:text-slate-900">
             Preise
           </button>
-          <button onClick={() => handleNavigation("ablauf")} className="text-lg font-medium text-slate-300 py-2 text-left hover:text-white">
+          <button onClick={() => handleNavigation("ablauf")} className="text-lg font-medium text-slate-600 py-2 text-left hover:text-slate-900">
             Ablauf
           </button>
-          
+
           <Link
             href="/ueber-uns"
             onClick={() => setMobileMenuOpen(false)}
-            className="text-lg font-medium text-slate-300 py-2 text-left hover:text-white flex items-center gap-2"
+            className="text-lg font-medium text-slate-600 py-2 text-left hover:text-slate-900 flex items-center gap-2"
           >
             Über uns
           </Link>
@@ -188,14 +187,14 @@ export function Navbar() {
           <Link
             href="/ueber-uns#kontakt"
             onClick={() => setMobileMenuOpen(false)}
-            className="text-lg font-medium text-slate-300 py-2 text-left hover:text-white flex items-center gap-2"
+            className="text-lg font-medium text-slate-600 py-2 text-left hover:text-slate-900 flex items-center gap-2"
           >
             Kontakt
           </Link>
 
-          {/* Mobile CTA - Auch hier etwas dezenter, aber immer noch gut sichtbar */}
-          <Button 
-            className="w-full bg-white/10 border border-white/10 text-white font-semibold mt-4 h-12 text-lg hover:bg-white/20"
+          {/* Mobile CTA */}
+          <Button
+            className="w-full bg-slate-900 text-white font-semibold mt-4 h-12 text-lg hover:bg-slate-800"
             onClick={() => handleNavigation("termin")}
           >
             Jetzt buchen

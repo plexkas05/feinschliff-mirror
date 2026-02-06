@@ -7,15 +7,12 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    // SCALING: pt-16 -> pt-10 (weniger Abstand oben)
-    <footer className="relative bg-neutral-950 border-t border-white/10 pt-10 overflow-hidden">
-      
-      {/* SCALING: mb-12 -> mb-8 (weniger Abstand zum FEINSCHLIFF Text unten) */}
+    <footer className="relative bg-slate-900 border-t border-slate-800 pt-10 overflow-hidden">
+
       <div className="container mx-auto px-6 max-w-6xl relative z-10 mb-8 lg:mb-10">
-        
-        {/* SCALING: gap-10 -> gap-8 (Spalten enger zusammen) */}
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
+
           {/* 1. Brand Column */}
           <div className="space-y-3">
             <Link href="/" className="inline-block">
@@ -23,12 +20,12 @@ export function Footer() {
                 FEINSCHLIFF
               </span>
             </Link>
-            <p className="text-xs leading-relaxed text-neutral-400 max-w-xs">
-              Professioneller Messerschleifservice in Graz. 
+            <p className="text-xs leading-relaxed text-slate-400 max-w-xs">
+              Professioneller Messerschleifservice in Graz.
               Wir bringen Schärfe zurück in deine Küche.
             </p>
             <div className="flex gap-4 pt-1">
-              <a href="#" className="text-neutral-400 hover:text-white transition-colors">
+              <a href="#" className="text-slate-400 hover:text-white transition-colors">
                 <Instagram className="h-4 w-4" />
                 <span className="sr-only">Instagram</span>
               </a>
@@ -37,10 +34,8 @@ export function Footer() {
 
           {/* 2. Service Links */}
           <div>
-            {/* SCALING: mb-4 -> mb-2 (Überschrift näher am Text) */}
             <h3 className="text-sm font-semibold text-white mb-2">Service</h3>
-            {/* SCALING: space-y-2.5 -> space-y-1.5 (Zeilenabstand verringert) */}
-            <ul className="space-y-1.5 text-xs text-neutral-400">
+            <ul className="space-y-1.5 text-xs text-slate-400">
               <li>
                 <Link href="/#preise" className="hover:text-emerald-400 transition-colors">Preise & Pakete</Link>
               </li>
@@ -59,7 +54,7 @@ export function Footer() {
           {/* 3. Rechtliches */}
           <div>
             <h3 className="text-sm font-semibold text-white mb-2">Rechtliches</h3>
-            <ul className="space-y-1.5 text-xs text-neutral-400">
+            <ul className="space-y-1.5 text-xs text-slate-400">
               <li>
                 <Link href="/impressum" className="hover:text-emerald-400 transition-colors">Impressum</Link>
               </li>
@@ -71,7 +66,7 @@ export function Footer() {
               </li>
               <li className="pt-2">
                 <Link href="/login" className="hover:text-white transition-colors opacity-30 hover:opacity-100 flex items-center gap-1">
-                  Admin Zugang 
+                  Admin Zugang
                 </Link>
               </li>
             </ul>
@@ -79,22 +74,22 @@ export function Footer() {
           {/* 4. Kontakt */}
           <div>
             <h3 className="text-sm font-semibold text-white mb-2">Kontakt</h3>
-            <ul className="space-y-2 text-xs text-neutral-400">
+            <ul className="space-y-2 text-xs text-slate-400">
               <li className="flex items-start gap-2.5">
-                <MapPin className="h-3.5 w-3.5 text-neutral-500 shrink-0 mt-0.5" />
+                <MapPin className="h-3.5 w-3.5 text-slate-500 shrink-0 mt-0.5" />
                 <span>
                   Rebenweg 12<br />
                   8054 Seiersberg
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
-                <Mail className="h-3.5 w-3.5 text-neutral-500 shrink-0" />
+                <Mail className="h-3.5 w-3.5 text-slate-500 shrink-0" />
                 <a href="mailto:felix.kastner27@gmail.com" className="hover:text-white transition-colors">
                   felix.kastner27@gmail.com
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <Phone className="h-3.5 w-3.5 text-neutral-500 shrink-0" />
+                <Phone className="h-3.5 w-3.5 text-slate-500 shrink-0" />
                 <a href="tel:+436601628017" className="hover:text-white transition-colors">
                   +43 660 1628017
                 </a>
@@ -104,8 +99,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        {/* SCALING: mt-12 -> mt-8, pt-6 -> pt-4 */}
-        <div className="mt-8 pt-4 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-2 text-[10px] text-neutral-600">
+        <div className="mt-8 pt-4 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-2 text-[10px] text-slate-600">
           <p>&copy; {currentYear} Feinschliff Graz. Alle Rechte vorbehalten.</p>
           <p className="flex items-center gap-1">
             Made with <Hammer className="h-3 w-3" /> in Styria
@@ -115,19 +109,19 @@ export function Footer() {
 
       {/* BACKGROUND TEXT (SVG SOLUTION) */}
       <div className="w-full select-none pointer-events-none leading-none opacity-[0.03]">
-        <svg 
-          width="100%" 
-          height="100%" 
-          viewBox="0 0 100 15" 
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 100 15"
           preserveAspectRatio="none"
           className="w-full h-auto block"
         >
-          <text 
-            x="0" 
-            y="13" 
-            fontFamily="Arial, sans-serif" 
-            fontWeight="900" 
-            fontSize="15" 
+          <text
+            x="0"
+            y="13"
+            fontFamily="Arial, sans-serif"
+            fontWeight="900"
+            fontSize="15"
             fill="currentColor"
             className="text-white"
           >
@@ -135,7 +129,7 @@ export function Footer() {
           </text>
         </svg>
       </div>
-      
+
     </footer>
   )
 }

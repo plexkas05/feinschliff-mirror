@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const deliveryText = deliveryOption === "abholung" ? "Hol- & Bringservice" : "Selbstabgabe";
 
     let nextSteps = "";
-    
+
     // FALL 1: Hol- & Bringservice (Wir rufen Kunden an)
     if (deliveryOption === "abholung") {
       nextSteps = `
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
         </p>
         <p><strong>Abholadresse:</strong> ${address}</p>
       `;
-    } 
+    }
     // FALL 2: Selbstabgabe (Kunde ruft uns an)
     else {
       nextSteps = `
