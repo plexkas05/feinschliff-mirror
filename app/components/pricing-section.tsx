@@ -59,7 +59,7 @@ export function PricingSection() {
     <section
       ref={sectionRef}
       id="preise"
-      className="relative w-full py-12 lg:py-24 min-h-[70vh] flex flex-col justify-center bg-slate-50 overflow-hidden"
+      className="relative w-full py-12 lg:py-24 min-h-[70vh] flex flex-col justify-center bg-white overflow-hidden"
     >
       <div className="container relative px-4 md:px-6 lg:px-8 mx-auto max-w-6xl">
         {/* Header */}

@@ -108,7 +108,7 @@ export function Footer() {
       </div>
 
       {/* BACKGROUND TEXT (SVG SOLUTION) */}
-      <div className="w-full select-none pointer-events-none leading-none opacity-[0.03]">
+      <div className="w-full select-none pointer-events-none leading-none opacity-[0.06]">
         <svg
           width="100%"
           height="100%"

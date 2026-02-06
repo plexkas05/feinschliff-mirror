@@ -35,13 +35,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden bg-slate-50 px-6 py-16 lg:py-28 text-center">
-
-      {/* Background: Subtle geometric shapes */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-emerald-50 opacity-60" />
-        <div className="absolute -bottom-32 -left-32 h-[500px] w-[500px] rounded-full bg-slate-100 opacity-80" />
-      </div>
+    <section className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden bg-white px-6 py-16 lg:py-28 text-center">
 
       {/* Content */}
       <motion.div
@@ -62,7 +56,7 @@ export function HeroSection() {
           className="text-balance text-5xl font-extrabold tracking-tighter sm:text-6xl lg:text-8xl"
         >
           <span className="text-slate-900 block mb-2">Willkommen bei</span>
-          <span className="bg-gradient-to-b from-slate-900 via-slate-700 to-slate-400 bg-clip-text text-transparent">
+          <span className="text-slate-900">
             FEINSCHLIFF
           </span>
         </motion.h1>
@@ -102,8 +96,7 @@ export function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* Smooth Blend to next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-white pointer-events-none" />
+
     </section>
   )
 }
