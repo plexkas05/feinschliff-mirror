@@ -16,87 +16,87 @@ export function HeroSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
+        staggerChildren: 0.1, // Schnelleres Stagger für flüssigeren Look
+        delayChildren: 0.1,
       },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 }, // Weniger Weg (20 statt 30) wirkt ruhiger
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94] as const,
+        duration: 0.6,
+        ease: [0.21, 0.47, 0.32, 0.98] as const, // Hochwertiges "Ease-Out"
       },
     },
   }
 
   return (
-    <section className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden px-6 py-16 lg:py-28 text-center">
-
+    <section className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-6 py-16 lg:py-24 text-center">
+      
       {/* Content */}
       <motion.div
-        className="relative z-10 max-w-4xl lg:max-w-6xl space-y-6 lg:space-y-8"
+        className="relative z-10 max-w-5xl space-y-8"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         <motion.div variants={itemVariants}>
-          <div className="inline-flex items-center rounded-full border border-slate-200/60 bg-white px-4 py-1.5 lg:px-6 lg:py-2 text-sm font-medium text-slate-600 tracking-wide shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
-            Professioneller Messerschleifservice
-          </div>
+          <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50/50 px-4 py-1.5 text-sm font-medium text-slate-500 backdrop-blur-sm">
+            Messerschleifservice Seiersberg
+          </span>
         </motion.div>
 
-        {/* Headline */}
+        {/* Headline: Editorial Style */}
         <motion.h1
           variants={itemVariants}
-          className="text-balance text-5xl font-extrabold tracking-tighter sm:text-6xl lg:text-8xl"
+          className="text-balance text-5xl sm:text-7xl lg:text-8xl tracking-tighter leading-[0.95]"
         >
-          <span className="text-slate-900 block mb-2">Willkommen bei</span>
-          <span className="text-slate-900">
-            FEINSCHLIFF
+          {/* Oberer Teil: Etwas leichter, grau */}
+          <span className="block font-medium text-slate-400 mb-2 lg:mb-4">
+            Der perfekte
+          </span>
+          {/* Unterer Teil: Fett, dunkel (aber nicht schwarz) */}
+          <span className="block font-bold text-slate-800">
+            Schnitt für dich.
           </span>
         </motion.h1>
 
         {/* Subheadline */}
         <motion.p
           variants={itemVariants}
-          className="mx-auto max-w-2xl lg:max-w-4xl text-pretty text-lg text-slate-500 sm:text-xl lg:text-2xl font-light leading-relaxed"
+          className="mx-auto max-w-2xl text-pretty text-lg text-slate-500 sm:text-xl font-normal leading-relaxed tracking-tight"
         >
-          Wir bringen Ihre Messer wieder auf Höchstleistung. <br className="hidden md:block" />
-          Präzise, zuverlässig und mit Leidenschaft für Qualität.
+          Wir bringen deine Messer zurück in Bestform. <br className="hidden md:block" />
+          Präzises Handwerk, direkt vor deiner Haustür.
         </motion.p>
 
         {/* Buttons */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-col items-center gap-3 lg:gap-4 sm:flex-row sm:justify-center pt-4 lg:pt-6"
+          className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center pt-8"
         >
-          {/* Secondary Button */}
           <Button
             variant="outline"
             size="lg"
-            className="w-full sm:w-auto h-12 lg:h-14 px-6 lg:px-8 text-base font-medium border-slate-200/60 bg-white text-slate-700 hover:bg-white hover:border-slate-300 hover:text-slate-900 transition-all duration-300 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]"
+            className="w-full sm:w-auto h-12 px-8 text-base font-medium border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors shadow-sm"
             onClick={() => scrollToSection("preise")}
           >
-            Unsere Preise
+            Preise ansehen
           </Button>
 
-          {/* Primary Button */}
           <Button
             size="lg"
-            className="w-full sm:w-auto h-12 lg:h-14 px-6 lg:px-8 text-base font-medium bg-slate-900 text-white hover:bg-slate-800 transition-all duration-300 shadow-sm"
+            className="w-full sm:w-auto h-12 px-8 text-base font-medium bg-slate-800 text-white hover:bg-slate-700 transition-all shadow-md hover:shadow-lg"
             onClick={() => scrollToSection("termin")}
           >
             Termin buchen
           </Button>
         </motion.div>
       </motion.div>
-
-
     </section>
   )
 }
