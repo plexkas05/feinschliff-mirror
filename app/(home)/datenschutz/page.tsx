@@ -72,6 +72,13 @@ export default function DatenschutzPage() {
                 <strong className="text-slate-900 block mb-1">Resend (E-Mail Versand)</strong>
                 Wir nutzen Resend für den Versand von Bestätigungsmails. Deine E-Mail-Adresse und der Inhalt der Buchung werden an Resend übermittelt.
               </div>
+
+              <div className="bg-white p-4 rounded-lg border border-slate-200/60 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] mt-4">
+                <strong className="text-slate-900 block mb-1">Google Maps</strong>
+                Wir nutzen Google Maps zur visuellen Darstellung unseres Standorts. 
+                Durch die Nutzung dieser Karte werden Daten (IP-Adresse) an Google übertragen.
+              </div>
+
             </div>
           </div>
 
