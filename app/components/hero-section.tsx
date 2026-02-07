@@ -53,10 +53,10 @@ export function HeroSection() {
         {/* Headline */}
         <motion.h1
           variants={itemVariants}
-          className="text-balance text-5xl font-extrabold tracking-tighter sm:text-6xl lg:text-8xl"
+          className="text-balance text-5xl md:text-7xl font-extrabold tracking-tight"
         >
-          <span className="text-slate-900 block mb-2">Willkommen bei</span>
-          <span className="text-slate-900">
+          <span className="text-slate-700 block mb-2">Willkommen bei</span>
+          <span className="font-serif italic text-slate-900">
             FEINSCHLIFF
           </span>
         </motion.h1>

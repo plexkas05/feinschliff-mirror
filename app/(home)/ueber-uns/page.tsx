@@ -24,9 +24,9 @@ export default function AboutPage() {
             <span className="inline-block py-1 px-3 rounded-full bg-white border border-slate-200/60 text-slate-600 text-sm font-medium mb-6 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
               Seit 2026
             </span>
-            <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-8">
+            <h1 className="text-5xl md:text-7xl font-extrabold text-slate-700 tracking-tight mb-8">
               Handwerk aus <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-slate-700 to-slate-400">
+              <span className="font-serif italic text-slate-900">
                 Leidenschaft.
               </span>
             </h1>
