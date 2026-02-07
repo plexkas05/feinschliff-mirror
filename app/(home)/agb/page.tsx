@@ -32,7 +32,7 @@ export default function AgbPage() {
           </div>
 
           <p className="text-slate-500 ml-1">
-            Das "Kleingedruckte". Fair und transparent.
+            Das "Kleingedruckte" Fair und transparent.
           </p>
         </div>
 
@@ -51,8 +51,8 @@ export default function AgbPage() {
                 <span className="text-slate-400 font-mono">01.</span> Geltungsbereich
               </h3>
               <p>
-                Diese Allgemeinen Geschäftsbedingungen gelten für alle Dienstleistungen (insbesondere Messerschleifen),
-                die durch Felix Kastner ("Feinschliff Graz") erbracht werden.
+                Diese Allgemeinen Geschäftsbedingungen gelten für alle Dienstleistungen,
+                die durch Feinschliff erbracht werden.
               </p>
             </article>
 
@@ -109,7 +109,7 @@ export default function AgbPage() {
                 <span className="text-slate-400 font-mono">05.</span> Haftung & Gewährleistung
               </h3>
               <p className="mb-3">
-                Wir behandeln deine Messer mit größter Sorgfalt und nutzen professionelle Nassschleif-Verfahren (Tormek), die den Stahl schonen.
+                Wir behandeln deine Messer mit größter Sorgfalt und nutzen professionelle Nassschleif-Verfahren, die den Stahl schonen.
               </p>
               <p>
                 Für Schäden, die auf Vorschäden am Material (z.B. versteckte Risse, Rostfras, minderwertiger Stahl) zurückzuführen sind, übernehmen wir keine Haftung.

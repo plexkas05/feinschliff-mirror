@@ -44,18 +44,18 @@ export default function ImpressumPage() {
           <div>
             <h2 className="text-xl font-semibold text-slate-900 mb-2">Rechtliche Hinweise</h2>
             <p><strong>Anwendbare Rechtsvorschriften:</strong> Gewerbeordnung (GewO), E-Commerce-Gesetz (ECG)</p>
-            <p><strong>Aufsichtsbehörde:</strong> Bezirkshauptmannschaft Graz-Umgebung (zuständig bei Gewerbeanmeldung)</p>
+            <p><strong>Aufsichtsbehörde:</strong> Bezirkshauptmannschaft Graz-Umgebung</p>
             <p><strong>Zugang zu Rechtsvorschriften:</strong> <a href="https://www.ris.bka.gv.at" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-600 underline decoration-slate-300 underline-offset-4">www.ris.bka.gv.at</a></p>
           </div>
 
           {/* Mediengesetz */}
           <div>
-            <h2 className="text-xl font-semibold text-slate-900 mb-2">Blattlinie (Grundlegende Richtung)</h2>
+            <h2 className="text-xl font-semibold text-slate-900 mb-2">Blattlinie</h2>
             <p>Die Website dient der Information über die Dienstleistungen von Feinschliff Graz sowie der Anbahnung von Kundenaufträgen im Bereich Messerschleifen.</p>
           </div>
 
           {/* Urheberrecht & Haftung */}
-          <div className="pt-10 border-t border-slate-200 space-y-6 text-xs text-slate-400">
+          <div className="pt-14 border-t border-slate-200 space-y-9 text-xs text-slate-400">
             <p>
               <strong>Urheberrecht:</strong> Die Inhalte dieser Website sind urheberrechtlich geschützt. Jede Verwendung, die über den privaten Gebrauch hinausgeht, bedarf der schriftlichen Zustimmung.
             </p>

@@ -38,8 +38,7 @@ export default function AboutPage() {
             </h1>
             <p className="text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed">
               Wir glauben daran, dass ein scharfes Messer nicht nur ein Werkzeug ist,
-              sondern die Freude am Kochen zurückbringt. Unser Ziel ist es jedes stumpfe Messer
-              aus euren Küchen wieder in eine scharfe Klinge zu verwandeln.
+              sondern die Freude am Kochen zurückbringt.
 
             </p>
           </motion.div>
@@ -142,7 +141,6 @@ export default function AboutPage() {
                     <p className="text-sm text-slate-400">Werkstatt & Abgabe</p>
                     <span className="text-slate-900 block">Rebenweg 12</span>
                     <span className="text-slate-900 block">8054 Seiersberg</span>
-                    <p className="text-xs text-slate-400 mt-2">Bitte vorher kurz anrufen.</p>
                   </div>
                 </li>
               </ul>
