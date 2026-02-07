@@ -25,7 +25,7 @@ export function Footer() {
               Wir bringen Schärfe zurück in deine Küche.
             </p>
             <div className="flex gap-4 pt-1">
-              <a href="#" className="text-slate-400 hover:text-white transition-colors">
+              <a href="https://www.instagram.com/felix__kastner/" className="text-slate-400 hover:text-white transition-colors">
                 <Instagram className="h-4 w-4" />
                 <span className="sr-only">Instagram</span>
               </a>
