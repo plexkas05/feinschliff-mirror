@@ -48,9 +48,7 @@ export function Footer() {
               <li>
                 <Link href="/ueber-uns" className="hover:text-emerald-400 transition-colors">Über uns</Link>
               </li>
-              <li className="pt-2">
                 <Link href="/login" className="hover:text-emerald-400 transition-colors">Admin Zugang</Link>
-              </li>
             </ul>
           </div>
 

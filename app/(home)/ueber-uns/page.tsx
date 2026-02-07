@@ -24,14 +24,11 @@ export default function AboutPage() {
             <span className="inline-block py-1 px-3 rounded-full bg-white border border-slate-200/60 text-slate-600 text-sm font-medium mb-6 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
               Seit 2026
             </span>
-            {/* Headline - Identische Größe & Style wie Hero */}
+            {/* Headline */}
             <h1 className="flex flex-col items-center justify-center mb-8">
-              {/* Intro: Identischer Style wie Hero */}
               <span className="block text-slate-500 font-medium text-2xl md:text-4xl mb-1 md:mb-2">
                 Handwerk aus
               </span>
-              
-              {/* Main: Identischer Style wie Hero (Punkt entfernt) */}
               <span className="block text-slate-900 font-black text-6xl md:text-8xl tracking-tighter">
                 Leidenschaft
               </span>
@@ -39,7 +36,6 @@ export default function AboutPage() {
             <p className="text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed">
               Wir glauben daran, dass ein scharfes Messer nicht nur ein Werkzeug ist,
               sondern die Freude am Kochen zurückbringt.
-
             </p>
           </motion.div>
         </div>
@@ -72,7 +68,7 @@ export default function AboutPage() {
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-2">Das Team</h3>
                   <p className="text-slate-500">
-                    Hinter Feinschliff stehen echte Menschen. Felix und sein Team kümmern sich
+                    Hinter Feinschliff stehen echte Menschen. Das Team kümmert sich
                     persönlich um jede Klinge.
                   </p>
                 </div>
@@ -146,14 +142,19 @@ export default function AboutPage() {
               </ul>
             </div>
 
-            {/* Map Placeholder */}
-            <div className="bg-white rounded-3xl overflow-hidden border border-slate-200/60 relative min-h-75 group shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="h-12 w-12 text-slate-300 mx-auto mb-4 group-hover:text-emerald-500 transition-colors" />
-                  <span className="text-slate-400 font-medium">Karte wird geladen...</span>
-                </div>
-              </div>
+            {/* GOOGLE MAPS IFRAME INTEGRATION*/}
+            <div className="bg-white rounded-3xl overflow-hidden border border-slate-200/60 relative min-h-100 h-full shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
+              <iframe 
+                width="100%" 
+                height="100%" 
+                className="absolute inset-0 w-full h-full border-0 grayscale-[0.2] hover:grayscale-0 transition-all duration-500"
+                loading="lazy" 
+                allowFullScreen 
+                referrerPolicy="no-referrer-when-downgrade"
+                // Hier Link für Rebenweg 12, 8054 Seiersberg
+                src="https://maps.google.com/maps?q=Rebenweg%2012%2C%208054%20Seiersberg&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                title="Feinschliff Graz Standort"
+              ></iframe>
             </div>
           </div>
 
