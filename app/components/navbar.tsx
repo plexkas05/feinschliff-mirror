@@ -53,8 +53,8 @@ export function Navbar() {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
         isScrolled
-          ? "bg-white/90 backdrop-blur-xl border-b border-slate-200/80 py-3 shadow-sm" // Gescrollt: Sehr kompakt, Weiß, hoher Blur
-          : "bg-slate-200/70 backdrop-blur-md border-b border-slate-300/60 py-4"      // Oben: Kompakter als vorher, deutlicherer Kontrast (Grau)
+          ? "bg-white/90 backdrop-blur-xl border-b border-slate-200/80 py-3 shadow-sm"
+          : "bg-slate-200/70 backdrop-blur-md border-b border-slate-300/60 py-4"
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl flex items-center justify-between">
@@ -97,33 +97,35 @@ export function Navbar() {
                   <div className="space-y-1">
                     <button
                       onClick={() => handleNavigation("preise")}
-                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-emerald-400 transition-colors"
                     >
-                      <Tag className="w-4 h-4 text-slate-400" />
+                      <Tag className="w-4 h-4 text-slate-400 group-hover:text-emerald-400" />
                       Preise
                     </button>
                     <button
                       onClick={() => handleNavigation("ablauf")}
-                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-emerald-400 transition-colors"
                     >
-                      <Workflow className="w-4 h-4 text-slate-400" />
+                      <Workflow className="w-4 h-4 text-slate-400 group-hover:text-emerald-400" />
                       Ablauf
                     </button>
-                    <div className="my-1 h-px bg-slate-100" />
+                    
+                    {/* HIER WURDE DER STRICH ENTFERNT */}
+
                     <Link
                       href="/ueber-uns"
                       onClick={() => setDropdownOpen(false)}
-                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-emerald-400 transition-colors"
                     >
-                      <User className="w-4 h-4 text-slate-400" />
+                      <User className="w-4 h-4 text-slate-400 group-hover:text-emerald-400" />
                       Über uns
                     </Link>
                     <Link
                       href="/ueber-uns#kontakt"
                       onClick={() => setDropdownOpen(false)}
-                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-emerald-400 transition-colors"
                     >
-                      <Mail className="w-4 h-4 text-slate-400" />
+                      <Mail className="w-4 h-4 text-slate-400 group-hover:text-emerald-400" />
                       Kontakt
                     </Link>
                   </div>
