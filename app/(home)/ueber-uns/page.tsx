@@ -26,13 +26,13 @@ export default function AboutPage() {
             </span>
             {/* Headline - Identische Größe & Style wie Hero */}
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8">
-              {/* Rest: Modernes Grau, schlicht */}
-              <span className="text-slate-800">
+              {/* Modernes, sattes Dunkelgrau für den Einleitungstext */}
+              <span className="text-slate-900">
                 Handwerk aus
               </span> <br />
               
-              {/* Feature: Serif, Italic, Deep Emerald-Black */}
-              <span className="font-serif italic text-emerald-950 drop-shadow-sm">
+              {/* "Leidenschaft" im identischen Chrome/Shining Look */}
+              <span className="bg-gradient-to-r from-slate-700 via-slate-300 to-slate-700 bg-clip-text text-transparent drop-shadow-sm pb-2">
                 Leidenschaft.
               </span>
             </h1>
