@@ -13,7 +13,7 @@ export default function AboutPage() {
       {/* 1. HERO: Story & Vision */}
       <section className="relative pt-40 pb-20 px-6 overflow-hidden">
         {/* Background */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-50 rounded-full blur-[120px] opacity-40 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-125 h-125 bg-emerald-50 rounded-full blur-[120px] opacity-40 pointer-events-none" />
 
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <motion.div
@@ -26,7 +26,7 @@ export default function AboutPage() {
             </span>
             <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-8">
               Handwerk aus <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-700 to-slate-400">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-slate-700 to-slate-400">
                 Leidenschaft.
               </span>
             </h1>
@@ -143,7 +143,7 @@ export default function AboutPage() {
             </div>
 
             {/* Map Placeholder */}
-            <div className="bg-white rounded-3xl overflow-hidden border border-slate-200/60 relative min-h-[300px] group shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
+            <div className="bg-white rounded-3xl overflow-hidden border border-slate-200/60 relative min-h-75 group shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]">
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
                   <MapPin className="h-12 w-12 text-slate-300 mx-auto mb-4 group-hover:text-emerald-500 transition-colors" />

@@ -27,7 +27,7 @@ function SuccessContent() {
     <main className="min-h-screen w-full bg-slate-950 flex items-center justify-center p-4 lg:p-8 overflow-hidden relative">
       
       {/* Background Ambience */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-900/50 via-slate-950 to-slate-950 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-slate-900/50 via-slate-950 to-slate-950 pointer-events-none" />
 
       <motion.div
         initial={{ y: 100, opacity: 0, scale: 0.95 }}

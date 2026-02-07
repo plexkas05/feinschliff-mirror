@@ -155,8 +155,8 @@ export function SlotRegistration() {
     <section id="termin" className="relative -mt-1 min-h-screen w-full px-4 py-12 lg:py-20 overflow-hidden">
 
       {/* Background Ambience */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-50 rounded-full blur-[120px] opacity-40 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-slate-100 rounded-full blur-[100px] opacity-50 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-125 h-125 bg-emerald-50 rounded-full blur-[120px] opacity-40 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-100 h-100 bg-slate-100 rounded-full blur-[100px] opacity-50 pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-6xl">
 

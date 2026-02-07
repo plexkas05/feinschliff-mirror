@@ -161,7 +161,7 @@ export default function AdminDashboard() {
                         <span className="text-amber-600 text-xs flex items-center gap-1">
                           <MapPin className="w-3 h-3" /> Holen!
                         </span>
-                        <span className="text-xs text-slate-400 truncate max-w-[150px]" title={booking.address}>
+                        <span className="text-xs text-slate-400 truncate max-w-37.5" title={booking.address}>
                           {booking.address}
                         </span>
                       </div>

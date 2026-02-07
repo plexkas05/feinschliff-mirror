@@ -76,9 +76,9 @@ export function HowItWorks() {
         <div className="relative">
           {/* Animated connecting line (desktop only) */}
           <div className="absolute top-16 lg:top-24 left-[16.67%] right-[16.67%] hidden md:block">
-            <div className="h-[2px] w-full bg-slate-200 rounded-full overflow-hidden">
+            <div className="h-0.5 w-full bg-slate-200 rounded-full overflow-hidden">
               <motion.div
-                className="h-full w-1/3 bg-gradient-to-r from-transparent via-emerald-400 to-transparent"
+                className="h-full w-1/3 bg-linear-to-r from-transparent via-emerald-400 to-transparent"
                 animate={{
                   x: ["-100%", "400%"],
                 }}
