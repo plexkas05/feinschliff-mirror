@@ -25,15 +25,15 @@ export default function AboutPage() {
               Seit 2026
             </span>
             {/* Headline - Identische Größe & Style wie Hero */}
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8">
-              {/* Modernes, sattes Dunkelgrau für den Einleitungstext */}
-              <span className="text-slate-900">
+            <h1 className="flex flex-col items-center justify-center mb-8">
+              {/* Intro: Identischer Style wie Hero */}
+              <span className="block text-slate-500 font-medium text-2xl md:text-4xl mb-1 md:mb-2">
                 Handwerk aus
-              </span> <br />
+              </span>
               
-              {/* "Leidenschaft" im identischen Chrome/Shining Look */}
-              <span className="bg-gradient-to-r from-slate-700 via-slate-300 to-slate-700 bg-clip-text text-transparent drop-shadow-sm pb-2">
-                Leidenschaft.
+              {/* Main: Identischer Style wie Hero (Punkt entfernt) */}
+              <span className="block text-slate-900 font-black text-6xl md:text-8xl tracking-tighter">
+                Leidenschaft
               </span>
             </h1>
             <p className="text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed">

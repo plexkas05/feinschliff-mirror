@@ -53,20 +53,18 @@ export function HeroSection() {
         {/* Headline */}
         <motion.h1
           variants={itemVariants}
-          className="text-balance text-5xl md:text-7xl font-extrabold tracking-tight mb-6"
+          className="flex flex-col items-center justify-center"
         >
-          {/* Modernes, sattes Dunkelgrau für den Einleitungstext */}
-          <span className="text-slate-900 block mb-2">
+          {/* Intro: Kleiner, grau, elegant (Apple-Style Subline) */}
+          <span className="block text-slate-500 font-medium text-2xl md:text-4xl mb-1 md:mb-2">
             Willkommen bei
           </span>
           
-          {/* "FEINSCHLIFF" im Chrome/Shining Look */}
-          {/* Verlauf: Dunkel -> Hell (Lichtreflex) -> Dunkel */}
-          <span className="bg-gradient-to-r from-slate-700 via-slate-300 to-slate-700 bg-clip-text text-transparent drop-shadow-sm pb-2">
+          {/* Main: Massiv, Schwarzgrau, Solid (Apple-Style Headline) */}
+          <span className="block text-slate-900 font-black text-6xl md:text-8xl tracking-tighter">
             FEINSCHLIFF
           </span>
         </motion.h1>
-
         {/* Subheadline */}
         <motion.p
           variants={itemVariants}
