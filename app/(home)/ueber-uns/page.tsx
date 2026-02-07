@@ -26,9 +26,7 @@ export default function AboutPage() {
             </span>
             <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-8">
               Handwerk aus <br />
-              
-              {/* IDENTISCHER STAHL-LOOK */}
-              <span className="bg-gradient-to-r from-emerald-950 via-slate-500 to-emerald-950 bg-clip-text text-transparent drop-shadow-sm">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-700 to-slate-400">
                 Leidenschaft.
               </span>
             </h1>

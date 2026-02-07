@@ -51,16 +51,15 @@ export function HeroSection() {
         </motion.div>
 
         {/* Headline */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 text-slate-900">
-          <span className="block mb-2 text-3xl md:text-4xl font-semibold text-slate-500 tracking-normal">
-            Willkommen bei
-          </span>
-          
-          {/* DER NEUE STAHL-LOOK */}
-          <span className="bg-gradient-to-r from-emerald-950 via-slate-500 to-emerald-950 bg-clip-text text-transparent drop-shadow-sm">
+        <motion.h1
+          variants={itemVariants}
+          className="text-balance text-5xl font-extrabold tracking-tighter sm:text-6xl lg:text-8xl"
+        >
+          <span className="text-slate-900 block mb-2">Willkommen bei</span>
+          <span className="text-slate-900">
             FEINSCHLIFF
           </span>
-      </h1>
+        </motion.h1>
 
         {/* Subheadline */}
         <motion.p
