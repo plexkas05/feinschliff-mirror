@@ -55,7 +55,7 @@ export default function ImpressumPage() {
           </div>
 
           {/* Urheberrecht & Haftung */}
-          <div className="pt-8 border-t border-slate-200 space-y-4 text-xs text-slate-400">
+          <div className="pt-10 border-t border-slate-200 space-y-6 text-xs text-slate-400">
             <p>
               <strong>Urheberrecht:</strong> Die Inhalte dieser Website sind urheberrechtlich geschützt. Jede Verwendung, die über den privaten Gebrauch hinausgeht, bedarf der schriftlichen Zustimmung.
             </p>
