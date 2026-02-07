@@ -5,19 +5,18 @@ import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-
 import { Button } from "@/components/ui/button"
 import { Menu, X, ChevronDown, User, Mail, Tag, Workflow } from "lucide-react"
 import Link from "next/link"
-import { useRouter, usePathname } from "next/navigation" // WICHTIG: usePathname importieren
+import { useRouter, usePathname } from "next/navigation"
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
-
   const { scrollY } = useScroll()
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   // Hooks für Navigation
   const router = useRouter()
-  const pathname = usePathname() // Wo sind wir gerade?
+  const pathname = usePathname()
 
   // Detect Scroll
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -37,19 +36,14 @@ export function Navbar() {
 
   // INTELLIGENTE NAVIGATION
   const handleNavigation = (id: string) => {
-    // 1. Menüs schließen
     setMobileMenuOpen(false)
     setDropdownOpen(false)
-
-    // 2. Prüfen: Sind wir auf der Startseite ("/")?
     if (pathname === "/") {
-      // JA: Einfach scrollen
       const element = document.getElementById(id)
       if (element) {
         element.scrollIntoView({ behavior: "smooth" })
       }
     } else {
-      // NEIN: Zur Startseite springen mit Anker (#)
       router.push(`/#${id}`)
     }
   }
@@ -59,13 +53,16 @@ export function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+      // HIER IST DIE MAGIC:
+      // Top: Leichtes Grau (slate-100), semi-transparent, leichter Blur -> Hebt sich ab.
+      // Scroll: Weiß, starker Blur, Schatten -> Klassischer Glassmorphism.
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
+        isScrolled
           ? "bg-white/80 backdrop-blur-xl border-b border-slate-200/60 py-4 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)]"
-          : "bg-transparent py-6"
-        }`}
+          : "bg-slate-100/60 backdrop-blur-md border-b border-slate-200/30 py-6"
+      }`}
     >
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl flex items-center justify-between">
-
         {/* Logo */}
         <Link
           href="/"
@@ -81,7 +78,6 @@ export function Navbar() {
 
         {/* Actions (Desktop Dropdown & CTA) */}
         <div className="flex items-center gap-6">
-
           {/* DESKTOP DROPDOWN */}
           <div className="relative hidden md:block" ref={dropdownRef}>
             <button
@@ -89,7 +85,9 @@ export function Navbar() {
               className="flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors focus:outline-none"
             >
               Menu
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`} />
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
+              />
             </button>
 
             <AnimatePresence>
@@ -102,7 +100,6 @@ export function Navbar() {
                   className="absolute top-full right-0 mt-4 w-56 rounded-xl border border-slate-200/60 bg-white p-2 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.08)] ring-1 ring-black/5 focus:outline-none"
                 >
                   <div className="space-y-1">
-                    {/* Navigation Links - nutzen jetzt handleNavigation */}
                     <button
                       onClick={() => handleNavigation("preise")}
                       className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
@@ -117,10 +114,7 @@ export function Navbar() {
                       <Workflow className="w-4 h-4 text-slate-400" />
                       Ablauf
                     </button>
-
                     <div className="my-1 h-px bg-slate-100" />
-
-                    {/* Echte Links zu Subpages */}
                     <Link
                       href="/ueber-uns"
                       onClick={() => setDropdownOpen(false)}
@@ -168,14 +162,18 @@ export function Navbar() {
           animate={{ opacity: 1, y: 0 }}
           className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-b border-slate-200/60 p-6 md:hidden flex flex-col gap-4 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.08)]"
         >
-          {/* Mobile Links - nutzen auch handleNavigation */}
-          <button onClick={() => handleNavigation("preise")} className="text-lg font-medium text-slate-600 py-2 text-left hover:text-slate-900">
+          <button
+            onClick={() => handleNavigation("preise")}
+            className="text-lg font-medium text-slate-600 py-2 text-left hover:text-slate-900"
+          >
             Preise
           </button>
-          <button onClick={() => handleNavigation("ablauf")} className="text-lg font-medium text-slate-600 py-2 text-left hover:text-slate-900">
+          <button
+            onClick={() => handleNavigation("ablauf")}
+            className="text-lg font-medium text-slate-600 py-2 text-left hover:text-slate-900"
+          >
             Ablauf
           </button>
-
           <Link
             href="/ueber-uns"
             onClick={() => setMobileMenuOpen(false)}
@@ -183,7 +181,6 @@ export function Navbar() {
           >
             Über uns
           </Link>
-
           <Link
             href="/ueber-uns#kontakt"
             onClick={() => setMobileMenuOpen(false)}
@@ -192,7 +189,6 @@ export function Navbar() {
             Kontakt
           </Link>
 
-          {/* Mobile CTA */}
           <Button
             className="w-full bg-slate-900 text-white font-semibold mt-4 h-12 text-lg hover:bg-slate-800"
             onClick={() => handleNavigation("termin")}
