@@ -46,7 +46,7 @@ export function HowItWorks() {
   }
 
   return (
-    <section id="ablauf" className="relative overflow-hidden px-6 py-20 lg:py-32">
+    <section id="ablauf" className="relative overflow-hidden px-6 pt-10 lg:pt-16 pb-20 lg:pb-32 -mt-8 lg:-mt-12">
       <div className="relative z-10 mx-auto max-w-5xl lg:max-w-6xl">
 
         {/* Header */}

@@ -197,8 +197,26 @@ export function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* Bottom gradient fade for smooth transition into next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 lg:h-40 bg-gradient-to-t from-[#f3f4f6] to-transparent z-10 pointer-events-none" />
+      {/* Bottom fade system — multi-layer for Apple-style seamless blend */}
+      <div className="absolute bottom-0 left-0 right-0 z-[5] pointer-events-none">
+        {/* Layer 1: Tall soft fade starting high up */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-72 lg:h-96"
+          style={{
+            background:
+              "linear-gradient(to top, #f3f4f6 0%, #f3f4f6 8%, rgba(243,244,246,0.85) 25%, rgba(243,244,246,0.5) 50%, rgba(243,244,246,0.15) 75%, transparent 100%)",
+          }}
+        />
+        {/* Layer 2: Short opaque strip at the very bottom to guarantee no seam */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 lg:h-20 bg-[#f3f4f6]" />
+        {/* Layer 3: Soft blur mask at the transition edge for extra polish */}
+        <div className="absolute bottom-12 lg:bottom-16 left-0 right-0 h-16 lg:h-24 backdrop-blur-[2px]"
+          style={{
+            WebkitMaskImage: "linear-gradient(to top, transparent, black 40%, black 60%, transparent)",
+            maskImage: "linear-gradient(to top, transparent, black 40%, black 60%, transparent)",
+          }}
+        />
+      </div>
     </section>
   )
 }
