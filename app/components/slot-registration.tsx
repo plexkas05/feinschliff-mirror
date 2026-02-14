@@ -18,7 +18,6 @@ const services = [
     subtitle: "Kleines Messer",
     price: 12,
     type: "single" as const,
-    icon: "🔪",
   },
   {
     id: "meisterschliff",
@@ -26,16 +25,20 @@ const services = [
     subtitle: "Großes Messer",
     price: 16,
     type: "single" as const,
-    icon: "🗡️",
   },
-  { id: "kombi", name: "Kombi-Schliff", subtitle: "5 Messer Paket", price: 50, type: "package" as const, icon: "📦" },
+  {
+    id: "kombi",
+    name: "Kombi-Schliff",
+    subtitle: "5 Messer Paket",
+    price: 50,
+    type: "package" as const,
+  },
   {
     id: "feinschliff",
     name: "Der Feinschliff",
     subtitle: "15 Messer Paket",
     price: 120,
     type: "package" as const,
-    icon: "✨",
   },
 ]
 
@@ -268,7 +271,7 @@ export function SlotRegistration() {
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setServiceId(service.id)}
                     className={`
-                      relative cursor-pointer rounded-xl border-2 p-3 lg:p-5 transition-all duration-300
+                      relative cursor-pointer rounded-xl border-2 p-4 lg:p-6 transition-all duration-300
                       ${serviceId === service.id
                         ? "border-slate-900 bg-slate-50 shadow-md"
                         : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
@@ -280,10 +283,9 @@ export function SlotRegistration() {
                         <CheckCircle2 className="h-5 w-5 lg:h-5 lg:w-5 text-emerald-600" />
                       </motion.div>
                     )}
-                    <div className="text-xl lg:text-2xl mb-2">{service.icon}</div>
-                    <h3 className="font-semibold text-sm lg:text-base text-slate-800">{service.name}</h3>
-                    <p className="text-xs text-slate-500">{service.subtitle}</p>
-                    <p className="mt-1 text-lg lg:text-xl font-bold text-slate-900">{service.price}€</p>
+                    <h3 className="font-semibold text-base lg:text-lg text-slate-800 mb-0.5">{service.name}</h3>
+                    <p className="text-xs lg:text-sm text-slate-500">{service.subtitle}</p>
+                    <p className="mt-2 text-xl lg:text-2xl font-bold text-slate-900">{service.price}€</p>
                   </motion.div>
                 ))}
               </div>
