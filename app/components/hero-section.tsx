@@ -79,7 +79,7 @@ export function HeroSection() {
           variants={itemVariants}
           className="flex flex-col items-center gap-3 lg:gap-4 sm:flex-row sm:justify-center pt-4 lg:pt-6"
         >
-          {/* Secondary Button */}
+          {/* Secondary-Button */}
           <Button
             variant="outline"
             size="lg"
@@ -89,7 +89,7 @@ export function HeroSection() {
             Unsere Preise
           </Button>
 
-          {/* Primary Button */}
+          {/* Primary-Button */}
           <Button
             size="lg"
             className="w-full sm:w-auto h-12 lg:h-14 px-6 lg:px-8 text-base font-medium bg-slate-900 text-white hover:bg-slate-800 transition-all duration-300 shadow-sm"
