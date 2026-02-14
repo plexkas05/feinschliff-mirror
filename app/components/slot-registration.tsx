@@ -90,12 +90,16 @@ export function SlotRegistration() {
   // Supabase Booking Logic
   const handleBooking = async () => {
     
-
-    // 1. ZOD VALIDIERUNG (Echte Daten prüfen) 
+    // ZOD VALIDIERUNG (Echte Daten prüfen) 
     // A) Immer prüfen: E-Mail und Datum
     const baseSchema = z.object({
       email: z.string().email("Bitte eine gültige E-Mail-Adresse eingeben."),
-      date: z.string().min(1, "Bitte wähle ein Datum aus.")
+      
+      date: z.string()
+        .min(1, "Bitte wähle ein Datum aus.")
+        .refine((val) => new Date(val) >= new Date(new Date().setHours(0,0,0,0)), {
+          message: "Das Datum darf nicht in der Vergangenheit liegen."
+        })
     })
     
     const baseResult = baseSchema.safeParse({ email, date })
@@ -137,10 +141,7 @@ export function SlotRegistration() {
       return; // STOPP
     }
 
-    // ---------------------------------------------------------
-    // 3. DATEN SENDEN (Supabase & Mail) 🚀
-    // ---------------------------------------------------------
-    
+    // 3. DATEN SENDEN (Supabase & Mail) 
     setIsLoading(true)
 
     try {
@@ -400,6 +401,7 @@ export function SlotRegistration() {
                 <Input
                   id="date"
                   type="date"
+                  min={new Date().toISOString().split("T")[0]} // aktuelles datum als Minimum
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                   className="h-10 lg:h-12 text-sm lg:text-base cursor-pointer bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-slate-400"
