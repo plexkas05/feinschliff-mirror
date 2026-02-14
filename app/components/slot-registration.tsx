@@ -152,6 +152,7 @@ export function SlotRegistration() {
       const phoneNumber = deliveryOption === "abholung" ? phone : null
       
       // Daten an Supabase senden
+      if (!supabase) throw new Error("Supabase ist nicht konfiguriert.")
       const { data, error } = await supabase
         .from('bookings')
         .insert([
