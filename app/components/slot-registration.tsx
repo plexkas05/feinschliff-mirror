@@ -1,5 +1,5 @@
 "use client"
-
+import { z } from "zod"
 import { useState, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -39,6 +39,19 @@ const services = [
   },
 ]
 
+// Liste aller PLZ im Umkreis von ca. 20km um Seiersberg (8054)
+const ALLOWED_ZIPS = [
+  "8010", "8020", "8036", "8041", "8042", "8043", "8044", "8045", "8046", "8047", "8051", "8052", "8053", "8054", "8055",
+  "8073", "8074", "8141", "8142", "8143", "8144", "8401", "8501", "8502", "8151", "8152",
+];
+
+function isAddressInRadius(zipCode: string): boolean {
+  return ALLOWED_ZIPS.includes(zipCode);
+}
+
+
+
+
 export function SlotRegistration() {
   const router = useRouter()
   const [email, setEmail] = useState("")
@@ -76,28 +89,65 @@ export function SlotRegistration() {
 
   // Supabase Booking Logic
   const handleBooking = async () => {
-    // 1. Validierung
-    if (!email || !date) {
-      alert("Bitte gib eine E-Mail-Adresse und ein Datum an.")
-      return
+    
+
+    // 1. ZOD VALIDIERUNG (Echte Daten prüfen) 
+    // A) Immer prüfen: E-Mail und Datum
+    const baseSchema = z.object({
+      email: z.string().email("Bitte eine gültige E-Mail-Adresse eingeben."),
+      date: z.string().min(1, "Bitte wähle ein Datum aus.")
+    })
+    
+    const baseResult = baseSchema.safeParse({ email, date })
+    
+    if (!baseResult.success) {
+      // Zeige den ersten Fehler der E-Mail/Datum Validierung an
+      alert(baseResult.error.issues[0].message)
+      return; // STOPP
     }
 
-    // Validierung Adresse & Telefon bei Abholung
+    // B) Nur bei "Abholung" prüfen: Adresse, PLZ & Telefon
+    let extractedZip = ""; // Vorher deklarieren, damit wir sie für den Range-Check haben
+
     if (deliveryOption === "abholung") {
-      if (!address || !zipCity || !phone) {
-        alert("Für den Hol-Service benötigen wir Adresse und Telefonnummer.")
-        return
+      extractedZip = zipCity.split(" ")[0].trim();
+
+      const pickupSchema = z.object({
+        address: z.string().min(3, "Bitte gib eine Straße und Hausnummer an."),
+        zip: z.string().length(4, "Die PLZ muss genau 4 Zahlen haben.").regex(/^\d+$/, "Die PLZ darf nur aus Zahlen bestehen."),
+        phone: z.string().min(8, "Bitte gib eine gültige Telefonnummer an.").regex(/^(\+43|0)\d+$/, "Telefonnummer ungültig (z.B. 0664...)")
+      })
+
+      const pickupResult = pickupSchema.safeParse({
+        address: address,
+        zip: extractedZip,
+        phone: phone
+      })
+
+      if (!pickupResult.success) {
+        // Zeige den ersten Fehler der Abhol-Validierung an (z.B. falsche Nummer)
+        alert(pickupResult.error.issues[0].message)
+        return; // STOPP
       }
     }
+    // 2. RANGE CHECK (PLZ Radius) 
+    
+    if (deliveryOption === "abholung" && !ALLOWED_ZIPS.includes(extractedZip)) {
+      alert("Tut uns leid! Der Abholservice ist nur im Raum Graz & Umgebung (20km) verfügbar. Bitte wähle 'Selbstabgabe' und lass uns die Messer zukommen, oder gib eine gültige PLZ im Raum Graz & Umgebung ein.")
+      return; // STOPP
+    }
 
+    // ---------------------------------------------------------
+    // 3. DATEN SENDEN (Supabase & Mail) 🚀
+    // ---------------------------------------------------------
+    
     setIsLoading(true)
 
     try {
-      // Adresse zusammenbauen
       const fullAddress = deliveryOption === "abholung" ? `${address}, ${zipCity}` : null
       const phoneNumber = deliveryOption === "abholung" ? phone : null
-
-      // 2. Daten an Supabase senden
+      
+      // Daten an Supabase senden
       const { data, error } = await supabase
         .from('bookings')
         .insert([
@@ -110,14 +160,14 @@ export function SlotRegistration() {
             price: totalPrice,
             status: 'pending',
             address: fullAddress,
-            phone: phoneNumber // Neue Spalte wird befüllt
+            phone: phoneNumber 
           },
         ])
         .select()
 
       if (error) throw error
 
-      // 3. E-Mail senden (API Route)
+      // E-Mail senden (API Route)
       await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -128,11 +178,11 @@ export function SlotRegistration() {
           price: totalPrice,
           deliveryOption: deliveryOption,
           address: fullAddress,
-          phone: phoneNumber // Telefon mitgeben
+          phone: phoneNumber 
         })
       });
 
-      // 4. Erfolg -> Weiterleitung
+      // Erfolg -> Weiterleitung
       const formattedDate = new Date(date).toLocaleDateString("de-DE")
       const params = new URLSearchParams({
         date: formattedDate,
@@ -149,8 +199,7 @@ export function SlotRegistration() {
       setIsLoading(false)
     }
   }
-
-
+  
   return (
     <section id="termin" className="relative -mt-1 min-h-screen w-full px-4 py-12 lg:py-20 overflow-hidden">
 
