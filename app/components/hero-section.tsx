@@ -1,28 +1,25 @@
 "use client"
 
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect, useCallback } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
-// Placeholder slides - swap these for real <Image /> components later
 const slides = [
   {
     id: 1,
-    // Replace with: src="/images/hero-1.jpg"
-    bg: "bg-slate-800",
+    src: "/knife1.jpg",
     alt: "Professionelles Messerschleifen",
   },
   {
     id: 2,
-    // Replace with: src="/images/hero-2.jpg"
-    bg: "bg-slate-700",
-    alt: "Handwerk und Praezision",
+    src: "/knife2.jpg",
+    alt: "Handwerk und Präzision",
   },
   {
     id: 3,
-    // Replace with: src="/images/hero-3.jpg"
-    bg: "bg-slate-900",
+    src: "/knife3.jpg",
     alt: "Rasiermesserscharfe Ergebnisse",
   },
 ]
@@ -32,6 +29,7 @@ const SLIDE_INTERVAL = 7000
 export function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
 
+  // Funktion zum manuellen Weiterschalten
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length)
   }, [])
@@ -40,11 +38,16 @@ export function HeroSection() {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
   }, [])
 
-  // Auto-slide
+  // 🔥 UPDATE: Timer-Logik
+  // Der Timer startet jetzt jedes Mal NEU, wenn sich 'currentSlide' ändert.
+  // Das passiert automatisch beim Auto-Slide ODER wenn du klickst.
   useEffect(() => {
-    const timer = setInterval(nextSlide, SLIDE_INTERVAL)
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length)
+    }, SLIDE_INTERVAL)
+
     return () => clearInterval(timer)
-  }, [nextSlide])
+  }, [currentSlide]) // <--- WICHTIG: Abhängigkeit von currentSlide sorgt für den Reset
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
@@ -53,6 +56,7 @@ export function HeroSection() {
     }
   }
 
+  // Animationen für Text
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -77,62 +81,65 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden">
+    <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden bg-slate-900">
 
       {/* Background Slider */}
       <div className="absolute inset-0">
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           <motion.div
             key={currentSlide}
-            initial={{ opacity: 0, scale: 1.08 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.02 }}
-            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity: 0, scale: 1.1 }} // Startet leicht reingezoomt
+            animate={{ opacity: 1, scale: 1 }}   // Zoomt sanft raus auf Normalgröße
+            exit={{ opacity: 0 }}                // Altes Bild blendet nur aus (kein Zoom mehr)
+            transition={{
+              opacity: { duration: 1.0 }, // Weiche Überblendung (1 Sekunde)
+              scale: { duration: 6.0 }    // Sehr langsamer "Ken Burns" Effekt
+            }}
             className="absolute inset-0"
           >
-            {/* 
-              Placeholder colored div. 
-              To use real images, replace the div below with:
-              <Image src={slides[currentSlide].src} alt={slides[currentSlide].alt} fill className="object-cover" priority />
-            */}
-            <div className={`absolute inset-0 ${slides[currentSlide].bg}`} />
+            <Image
+              src={slides[currentSlide].src}
+              alt={slides[currentSlide].alt}
+              fill
+              className="object-cover"
+              priority
+            />
           </motion.div>
         </AnimatePresence>
 
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/50 z-10" />
 
         {/* Subtle vignette for depth */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)] z-10" />
       </div>
 
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 lg:h-12 lg:w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 hover:bg-white/20 hover:text-white transition-all duration-300"
+        className="hidden lg:flex absolute left-8 top-1/2 -translate-y-1/2 z-20 h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 hover:bg-white/20 hover:text-white transition-all duration-300"
         aria-label="Vorheriges Bild"
       >
         <ChevronLeft className="h-5 w-5 lg:h-6 lg:w-6" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 lg:h-12 lg:w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 hover:bg-white/20 hover:text-white transition-all duration-300"
+        className="hidden lg:flex absolute right-8 top-1/2 -translate-y-1/2 z-20 h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 hover:bg-white/20 hover:text-white transition-all duration-300"
         aria-label="Nächstes Bild"
       >
         <ChevronRight className="h-5 w-5 lg:h-6 lg:w-6" />
       </button>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-20 lg:bottom-24 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
+      <div className="absolute bottom-12 lg:bottom-16 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-1.5 rounded-full transition-all duration-500 ${
-              index === currentSlide
+            className={`h-1.5 rounded-full transition-all duration-500 ${index === currentSlide
                 ? "w-8 bg-white"
                 : "w-1.5 bg-white/40 hover:bg-white/60"
-            }`}
+              }`}
             aria-label={`Gehe zu Bild ${index + 1}`}
           />
         ))}
@@ -140,7 +147,7 @@ export function HeroSection() {
 
       {/* Static Foreground Content */}
       <motion.div
-        className="relative z-10 max-w-4xl lg:max-w-6xl space-y-6 lg:space-y-8 px-6 text-center"
+        className="relative z-30 max-w-4xl lg:max-w-6xl space-y-6 lg:space-y-8 px-6 text-center"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -196,27 +203,6 @@ export function HeroSection() {
           </Button>
         </motion.div>
       </motion.div>
-
-      {/* Bottom fade system — multi-layer for Apple-style seamless blend */}
-      <div className="absolute bottom-0 left-0 right-0 z-[5] pointer-events-none">
-        {/* Layer 1: Tall soft fade starting high up */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-72 lg:h-96"
-          style={{
-            background:
-              "linear-gradient(to top, #f3f4f6 0%, #f3f4f6 8%, rgba(243,244,246,0.85) 25%, rgba(243,244,246,0.5) 50%, rgba(243,244,246,0.15) 75%, transparent 100%)",
-          }}
-        />
-        {/* Layer 2: Short opaque strip at the very bottom to guarantee no seam */}
-        <div className="absolute bottom-0 left-0 right-0 h-16 lg:h-20 bg-[#f3f4f6]" />
-        {/* Layer 3: Soft blur mask at the transition edge for extra polish */}
-        <div className="absolute bottom-12 lg:bottom-16 left-0 right-0 h-16 lg:h-24 backdrop-blur-[2px]"
-          style={{
-            WebkitMaskImage: "linear-gradient(to top, transparent, black 40%, black 60%, transparent)",
-            maskImage: "linear-gradient(to top, transparent, black 40%, black 60%, transparent)",
-          }}
-        />
-      </div>
     </section>
   )
 }
