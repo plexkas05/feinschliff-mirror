@@ -31,13 +31,12 @@ export function CookieBanner() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          layout // Sorgt für smoothere Transition bei Größenänderung
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
           className={cn(
-            "fixed z-100 mx-auto md:mx-0 shadow-lg shadow-black/10 transition-all duration-500",
+            "fixed z-100 mx-auto md:mx-0 shadow-lg shadow-black/5 transition-all duration-500",
             // DYNAMISCHE POSITION & GRÖSSE:
             isPrivacyPage 
               ? "bottom-0 left-0 right-0 max-w-full rounded-t-xl" // Auf Datenschutz: Unten angedockt, volle Breite, flach
@@ -45,23 +44,22 @@ export function CookieBanner() {
           )}
         >
           <div className={cn(
-            "bg-slate-800/75 backdrop-blur-xl border border-slate-700/30 flex flex-col transition-all",
+            "bg-white/90 backdrop-blur-lg border border-slate-200/60 flex flex-col transition-all",
             isPrivacyPage ? "p-4 flex-row items-center justify-between gap-4 rounded-t-xl" : "p-6 gap-4 rounded-2xl"
           )}>
             
             {/* INHALT: Zeige Text nur, wenn NICHT auf Datenschutz-Seite */}
             {!isPrivacyPage ? (
               <div className="space-y-2">
-                <h3 className="text-white font-bold text-lg">Datenschutz & Cookies 🍪</h3>
-                {/* HIER: Dunkleres Grau (slate-400 statt 300) */}
-                <p className="text-slate-400 text-sm leading-relaxed">
+                <h3 className="text-slate-900 font-bold text-lg">{"Datenschutz & Cookies \uD83C\uDF6A"}</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">
                   Wir nutzen Cookies und externe Dienste (wie Google Maps), um dir das beste Erlebnis zu bieten. 
                   Ohne diese Dienste funktioniert die Karte leider nicht.
                 </p>
               </div>
             ) : (
               // Kurzfassung für die Datenschutz-Seite
-              <p className="text-slate-400 text-sm font-medium">
+              <p className="text-slate-600 text-sm font-medium">
                 Bitte stimme zu, um alle Funktionen (z.B. Karte) zu nutzen.
               </p>
             )}
@@ -80,7 +78,7 @@ export function CookieBanner() {
                 <Button 
                   variant="outline" 
                   asChild
-                  className="border-white/10 text-slate-400 hover:bg-white/5 hover:text-white flex-1"
+                  className="border-slate-300 text-slate-600 hover:bg-slate-100 hover:text-slate-800 flex-1"
                 >
                   <Link href="/datenschutz">
                     Mehr Infos
