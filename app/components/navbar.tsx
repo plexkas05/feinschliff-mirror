@@ -57,8 +57,8 @@ export function Navbar() {
           // ZUSTAND 1: GANZ OBEN -> Unsichtbar & Weggeschoben (Funktionalität)
           ? "-translate-y-full opacity-0 pointer-events-none py-6"
           
-          // ZUSTAND 2: GESCROLLT -> Sichtbar & DEINE ORIGINAL-FARBEN (Weiß/Hell)
-          : "translate-y-0 opacity-100 pointer-events-auto bg-white/90 backdrop-blur-xl border-b border-slate-200/80 py-3 shadow-sm"
+          // ZUSTAND 2: GESCROLLT -> Sichtbar mit subtiler Transparenz
+          : "translate-y-0 opacity-100 pointer-events-auto bg-white/85 backdrop-blur-lg border-b border-slate-200/50 py-3 shadow-[0_1px_8px_-3px_rgba(0,0,0,0.06)]"
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl flex items-center justify-between">

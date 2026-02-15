@@ -37,7 +37,7 @@ export function CookieBanner() {
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
           className={cn(
-            "fixed z-100 mx-auto md:mx-0 shadow-2xl transition-all duration-500",
+            "fixed z-100 mx-auto md:mx-0 shadow-lg shadow-black/10 transition-all duration-500",
             // DYNAMISCHE POSITION & GRÖSSE:
             isPrivacyPage 
               ? "bottom-0 left-0 right-0 max-w-full rounded-t-xl" // Auf Datenschutz: Unten angedockt, volle Breite, flach
@@ -45,7 +45,7 @@ export function CookieBanner() {
           )}
         >
           <div className={cn(
-            "bg-slate-900/95 backdrop-blur-md border border-white/10 flex flex-col transition-all",
+            "bg-slate-800/75 backdrop-blur-xl border border-slate-700/30 flex flex-col transition-all",
             isPrivacyPage ? "p-4 flex-row items-center justify-between gap-4 rounded-t-xl" : "p-6 gap-4 rounded-2xl"
           )}>
             
