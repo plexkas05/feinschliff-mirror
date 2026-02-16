@@ -4,21 +4,26 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect, useCallback } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react"
 
 const slides = [
   {
     id: 1,
-    src: "/knife1.jpg",
+    src: "/knife2.jpg",
     alt: "Professionelles Messerschleifen",
   },
   {
     id: 2,
-    src: "/knife2.jpg",
+    src: "/knifes1.jpg",
     alt: "Handwerk und Präzision",
   },
   {
     id: 3,
+    src: "/knife1.jpg",
+    alt: "Rasiermesserscharfe Ergebnisse",
+  },
+  {
+    id: 4,
     src: "/knife3.jpg",
     alt: "Rasiermesserscharfe Ergebnisse",
   },
@@ -81,7 +86,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden bg-slate-900">
+    <section className="relative flex h-screen flex-col items-center justify-center overflow-hidden bg-slate-900">
 
       {/* Background Slider */}
       <div className="absolute inset-0">
