@@ -135,9 +135,9 @@ export function HeroSection() {
         <ChevronRight className="h-5 w-5 lg:h-6 lg:w-6" />
       </button>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator -- hidden on mobile to avoid CTA overlap */}
       <motion.div
-        className="absolute bottom-28 lg:bottom-36 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center cursor-pointer"
+        className="hidden md:flex absolute bottom-20 lg:bottom-24 left-1/2 -translate-x-1/2 z-20 flex-col items-center cursor-pointer"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.5, duration: 1.2 }}
@@ -148,28 +148,28 @@ export function HeroSection() {
         role="button"
         aria-label="Zum Inhalt scrollen"
       >
-        <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 font-medium mb-3">
+        <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 font-medium mb-2">
           Scroll
         </span>
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           className="flex flex-col items-center"
         >
-          <div className="w-px h-6 bg-gradient-to-b from-white/50 to-transparent mb-1" />
+          <div className="w-px h-5 bg-gradient-to-b from-white/50 to-transparent mb-0.5" />
           <ChevronDown className="h-4 w-4 text-white/50" strokeWidth={1.5} />
         </motion.div>
       </motion.div>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-12 lg:bottom-16 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
+      <div className="absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-1.5 rounded-full transition-all duration-500 ${index === currentSlide
-                ? "w-8 bg-white"
-                : "w-1.5 bg-white/40 hover:bg-white/60"
+            className={`cursor-pointer rounded-full transition-all duration-500 ${index === currentSlide
+                ? "h-1.5 w-8 bg-white"
+                : "h-1.5 w-1.5 bg-white/40 hover:bg-white/70 hover:scale-125"
               }`}
             aria-label={`Gehe zu Bild ${index + 1}`}
           />
