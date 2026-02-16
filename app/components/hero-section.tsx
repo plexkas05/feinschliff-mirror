@@ -4,7 +4,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect, useCallback } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react"
 
 const slides = [
   {
@@ -135,9 +135,12 @@ export function HeroSection() {
         <ChevronRight className="h-5 w-5 lg:h-6 lg:w-6" />
       </button>
 
-      {/* Scroll Indicator -- subtle vertical line with gentle float */}
-      <div
-        className="absolute bottom-28 lg:bottom-36 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 cursor-pointer"
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-28 lg:bottom-36 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center cursor-pointer"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.5, duration: 1.2 }}
         onClick={() => {
           const el = document.getElementById("ablauf")
           if (el) el.scrollIntoView({ behavior: "smooth" })
@@ -145,24 +148,18 @@ export function HeroSection() {
         role="button"
         aria-label="Zum Inhalt scrollen"
       >
+        <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 font-medium mb-3">
+          Scroll
+        </span>
         <motion.div
-          className="flex flex-col items-center gap-1.5"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+          className="flex flex-col items-center"
         >
-          <span className="text-[10px] uppercase tracking-[0.25em] text-white/40 font-medium">
-            Scroll
-          </span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center"
-          >
-            <div className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent" />
-          </motion.div>
+          <div className="w-px h-6 bg-gradient-to-b from-white/50 to-transparent mb-1" />
+          <ChevronDown className="h-4 w-4 text-white/50" strokeWidth={1.5} />
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Slide Indicators */}
       <div className="absolute bottom-12 lg:bottom-16 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
