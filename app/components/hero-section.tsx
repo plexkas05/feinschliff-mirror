@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react"
 
 const slides = [
@@ -33,8 +33,9 @@ const SLIDE_INTERVAL = 7000
 
 export function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const touchStartX = useRef<number | null>(null)
+  const touchStartY = useRef<number | null>(null)
 
-  // Funktion zum manuellen Weiterschalten
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length)
   }, [])
@@ -61,7 +62,25 @@ export function HeroSection() {
     }
   }
 
-  // Animationen für Text
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+    touchStartY.current = e.touches[0].clientY
+  }, [])
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current
+    const deltaY = e.changedTouches[0].clientY - touchStartY.current
+    const isHorizontal = Math.abs(deltaX) > Math.abs(deltaY)
+    if (isHorizontal && Math.abs(deltaX) > 50) {
+      if (deltaX < 0) nextSlide()
+      else prevSlide()
+    }
+    touchStartX.current = null
+    touchStartY.current = null
+  }, [nextSlide, prevSlide])
+
+  const containerVariants = {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -86,7 +105,11 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative flex h-screen flex-col items-center justify-center overflow-hidden bg-slate-900">
+    <section
+      className="relative flex h-screen flex-col items-center justify-center overflow-hidden bg-slate-900 touch-pan-y"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
 
       {/* Background Slider */}
       <div className="absolute inset-0">
