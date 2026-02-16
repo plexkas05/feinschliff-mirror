@@ -4,7 +4,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect, useCallback } from "react"
-import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 const slides = [
   {
@@ -134,6 +134,35 @@ export function HeroSection() {
       >
         <ChevronRight className="h-5 w-5 lg:h-6 lg:w-6" />
       </button>
+
+      {/* Scroll Indicator -- subtle vertical line with gentle float */}
+      <div
+        className="absolute bottom-28 lg:bottom-36 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 cursor-pointer"
+        onClick={() => {
+          const el = document.getElementById("ablauf")
+          if (el) el.scrollIntoView({ behavior: "smooth" })
+        }}
+        role="button"
+        aria-label="Zum Inhalt scrollen"
+      >
+        <motion.div
+          className="flex flex-col items-center gap-1.5"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2, duration: 1 }}
+        >
+          <span className="text-[10px] uppercase tracking-[0.25em] text-white/40 font-medium">
+            Scroll
+          </span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="flex flex-col items-center"
+          >
+            <div className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent" />
+          </motion.div>
+        </motion.div>
+      </div>
 
       {/* Slide Indicators */}
       <div className="absolute bottom-12 lg:bottom-16 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
