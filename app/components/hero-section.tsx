@@ -44,16 +44,13 @@ export function HeroSection() {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
   }, [])
 
-  // 🔥 UPDATE: Timer-Logik
-  // Der Timer startet jetzt jedes Mal NEU, wenn sich 'currentSlide' ändert.
-  // Das passiert automatisch beim Auto-Slide ODER wenn du klickst.
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length)
     }, SLIDE_INTERVAL)
 
     return () => clearInterval(timer)
-  }, [currentSlide]) // <--- WICHTIG: Abhängigkeit von currentSlide sorgt für den Reset
+  }, [currentSlide])
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
@@ -71,8 +68,7 @@ export function HeroSection() {
     if (touchStartX.current === null || touchStartY.current === null) return
     const deltaX = e.changedTouches[0].clientX - touchStartX.current
     const deltaY = e.changedTouches[0].clientY - touchStartY.current
-    const isHorizontal = Math.abs(deltaX) > Math.abs(deltaY)
-    if (isHorizontal && Math.abs(deltaX) > 50) {
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
       if (deltaX < 0) nextSlide()
       else prevSlide()
     }
@@ -80,7 +76,6 @@ export function HeroSection() {
     touchStartY.current = null
   }, [nextSlide, prevSlide])
 
-  const containerVariants = {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -110,18 +105,17 @@ export function HeroSection() {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-
       {/* Background Slider */}
       <div className="absolute inset-0">
         <AnimatePresence>
           <motion.div
             key={currentSlide}
-            initial={{ opacity: 0, scale: 1.1 }} // Startet leicht reingezoomt
-            animate={{ opacity: 1, scale: 1 }}   // Zoomt sanft raus auf Normalgröße
-            exit={{ opacity: 0 }}                // Altes Bild blendet nur aus (kein Zoom mehr)
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
             transition={{
-              opacity: { duration: 1.0 }, // Weiche Überblendung (1 Sekunde)
-              scale: { duration: 6.0 }    // Sehr langsamer "Ken Burns" Effekt
+              opacity: { duration: 1.0 },
+              scale: { duration: 6.0 },
             }}
             className="absolute inset-0"
           >
@@ -135,10 +129,7 @@ export function HeroSection() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black/50 z-10" />
-
-        {/* Subtle vignette for depth */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)] z-10" />
       </div>
 
@@ -158,7 +149,7 @@ export function HeroSection() {
         <ChevronRight className="h-5 w-5 lg:h-6 lg:w-6" />
       </button>
 
-      {/* Scroll Indicator -- hidden on mobile to avoid CTA overlap */}
+      {/* Scroll Indicator */}
       <motion.div
         className="hidden md:flex absolute bottom-20 lg:bottom-24 left-1/2 -translate-x-1/2 z-20 flex-col items-center cursor-pointer"
         initial={{ opacity: 0 }}
@@ -190,10 +181,11 @@ export function HeroSection() {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`cursor-pointer rounded-full transition-all duration-500 ${index === currentSlide
+            className={`cursor-pointer rounded-full transition-all duration-500 ${
+              index === currentSlide
                 ? "h-1.5 w-8 bg-white"
                 : "h-1.5 w-1.5 bg-white/40 hover:bg-white/70 hover:scale-125"
-              }`}
+            }`}
             aria-label={`Gehe zu Bild ${index + 1}`}
           />
         ))}
@@ -212,7 +204,6 @@ export function HeroSection() {
           </div>
         </motion.div>
 
-        {/* Headline */}
         <motion.h1
           variants={itemVariants}
           className="flex flex-col items-center justify-center"
@@ -225,16 +216,15 @@ export function HeroSection() {
           </span>
         </motion.h1>
 
-        {/* Subheadline */}
         <motion.p
           variants={itemVariants}
           className="mx-auto max-w-2xl lg:max-w-4xl text-pretty text-lg text-white/70 sm:text-xl lg:text-2xl font-light leading-relaxed"
         >
-          Wir bringen Ihre Messer wieder auf Höchstleistung. <br className="hidden md:block" />
+          Wir bringen Ihre Messer wieder auf Höchstleistung.{" "}
+          <br className="hidden md:block" />
           Präzise, zuverlässig und mit Leidenschaft für Qualität.
         </motion.p>
 
-        {/* Buttons */}
         <motion.div
           variants={itemVariants}
           className="flex flex-col items-center gap-3 lg:gap-4 sm:flex-row sm:justify-center pt-4 lg:pt-6"
